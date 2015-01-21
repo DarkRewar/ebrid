@@ -18,10 +18,9 @@ class ForumTopic extends ForumForum
     {
         if ($idt > 0) {
             $this->setIdt($idt);
-            $req = " SELECT * FROM forumtopic WHERE idt = $idt ";
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the request : ' . $req);
-            while($a = mysqli_fetch_assoc($res))
-            {
+            $req = " SELECT * FROM forum_topic WHERE idt = $idt ";
+           foreach (Database::_query($req) as $a) {
+
                 $this->idt = $a['idt'];
                 $this->idf = $a['idf'];
                 $this->uid = $a['uid'];
@@ -224,8 +223,7 @@ class ForumTopic extends ForumForum
                 WHERE s.idf='$idf'
                 AND s.idf = g.id
                 ORDER BY s.id DESC";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the request: ' . $req);
-        while($a = mysqli_fetch_assoc($res)) 
+        foreach (Database::_query($req) as $a) 
         {
             $t[] = $a;
         }
