@@ -2,29 +2,30 @@
 @package Ebrid;
 
 /**
- *  Class Forum
+ *  Class ForumCategory
  *
  */
-class Forum
+class ForumCategory
 {
-    private $_idf;
     private $_idc
     private $_name;
     private $_description;
+    private $_access;
+    private $_level;
 
     /**
      *  Construct
      *
-     *  @param int $idf id of forum
+     *  @param int $idc id of category
      *  @since 0.1
      */
     public function __construct($idf = 0)
     {
         if(self::exist($idf)) {
             if (verifInt($idf)) {
-                $req = "SELECT * FROM forum WHERE id = '$idf'";
+                $req = "SELECT * FROM forumCategory WHERE id = '$idf'";
             }else {
-                $req = "SELECT * FROM forum WHERE nom = '$idf'";            
+                $req = "SELECT * FROM forumCategory WHERE nom = '$idf'";            
             }
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
             while($a = mysqli_fetch_assoc($res)){
@@ -39,16 +40,6 @@ class Forum
             $this->_name = 0;
             $this->_description = 0;
         }
-    }
-    /**
-     *  Get Idf
-     *
-     *  @return int
-     *  @since 0.1
-     */
-    public function getIdf()
-    {
-        return $this->_idf;
     }
 
     /**
@@ -85,6 +76,27 @@ class Forum
     }
 
     /**
+     *  Get Access
+     *
+     *  @return string
+     *  @since 0.1
+     */
+    public function getAccess()
+    {
+        return $this->_access;
+    }
+    /**
+     *  Get Level
+     *
+     *  @return int
+     *  @since 0.1
+     */
+    public function getLevel()
+    {
+        return $this->_level;
+    }
+
+    /**
      *  Set Name and Check if it is correct
      *
      *  @param string $name name of the forum
@@ -92,7 +104,7 @@ class Forum
      *  @since 0.1
      */
     public function setName($name){
-        if (!preg_match("#^[\w]+$#", $name)) return false;
+        if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $name)) return false;
         $this->_name = $name;
         return true;
     }
@@ -111,6 +123,32 @@ class Forum
     }
 
     /**
+     *  Set Access and Check if it is correct
+     *  
+     *  @param string $access access of the forum
+     *  @return bool
+     *  @since 0.1
+     */
+    public function setAccess($access){
+       if (!preg_match("#^[\w]$#", $access)) return false;
+       $this->_access = $access;
+       return true;
+    }
+
+    /**
+     *  Set Level and Check if it is correct
+     *  
+     *  @param int $level level of display
+     *  @return bool
+     *  @since 0.1
+     */
+    public function setLevel($level){
+       if (!preg_match("#^[\d]$#", $level)) return false;
+       $this->_description = $level;
+       return true;
+    }
+
+    /**
      *  Insert the Name and the Description in the DB as a new Forum in the Category choosen
      *
      *  @return bool
@@ -118,7 +156,7 @@ class Forum
      */
     public function insert()
     {
-        $req = "INSERT INTO forum(name, description) VALUES ('".$this->_name."', '".$this->_description."')";
+        $req = "INSERT INTO forumCategory(name, description, access, level) VALUES ('".$this->_name."', '".$this->_description."', '".$this->_access."', '".$this->_level."')";
         $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
         if(!$res) return false;
         return true;
@@ -134,12 +172,12 @@ class Forum
     static public function exist($u = null) 
     {
         if (!is_null($u)) 
-        {à
-            if (verifInt($u)) $where = "idf = '" . intval($u) . "'";
+        {
+            if (verifInt($u)) $where = "idc = '" . intval($u) . "'";
             else if (verifName($u)) $where = "name = '$u'";
             else return false;
             
-            $req = "SELECT idf FROM forum WHERE " . $where;
+            $req = "SELECT idc FROM forumCategory WHERE " . $where;
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
             if (mysqli_num_rows($res) > 0) return true;
             else return false;
