@@ -9,6 +9,7 @@ class Database extends PDO
 {
     static private $db;
     static private $last; //La dernière requete effectuée
+    static private $error = null;
 
     /**
      *  Constructeur
@@ -24,7 +25,7 @@ class Database extends PDO
         try{
             self::$db = parent::__construct($dsn, $user, $password);
         } catch (PDOException $e) {
-            echo 'Connexion echouée : ' . $e->getMessage();
+            self::$error = $e;
         }
     }
 
@@ -38,6 +39,17 @@ class Database extends PDO
     static public function _init(){
         self::$db = new Database();
         return true;
+    }
+
+    /**
+     *  Get the last error
+     *
+     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     *
+     *  @return mixed
+     */
+    static public function _lastError(){
+        return self::$error;
     }
 
     /**
