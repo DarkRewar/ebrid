@@ -19,7 +19,7 @@ class BlogComment extends BlogArticle
                 $req = "
                     SELECT *
                     FROM blog_comment 
-                    WHERE id_com = '".$a['id_com']."'";
+                    WHERE id_com = '".$save['id_com']."'";
                 $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
                 while($a = mysqli_fetch_assoc($res)){
                     $this->ida = $a['ida'];
@@ -37,6 +37,12 @@ class BlogComment extends BlogArticle
                 $this->date = 0;
             }            
         }else{
+
+            $this->ida = 0;
+            $this->id_com = 0;
+            $this->uid = 0;
+            $this->message = 0;
+            $this->date = 0;
 
         }
         
@@ -102,7 +108,7 @@ class BlogComment extends BlogArticle
     }
 
     public function insert(){
-        $req = "INSERT INTO commentaire(ida,uid,message) VALUES('".$this->ida."','".$this->uid."','".$this->message."')";
+        $req = "INSERT INTO blogComment(ida,uid,message) VALUES('".$this->ida."','".$this->uid."','".$this->message."')";
         $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
         return true;
     }
