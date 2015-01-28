@@ -131,7 +131,7 @@ class ForumForum
      *  @return bool
      *  @since 0.1
      */
-    static public function exist($u = null) 
+    static public function _exist($u = null) 
     {
         if (!is_null($u)) 
         {
