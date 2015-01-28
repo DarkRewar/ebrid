@@ -149,7 +149,7 @@ class ForumCategory
     }
 
     /**
-     *  Insert the Name and the Description in the DB as a new Forum in the Category choosen
+     *  Insert the Name and the Description in the DB as a new Category
      *
      *  @return bool
      *  @since 0.1
@@ -163,7 +163,7 @@ class ForumCategory
     }
 
     /**
-     *  Check if the Forum already exists
+     *  Check if the Category already exists
      *  
      *  @param mixed $u idf or name
      *  @return bool
