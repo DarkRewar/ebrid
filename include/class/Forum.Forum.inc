@@ -8,7 +8,7 @@
 class ForumForum
 {
     private $_idf;
-    private $_idc
+    private $_idc;
     private $_name;
     private $_description;
 

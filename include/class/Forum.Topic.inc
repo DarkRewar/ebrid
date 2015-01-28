@@ -120,7 +120,7 @@ class ForumTopic extends ForumForum
      * @package Ebrid
      * @since 0.1
     */
-    public function setIdf($uid) 
+    public function setUid($uid) 
     {
         if (!preg_match("#^[\d]+$#", $uid)) 
         {

@@ -161,7 +161,7 @@ class User{
             return false;
         }
 
-        this->signature = $signature;
+        $this->signature = $signature;
         return true;
     }
 
@@ -242,7 +242,37 @@ class User{
 
     public function insert()
     {
-        $req = "INSERT INTO user(email,pseudo,password,nom,prenom,signature,created,connected,navigated,ip,statut,bantime) VALUES ('".$this->email."', '".$this->pseudo."', '" . md5($this->password) . "', '".$this->nom."','".$this->prenom"','".$this->signature."','".$this->created."','".$this->connected."','".$this->navigated."','".$this->ip."','".$this->statut."','".$this->bantime."')";
+<<<<<<< HEAD
+        $req = "INSERT INTO user(email,pseudo,password,nom,prenom,statut) VALUES ('".$this->email."', '".$this->pseudo."', '" . md5($this->password) . "', '".$this->nom."','".$this->prenom"','".$this->statut."')";
+=======
+        $req = "INSERT INTO user(
+                email
+                ,pseudo
+                ,password
+                ,nom
+                ,prenom
+                ,signature
+                ,created
+                ,connected
+                ,navigated
+                ,ip
+                ,statut
+                ,bantime
+            ) VALUES (
+                '".$this->email."'
+                , '".$this->pseudo."'
+                , '" . md5($this->password) . "'
+                , '".$this->nom."'
+                ,'".$this->prenom."'
+                ,'".$this->signature."'
+                ,'".$this->created."'
+                ,'".$this->connected."'
+                ,'".$this->navigated."'
+                ,'".$this->ip."'
+                ,'".$this->statut."'
+                ,'".$this->bantime."'
+            )";
+>>>>>>> 805ee9822723203f3d0394128817c872c52a2bfd
         $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the resquest : ' . $req);
         if(!$res) return false;
         $this->_id = mysqli_insert_id();
@@ -273,6 +303,27 @@ class User{
         }
         return false;
     }
+
+
+    public function update(){
+        $req = "
+            UPDATE user
+            SET `email` = '".$this->email."',
+                `pseudo` = '".$this->pseudo."',
+                `password` = '".$this->password."',
+                `nom` = '".$this->nom."',
+                `prenom` = '".$this->prenom."',
+                `signature` = '".$this->signature."',
+                `connected` = '".$this->connected."',
+                `navigated` = '".$this->navigated."',
+                `ip` = '".$this->ip."'
+                `statut` = '".$this->statut."',
+                `bantime` = '".$this->bantime."'
+            WHERE `id` = '".$this->id."'
+        ";
+        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
+        if(!$res) return false;
+        return true;
+    }
         
 }
-
