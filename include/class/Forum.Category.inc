@@ -6,7 +6,7 @@
  */
 class ForumCategory
 {
-    private $_idc
+    private $_idc;
     private $_name;
     private $_description;
     private $_access;
