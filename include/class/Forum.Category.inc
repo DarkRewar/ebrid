@@ -1,9 +1,8 @@
 <?php
-@package Ebrid;
 
 /**
  *  Class ForumCategory
- *
+ *  @package Ebrid;
  */
 class ForumCategory
 {

@@ -1,8 +1,8 @@
 <?php
 
 /**
- *  Class Category
- *
+ *  Class BlogCategory
+ *  @package Ebrid;
  */
 class BlogCategory
 {

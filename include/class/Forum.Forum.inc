@@ -1,11 +1,11 @@
 <?php
-@package Ebrid;
+
 
 /**
- *  Class Forum
- *
+ *  Class ForumForum
+ *  @package Ebrid;
  */
-class Forum
+class ForumForum
 {
     private $_idf;
     private $_idc
