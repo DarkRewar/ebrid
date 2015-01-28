@@ -46,10 +46,10 @@ class BlogRevision extends BlogArticle
                 $this->statut = 0;
             }            
         }else{
-            $this->idr = 0
+            $this->idr = 0;
             $this->ida = 0;
             $this->idc = 0;
-            $this->uid = 0
+            $this->uid = 0;
             $this->titre = 0;
             $this->contenu = 0;
             $this->date = 0;
@@ -81,9 +81,9 @@ class BlogRevision extends BlogArticle
         $this->ida = $ida;
     }
 
-    public function getIda()
+    public function getIdc()
     {
-        return $this->ida;
+        return $this->idc;
     }
 
     public function setIdc($idc)

@@ -242,9 +242,6 @@ class User{
 
     public function insert()
     {
-<<<<<<< HEAD
-        $req = "INSERT INTO user(email,pseudo,password,nom,prenom,statut) VALUES ('".$this->email."', '".$this->pseudo."', '" . md5($this->password) . "', '".$this->nom."','".$this->prenom"','".$this->statut."')";
-=======
         $req = "INSERT INTO user(
                 email
                 ,pseudo
@@ -272,7 +269,6 @@ class User{
                 ,'".$this->statut."'
                 ,'".$this->bantime."'
             )";
->>>>>>> 805ee9822723203f3d0394128817c872c52a2bfd
         $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the resquest : ' . $req);
         if(!$res) return false;
         $this->_id = mysqli_insert_id();
