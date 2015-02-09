@@ -147,8 +147,8 @@ class BlogArticle {
 
     public function insert()
     {
-        $req = "INSERT INTO BlogArticle(date, uid, statut) VALUES ('".$this->_date."', '".$this->_uid."', '".$this->_statut."')";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
+        $req = "INSERT INTO blog_article(date, uid, statut) VALUES ('".$this->date."', '".$this->uid."', '".$this->statut."')";
+        $res = Database::_exec($req);
         if(!$res) return false;
         return true;
     }
@@ -158,13 +158,11 @@ class BlogArticle {
         if (!is_null($u)) 
         {
             if (is_numeric($u)) $where = "ida = '" . intval($u) . "'";
-            else if (is_string($u)) $where = "titre = '$u'";
+            else if (is_string($u)) $where = "url = '$u'";
             else return false;
             
-            $req = "SELECT ida FROM blog WHERE " . $where;
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            if (mysqli_num_rows($res) > 0) return true;
-            else return false;
+            $req = "SELECT COUNT(1) FROM blog_article WHERE " . $where;
+            if (Database::_selectOne($req) > 0) return true;
         }
         return false;
     }   
