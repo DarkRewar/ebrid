@@ -87,7 +87,7 @@ function alert($msg, $type = "error"){
  *  @param string $name le pseudo
  *  @return bool
  */
-function verifPseudo($name = null) 
+function checkNickname($name = null) 
 {
     if (is_null($name)) return false;
     if (!preg_match("#^[a-zA-Z0-9]{4,40}$#", $name)) 
@@ -105,7 +105,7 @@ function verifPseudo($name = null)
  *  @param string $mail le mail de l'user
  *  @return bool
  */
-function verifMail($mail = null) 
+function checkEmail($mail = null) 
 {
     if (is_null($mail)) return false;
     if (!preg_match("#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,4}$#", $mail)) 
@@ -123,7 +123,7 @@ function verifMail($mail = null)
  *  @param string $pswd le mot de passe user
  *  @return bool
  */
-function verifPassword($pswd = null) 
+function checkPassword($pswd = null) 
 {
     if (is_null($pswd)) return false;
     if (!preg_match("#^[\w\.\#\-\s]{6,}$#", $pswd)) 
@@ -141,7 +141,7 @@ function verifPassword($pswd = null)
  *  @param string $com le commentaire
  *  @return bool
  */
-function verifCom($com = null) 
+function checkCom($com = null) 
 {
     if (is_null($com)) return false;
     if (!preg_match("#^[\w\.\#\-\s\'\"\(\)]{1,}$#", $com)) 

@@ -1,5 +1,5 @@
 /*!
- * Leaframe 0.5 (http://leaframe.lignusdev.com)
+ * Leaframe 0.65 (http://leaframe.lignusdev.com)
  * Copyright 2014 Curtis Pelissier
  * Licensed under MIT (https://github.com/DarkRewar/leaframe/blob/master/~/doc/licence)
  */
@@ -11,7 +11,7 @@ $main-color-link-hover : #0F43C5;
 $main-border-color: #BBB;
 $main-border-color-hover: #777;
 
-$success-color: #17f017;
+$success-color: #1BD31B;
 $error-color: #FF2121;
 $info-color: #4FA7E2;
 $warning-color: #FFAA12;
@@ -144,6 +144,12 @@ kdb{
 /* Les particularités du Framework */
 
 /* Partie 1, les petits détails */
+.left{
+    float: left !important;
+}
+.right{
+    float: right !important;
+}
 .rounded{
     @include border-radius($rounded-border-radius);
     //>*{
@@ -574,6 +580,16 @@ nav{
         }
     }
 
+    ul{
+        padding: 0;
+        height: 40px;
+
+        li{
+            float: left;
+            line-height: 20px;
+        }
+    }
+
     a{
         color: #FFF;
         float: left;
@@ -641,11 +657,12 @@ ul{
     }
 
     li{
+        cursor: pointer;
         line-height: 22px;
-        float: none !important;
+        //float: none !important;
         
         a{
-            float: none !important;
+            //float: none !important;
         }
     }
 }
@@ -868,6 +885,7 @@ input{
 
 select,textarea{
     @extend input;
+    -webkit-appearance: none !important;
     width: 100%;
 }
 
@@ -908,6 +926,7 @@ select,textarea{
         transition: 1s ease-in-out;
 
         .expand{
+            text-align: center;
             width: 100%;
             color: #FFF;
             font-size: 1.5em;
@@ -919,15 +938,18 @@ select,textarea{
     }
 }
 
-[drop]{
+[data-drop]{
+    float: left;
     width: auto;
     display: inline;
+    position: relative;
+
     a.ref{
         display: block;
         position: relative;
         height: auto;
         padding-right: 35px !important;
-        line-height: 39px;
+        line-height: 40px;
         &:after{
             display: block;
             position: absolute;
@@ -950,8 +972,11 @@ select,textarea{
     background: #333;
     top: auto;
     overflow: hidden;
-    margin-top: 39px;
-    border-top: 1px solid #DDD;
+    margin-top: 40px;
+    //border-top: 1px solid #DDD;
+    z-index: 100;
+    left: 0;
+    right: auto;
 
     ul.beauty{
         padding: 0;
@@ -968,6 +993,24 @@ select,textarea{
                 text-shadow: 0 0 0;
             }
         }
+    }
+
+    ul{
+        width: auto;
+        li{
+            width: 100%;
+            a{
+                white-space: nowrap;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.right{
+    .drop{        
+        left: auto;
+        right: 0;
     }
 }
 
@@ -1062,7 +1105,7 @@ li.block-img{
     }
 }
 
-[theater]{
+[data-theater]{
     display: block;
 
     li{

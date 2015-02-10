@@ -1,6 +1,6 @@
 @charset "CP850";
 /*!
- * Leaframe 0.5 (http://leaframe.lignusdev.com)
+ * Leaframe 0.65 (http://leaframe.lignusdev.com)
  * Copyright 2014 Curtis Pelissier
  * Licensed under MIT (https://github.com/DarkRewar/leaframe/blob/master/~/doc/licence)
  */
@@ -82,6 +82,12 @@ kdb {
 
 /* Les particularités du Framework */
 /* Partie 1, les petits détails */
+.left {
+  float: left !important; }
+
+.right {
+  float: right !important; }
+
 .rounded, .breadcrumbs.arrow.rounded ul {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -266,7 +272,7 @@ ul.pagination {
       vertical-align: top; }
 
 .success {
-  background: #17f017 !important; }
+  background: #1bd31b !important; }
 
 .error {
   background: #ff2121 !important; }
@@ -445,6 +451,14 @@ nav {
     nav.left a,
     nav.right a {
       width: 100%; }
+  .menu ul,
+  nav ul {
+    padding: 0;
+    height: 40px; }
+    .menu ul li,
+    nav ul li {
+      float: left;
+      line-height: 20px; }
   .menu a,
   nav a {
     color: #FFF;
@@ -495,10 +509,8 @@ ul {
       ul.beauty li:last-child {
         border-bottom: 1px solid #DDD; }
   ul li {
-    line-height: 22px;
-    float: none !important; }
-    ul li a {
-      float: none !important; }
+    cursor: pointer;
+    line-height: 22px; }
 
 table {
   display: table;
@@ -650,6 +662,7 @@ input, select, textarea {
     width: 100%; }
 
 select, textarea {
+  -webkit-appearance: none !important;
   width: 100%; }
 
 .block-pres > * {
@@ -677,6 +690,7 @@ select, textarea {
   margin-top: -30px;
   transition: 1s ease-in-out; }
   .block-pres footer .expand {
+    text-align: center;
     width: 100%;
     color: #FFF;
     font-size: 1.5em;
@@ -685,16 +699,18 @@ select, textarea {
     border-radius: 0 0 5px 5px;
     margin: 0; }
 
-[drop] {
+[data-drop] {
+  float: left;
   width: auto;
-  display: inline; }
-  [drop] a.ref {
+  display: inline;
+  position: relative; }
+  [data-drop] a.ref {
     display: block;
     position: relative;
     height: auto;
     padding-right: 35px !important;
-    line-height: 39px; }
-    [drop] a.ref:after {
+    line-height: 40px; }
+    [data-drop] a.ref:after {
       display: block;
       position: absolute;
       content: "";
@@ -706,7 +722,7 @@ select, textarea {
       border-style: solid;
       border-width: 5px 5px 0 5px;
       border-color: white transparent transparent transparent; }
-  [drop]:hover {
+  [data-drop]:hover {
     background: #222; }
 
 .drop {
@@ -715,8 +731,10 @@ select, textarea {
   background: #333;
   top: auto;
   overflow: hidden;
-  margin-top: 39px;
-  border-top: 1px solid #DDD; }
+  margin-top: 40px;
+  z-index: 100;
+  left: 0;
+  right: auto; }
   .drop ul.beauty {
     padding: 0; }
     .drop ul.beauty li:first-child {
@@ -726,6 +744,17 @@ select, textarea {
     .drop ul.beauty li a:hover {
       background: #222;
       text-shadow: 0 0 0; }
+  .drop ul {
+    width: auto; }
+    .drop ul li {
+      width: 100%; }
+      .drop ul li a {
+        white-space: nowrap;
+        width: 100%; }
+
+.right .drop {
+  left: auto;
+  right: 0; }
 
 a.close, .theater .theater-scene a.close {
   content: "&times;";
@@ -804,9 +833,9 @@ li.block-img, .theater .theater-links li {
     text-align: center;
     margin: 0 auto; }
 
-[theater] {
+[data-theater] {
   display: block; }
-  [theater] li {
+  [data-theater] li {
     cursor: pointer; }
 
 .theater {

@@ -6,6 +6,8 @@
  *  @package Ebrid
  */
 
+define('EBRIDPATH', dirname(dirname(__FILE__)));
+
 define('DBHOST', 'localhost');
 define('DBNAME', 'ebrid');
 define('DBUSER', 'root');

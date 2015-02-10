@@ -2,6 +2,8 @@
 
 /**
  *  Here are all functions to treat text
+ *  All functions which treats text is marked
+ *  with an underscore before.
  *
  *  @package Ebrid
  */
