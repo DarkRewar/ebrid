@@ -187,7 +187,7 @@ class ForumRevision extends ForumMessage
     {
         if (!is_null($u)) 
         {
-            if (verifInt($u)) $where = "idr = '" . intval($u) . "'";
+            if (is_numeric($u)) $where = "idr = '" . intval($u) . "'";
             else return false;
             
             $req = "SELECT idr FROM forumRevision WHERE " . $where;

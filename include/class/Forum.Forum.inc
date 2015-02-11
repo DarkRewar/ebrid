@@ -21,7 +21,7 @@ class ForumForum
     public function __construct($idf = 0)
     {
         if(self::exist($idf)) {
-            if (verifInt($idf)) {
+            if (is_numeric($idf)) {
                 $req = "SELECT * FROM forum WHERE id = '$idf'";
             }else {
                 $req = "SELECT * FROM forum WHERE nom = '$idf'";            
@@ -135,8 +135,8 @@ class ForumForum
     {
         if (!is_null($u)) 
         {
-            if (verifInt($u)) $where = "idf = '" . intval($u) . "'";
-            else if (verifName($u)) $where = "name = '$u'";
+            if (is_numeric($u)) $where = "idf = '" . intval($u) . "'";
+            else if (is_string($u)) $where = "name = '$u'";
             else return false;
             
             $req = "SELECT idf FROM forum WHERE " . $where;
