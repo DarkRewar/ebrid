@@ -167,5 +167,9 @@ class BlogArticle {
             else return false;
         }
         return false;
-    }   
+    }
+
+    
+
+  
 }

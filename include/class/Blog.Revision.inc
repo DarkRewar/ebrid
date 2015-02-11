@@ -147,7 +147,7 @@ class BlogRevision extends BlogArticle
         $this->statut = $statut;
     }
     public function insert(){
-        $req = "INSERT INTO blogRevision(idr,ida,uid,idc,titre,contenu,statut) VALUES('".$this->idr."','".$this->ida."','".$this->uid."','".$this->idc."','".$this->titre."','".$this->contenu."','".$this->statut."',)";
+        $req = "INSERT INTO revision(idr,ida,uid,idc,titre,contenu,statut) VALUES('".$this->idr."','".$this->ida."','".$this->uid."','".$this->idc."','".$this->titre."','".$this->contenu."','".$this->statut."',)";
         $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
         return true;
     }
@@ -168,5 +168,60 @@ class BlogRevision extends BlogArticle
 
         if(Database::_selectOne($req) > 0) return true;
         return false;
+    }
+
+    public function update(){
+        $req = "
+            UPDATE blog_revision
+            SET `idr` = '".$this->idr."',
+                `idc` = '".$this->idc."',
+                `titre` = '".$this->titre."',
+                `contenu` = '".$this->contenu."',
+                `date` = '".$this->date."'
+            WHERE `id` = '".$this->id."'
+        ";
+        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
+        if(!$res) return false;
+        return true;
+    }
+
+    static public function _creationRevision($n = null){
+
+         if (isset($_POST['titre']) && isset($_POST['contenu']) ){
+            $name = $_POST['titre'];
+            $description = $_POST['contenu'];
+            $n = new BlogRevision();
+            if (!$n->setTitre($name)){
+                $alert = '
+                    <div class="message error">
+                        Your revision\'s name is not in accordance to the rules
+                        <a class="close">×</a>
+                    </div>
+                ';
+            } elseif (!$n->setContenu($description)) {
+                $alert = '
+                    <div class="message error">
+                        The content of your revision is not in accordance to the rules
+                        <a class="close">×</a>
+                    </div>
+                '; 
+            } elseif (!$n->insert()) {
+                var_dump("jeznnefzjfzefizbefi");
+                $alert = '
+                    <div class="message error">
+                        Insertion error
+                        <a class="close">×</a>
+                    </div>
+                '; 
+            } else {
+                $alert = '
+                    <div class="message success">
+                       You have created your revision 
+                        <a href="display_category?id='.$n->getIdr().'">ICI</a>
+                        <a class="close">×</a>
+                    </div>
+                ';
+            }
+        }
     }
 }
