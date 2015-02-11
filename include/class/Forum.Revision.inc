@@ -182,11 +182,10 @@ class ForumRevision extends ForumMessage
     public function generateRevision($p){
         extract($p);
 
-        $this
-            ->setIdm($idm);
-            ->setIdr($idr);
+        $this->setIdm($idm)
+            ->setIdr($idr)
             ->setTitle($forum_title)
-            ->setContent($forum_content)
+            ->setContent($forum_content);
     }
 
     static public function _exist($u = array()){
@@ -218,5 +217,6 @@ class ForumRevision extends ForumMessage
         $revision->insertRevision();
 
         return $revision;
+        }
     }
 }
