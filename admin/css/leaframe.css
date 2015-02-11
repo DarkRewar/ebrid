@@ -8,7 +8,8 @@
 /* les fonctions */
 /* Les balises classiques et essentielles */
 html {
-  font-size: 100%; }
+  font-size: 100%;
+  text-rendering: optimizeLegibility; }
 
 body {
   margin: 0;
@@ -186,7 +187,7 @@ ul.pagination {
   display: table; }
   ul.pagination li {
     float: left !important;
-    display: inline-block; }
+    display: inline-table; }
     ul.pagination li a {
       border-color: #bbbbbb;
       border-width: 1px 1px 1px 0;
@@ -509,8 +510,9 @@ ul {
       ul.beauty li:last-child {
         border-bottom: 1px solid #DDD; }
   ul li {
-    cursor: pointer;
     line-height: 22px; }
+    ul li a {
+      cursor: pointer; }
 
 table {
   display: table;
@@ -560,13 +562,19 @@ button,
   text-decoration: none;
   position: relative;
   display: inline-block;
-  margin: 2px; }
+  margin: 2px 0; }
   button.success, button.error, button.info, button.warning,
   .button.success,
   .button.error,
   .button.info,
   .button.warning {
     color: #FFF; }
+    button.success:hover, button.error:hover, button.info:hover, button.warning:hover,
+    .button.success:hover,
+    .button.error:hover,
+    .button.info:hover,
+    .button.warning:hover {
+      color: #FFF; }
   button.tiny,
   .button.tiny {
     padding: 2px 4px;
@@ -585,6 +593,7 @@ button,
     width: 100%; }
   button:hover,
   .button:hover {
+    color: inherit;
     cursor: pointer;
     box-shadow: inset 0px 0px 100px 0px rgba(0, 0, 0, 0.1);
     text-decoration: none; }
@@ -638,12 +647,18 @@ button,
     text-transform: uppercase;
     font-weight: bold;
     color: #555; }
-  .input-label input, .input-label select, .input-label textarea {
+  .input-label input, .input-label select, .input-label textarea,
+  .input-label textarea {
+    max-width: 100%;
+    min-width: 100%;
+    width: 100%;
     margin: 0;
     border: 0; }
-    .input-label input:hover, .input-label select:hover, .input-label textarea:hover {
+    .input-label input:hover, .input-label select:hover, .input-label textarea:hover,
+    .input-label textarea:hover {
       box-shadow: none; }
-    .input-label input:focus, .input-label select:focus, .input-label textarea:focus {
+    .input-label input:focus, .input-label select:focus, .input-label textarea:focus,
+    .input-label textarea:focus {
       box-shadow: 0px -2px 8px -3px #4050CA !important; }
 
 input, select, textarea {
@@ -1180,6 +1195,14 @@ footer {
 
   .s-offset-12 {
     margin-left: 100%; } }
+/* Small only */
+@media only screen and (max-width: 650px) {
+  .modal {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    top: 0 !important;
+    bottom: 0 !important; } }
 @media only screen and (min-width: 650px) {
   .hide-for-lm,
   .hide-for-ml,
@@ -1294,7 +1317,12 @@ footer {
 
   .show-for-ms,
   .show-for-sm {
-    display: block; } }
+    display: block; }
+
+  .modal {
+    left: 5%;
+    right: 5%;
+    width: 90%; } }
 /* Large screen >1000px */
 @media only screen and (min-width: 1000px) {
   .l-range-hide,

@@ -68,8 +68,6 @@ class User{
             $this->bantime = 0;
         }        
     }
-
-
  
     public function setUid($uid){
         
@@ -147,7 +145,7 @@ class User{
         return true;
     }
 
-    public function getLast_name(){
+    public function getLastname(){
         
         return $this->lastname;
     }
@@ -241,30 +239,30 @@ class User{
     {
         $req = "INSERT INTO user(
                 email
-                ,nickname
-                ,password
-                ,first_name
-                ,last_name
-                ,signature
-                ,created
-                ,connected
-                ,navigated
-                ,ip
-                ,status
-                ,bantime
+                , nickname
+                , password
+                , first_name
+                , last_name
+                , signature
+                , created
+                , connected
+                , navigated
+                , ip
+                , status
+                , bantime
             ) VALUES (
                 '".$this->email."'
                 , '".$this->nickname."'
-                , '" . md5($this->password) . "'
-                , '".$this->firstname."'
-                ,'".$this->lastname."'
-                ,'".$this->signature."'
-                ,'".$this->created."'
-                ,'".$this->connected."'
-                ,'".$this->navigated."'
-                ,'".$this->ip."'
-                ,'".$this->status."'
-                ,'".$this->bantime."'
+                , '" . _sha4($this->password) . "'
+                , '" . $this->firstname . "'
+                , '" . $this->lastname . "'
+                , '" . $this->signature . "'
+                , '" . $this->created . "'
+                , '" . $this->connected . "'
+                , '" . $this->navigated . "'
+                , '" . $this->ip . "'
+                , '" . $this->status . "'
+                , '" . $this->bantime . "'
             )";
         return Database::_exec($req);
     }
@@ -295,7 +293,7 @@ class User{
 
     public function checkPassword($password)
     {
-        if (md5($password) != $this->password) {
+        if (_sha4($password) != $this->password) {
             return false;
         }
         return true;

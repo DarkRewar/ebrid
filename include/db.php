@@ -5,6 +5,7 @@
  *  
  *  @package Ebrid
  */
+session_start();
 
 define('EBRIDPATH', dirname(dirname(__FILE__)));
 

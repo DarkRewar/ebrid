@@ -24,3 +24,14 @@ function _slash($string, $reverse = false){
         return str_replace('\\', '/', $string);
     }
 }
+
+/**
+ *  Hash a text in sha256
+ *
+ *  @param string $str the string to hash
+ *  @return string
+ *  @since 0.1
+ */
+function _sha4($str){
+    return hash('sha256', $str);
+}
