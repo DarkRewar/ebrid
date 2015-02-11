@@ -7,56 +7,68 @@
 class BlogRevision extends BlogArticle
 {
     private $idr;
-    private $ida;
     private $idc;
     private $uid;
-    private $titre;
-    private $contenu;
+    private $title;
+    private $content;
     private $date;
-    private $statut;
-    public function __construct($revision = array('$idr' => 0  , '$ida' => 0 ))
+    private $status;
+
+    public function __construct($revision = array('idr' => 0  , 'ida' => 0 ))
     {
         if(is_array($revision)){
-            if(isset($save["idr"]) && self::_exist($save['idr']) ){
+            extract($revision);
+
+            if( isset($ida) && parent::_exist($ida)
+                && isset($idr) && self::_exist($revision) ){
+                parent::__construct($ida);
                 $this->setIdr($idr); 
                 $req = "
                     SELECT *
                     FROM blog_revision 
-                    WHERE idr = '".$revision['id_com']."'";
-                $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
-                while($a = mysqli_fetch_assoc($res)){
+                    WHERE idr = '$idr'
+                    AND ida = '$ida'";
+                foreach(Database::_query($req) as $a){
                     $this->idr = $a['idr'];
-                    $this->ida = $a['ida'];
+                    $this->setIda($a['ida']);
                     $this->idc = $a['idc'];
                     $this->uid = $a['uid'];
-                    $this->titre = $a['titre'];
-                    $this->contenu = $a['contenu'];
+                    $this->title = $a['title'];
+                    $this->content = $a['content'];
                     $this->date = $a['date'];
-                    $this->statut = $a['statut'];
+                    $this->status = $a['status'];
                 }
-            }else if(isset($revision['idr']) && BlogArticle:: _exist($revision['idr'])){
-                $req = "SELECT COUNT(1) FROM blog_revision WHERE ida = '".$revision['idr']."'";
+            }else if( isset($ida) && parent::_exist($ida) ){
+                parent::__construct($ida);
+                $req = "SELECT COUNT(1) FROM blog_revision WHERE ida = '$ida'";
                 $this->idr = intval(Database::_selectOne($req))+1;
-                $this->ida = $revision['ida'];
+                $this->setIda($ida);
                 $this->idc = 0;
                 $this->uid = 0;
-                $this->titre = 0;
-                $this->contenu = 0;
+                $this->title = 0;
+                $this->content = 0;
                 $this->date = 0;
-                $this->statut = 0;
-            }            
+                $this->status = 0;
+            }else{
+                $this->idr = 1;
+                $this->setIda(0);
+                $this->idc = 0;
+                $this->uid = 0;
+                $this->title = 0;
+                $this->content = 0;
+                $this->date = 0;
+                $this->status = 0;
+            }      
         }else{
-            $this->idr = 0;
-            $this->ida = 0;
+            $this->idr = 1;
+            $this->setIda(0);
             $this->idc = 0;
             $this->uid = 0;
-            $this->titre = 0;
-            $this->contenu = 0;
+            $this->title = 0;
+            $this->content = 0;
             $this->date = 0;
-            $this->statut = 0;
-
-        }
-        
+            $this->status = 0;
+        }        
     }
 
     public function getIdr()
@@ -68,17 +80,6 @@ class BlogRevision extends BlogArticle
     {
         if(!preg_match('#^[\d]+$#', $idr)) return false;
         $this->idr = $idr;
-    }
-
-    public function getIda()
-    {
-        return $this->ida;
-    }
-
-    public function setIda($ida)
-    {
-        if(!preg_match('#^[\d]+$#', $ida)) return false;
-        $this->ida = $ida;
     }
 
     public function getIdc()
@@ -103,26 +104,28 @@ class BlogRevision extends BlogArticle
         $this->uid = $uid;
     }
 
-    public function getTitre()
+    public function getTitle()
     {
-        return $this->titre;
+        return stripslashes($this->title);
     }
 
-    public function setTitre($titre)
+    public function setTitle($title)
     {
-        if(!preg_match('#^[\w\s\.\,\:\?\!\(\)]+$#', $titre)) return false;
-        $this->titre = $titre;
+        //if(preg_match('#^[\w\s\.\,\:\?\!\(\)]+$#', $title))
+            $this->title = addslashes($title);
+        return $this;
     }
 
-    public function getContenu()
+    public function getContent()
     {
-        return $this->contenu;
+        return stripslashes($this->content);
     }
 
-    public function setContenu($contenu)
+    public function setContent($content)
     {
-        if(!preg_match('#^[\w\s\.\,\:\?\!\(\)]+$#', $contenu)) return false;
-        $this->contenu = $contenu;
+        //if(preg_match('#^[\w\s\.\,\:\?\!\(\)]+$#', $content))
+            $this->content = addslashes($content);
+        return $this;
     }
 
     public function getDate()
@@ -136,20 +139,48 @@ class BlogRevision extends BlogArticle
         return $this;
     }
 
-    public function getStatut()
+    public function getStatus()
     {
-        return $this->statut;
+        return $this->status;
     }
 
-    public function setStatut($statut)
+    public function setStatus($status)
     {
-        if(!preg_match('#^[\d]+$#', $statut)) return false;
-        $this->statut = $statut;
+        if(preg_match('#^[\d]+$#', $status))
+            $this->status = $status;
+        return $this;
     }
-    public function insert(){
-        $req = "INSERT INTO revision(idr,ida,uid,idc,titre,contenu,statut) VALUES('".$this->idr."','".$this->ida."','".$this->uid."','".$this->idc."','".$this->titre."','".$this->contenu."','".$this->statut."',)";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
-        return true;
+
+    public function insertRevision(){
+        $req = "INSERT INTO blog_revision(
+                idr
+                , ida
+                , uid
+                , idc
+                , title
+                , content
+                , status
+                , date
+            ) VALUES(
+                '" . $this->idr  .  "'
+                , '" . $this->getIda() . "'
+                , '" . $this->uid . "'
+                , '" . $this->idc . "'
+                , '" . $this->title . "'
+                , '" . $this->content . "'
+                , '" . $this->status . "'
+                , NOW()
+            )";
+        return Database::_exec($req);
+    }
+
+    public function generateRevision($p){
+        extract($p);
+
+        $this
+            ->setTitle($article_title)
+            ->setContent($article_content)
+            ->setUid($uid);
     }
 
     static public function _exist($u = array()){
@@ -161,7 +192,7 @@ class BlogRevision extends BlogArticle
 
         $req = "
             SELECT COUNT(1) 
-            FROM blog_article 
+            FROM blog_revision 
             WHERE ida = '".$u['ida']."'
             AND idr = '".$u['idr']."'
         ";
@@ -170,58 +201,18 @@ class BlogRevision extends BlogArticle
         return false;
     }
 
-    public function update(){
-        $req = "
-            UPDATE blog_revision
-            SET `idr` = '".$this->idr."',
-                `idc` = '".$this->idc."',
-                `titre` = '".$this->titre."',
-                `contenu` = '".$this->contenu."',
-                `date` = '".$this->date."'
-            WHERE `id` = '".$this->id."'
-        ";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
-        if(!$res) return false;
-        return true;
-    }
-
-    static public function _creationRevision($n = null){
-
-         if (isset($_POST['titre']) && isset($_POST['contenu']) ){
-            $name = $_POST['titre'];
-            $description = $_POST['contenu'];
-            $n = new BlogRevision();
-            if (!$n->setTitre($name)){
-                $alert = '
-                    <div class="message error">
-                        Your revision\'s name is not in accordance to the rules
-                        <a class="close">×</a>
-                    </div>
-                ';
-            } elseif (!$n->setContenu($description)) {
-                $alert = '
-                    <div class="message error">
-                        The content of your revision is not in accordance to the rules
-                        <a class="close">×</a>
-                    </div>
-                '; 
-            } elseif (!$n->insert()) {
-                var_dump("jeznnefzjfzefizbefi");
-                $alert = '
-                    <div class="message error">
-                        Insertion error
-                        <a class="close">×</a>
-                    </div>
-                '; 
-            } else {
-                $alert = '
-                    <div class="message success">
-                       You have created your revision 
-                        <a href="display_category?id='.$n->getIdr().'">ICI</a>
-                        <a class="close">×</a>
-                    </div>
-                ';
-            }
+    static public function _generateWith($post){
+        if(isset($post['article']))
+            $revision = new BlogRevision(array('ida' => $post['article']));
+        else{
+            $revision = new BlogRevision();
+            $revision->generateArticle($post['uid']);
         }
+        
+        $revision->generateRevision($post);
+
+        $revision->insertRevision();
+
+        return $revision;
     }
 }

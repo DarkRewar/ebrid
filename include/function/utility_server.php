@@ -39,3 +39,30 @@ function redirect($str = null){
         header("Location: /");
     }
 }
+
+/**
+ *  Get an element in the session
+ *
+ *  @param string $el the element to take
+ *  @return mixed
+ *  @since 0.1
+ */
+function get_session($str){
+    if(isset($_SESSION[$str])){
+        return $_SESSION[$str];
+    }
+    return null;
+}
+
+/**
+ *  Check if an user is connected
+ *  Return the user connected
+ *  If no one is connected, return empty class
+ *
+ *  @return User
+ *  @since 0.1
+ */
+function user_connected(){
+    $uid = get_session('uid');
+    return new User($uid);
+}

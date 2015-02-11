@@ -9,65 +9,68 @@
 class User{
     private $uid;
     private $email;
-    private $pseudo;
+    private $nickname;
     private $password;
-    private $nom;
-    private $prenom;
+    private $name;
+    private $last_name;
     private $signature;
     private $created;
     private $connected;
     private $navigated;
     private $ip;
-    private $statut;
+    private $status;
     private $bantime;
 
     /**
-        *Constructeur
-        *@param int $uid
-        *@package Ebrid
-        *@since 0.1
-        *
-    */
-
+     *  Constructeur
+     *  @param int $uid
+     *  @package Ebrid
+     *  @since 0.1
+     *
+     */
    public  function __construct($uid = 0)
     {
+<<<<<<< HEAD
         if(self::exist($uid)){
             if (is_numeric($uid)){
 
+=======
+        if(self::_exist($uid)){
+            if (is_numeric($uid)){
+>>>>>>> 6891c1f1d0d549124818b632e56e24154dbbd408
                 $req = "SELECT * FROM user WHERE uid = '$uid'";
             }else{
-                $req = "SELECT * FROM user WHERE pseudo = '$uid'";
+                $req = "SELECT * FROM user WHERE nickname = '$uid'";
             }
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            while($a = mysqli_fetch_assoc($res)){
 
+            foreach(Database::_query($req) as $a){
                 $this->uid = $a['uid'];
                 $this->email = $a['email'];
-                $this->pseudo = $a['pseudo'];
+                $this->nickname = $a['nickname'];
                 $this->password = $a['password'];
-                $this->nom = $a['nom'];
-                $this->prenom = $a['prenom'];
+                $this->firstname = $a['first_name'];
+                $this->lastname = $a['last_name'];
                 $this->signature = $a['signature'];
                 $this->created = $a['created'];
                 $this->connected = $a['connected'];
                 $this->navigated = $a['navigated'];
                 $this->ip = $a['ip'];
-                $this->statut = $a['statut'];
+                $this->status = $a['status'];
                 $this->bantime = $a['bantime'];
             }
         }else {
             $this->uid = 0;
             $this->email = 0;
-            $this->pseudo = 0;
+            $this->nickname = 0;
             $this->password = 0;
-            $this->nom = 0;
-            $this->prenom = 0;
+            $this->name = 0;
+            $this->last_name = 0;
             $this->signature = 0;
             $this->created = 0;
             $this->connected = 0;
             $this->navigated = 0;
             $this->ip = 0;
-            $this->statut = 0;
+            $this->status = 0;
             $this->bantime = 0;
         }        
     }
@@ -98,19 +101,19 @@ class User{
         return $this->email;
     }
 
-    public function setPseudo($pseudo){
+    public function setNickame($nick){
          
-        if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $pseudo)) 
+        if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $nickname)) 
         {
             return false;
         }
-        $this->pseudo = $pseudo;
+        $this->nickname = $nickname;
         return true;
     }
 
-    public function getPseudo(){
+    public function getNickname(){
         
-        return $this->pseudo;
+        return $this->nickname;
     }
 
     public function setPassword($password){
@@ -128,31 +131,31 @@ class User{
         return $this->password;
     }
 
-    public function setNom($nom){
+    public function setFirstname($name){
         
-        if(!preg_match("#^[\w\-]{2,}$#", $nom)){
+        if(!preg_match("#^[\w\-]{2,}$#", $name)){
             return false;
         }
-        $this->nom = $nom;
+        $this->firstname = $name;
         return true;
     }
 
-    public function getNom(){
+    public function getFirstname(){
         
-        return $this->nom;
+        return $this->firstname;
     }
 
-    public function setPrenom($prenom){
-        if(!preg_match("#^[\w\-]{3,}$#", $prenom)){
+    public function setLastname($last_name){
+        if(!preg_match("#^[\w\-]{3,}$#", $last_name)){
             return false;
         }
-        $this->prenom = $prenom;
+        $this->lastname = $last_name;
         return true;
     }
 
-    public function getPrenom(){
+    public function getLast_name(){
         
-        return $this->prenom;
+        return $this->lastname;
     }
 
     public function setSignature($signature){
@@ -215,14 +218,14 @@ class User{
         return $this->ip;
     }
 
-    public function setStatut($statut){
-        $statut = false;
-        $this->statut = $statut;
+    public function setStatus($status){
+        $status = false;
+        $this->status = $status;
     }
 
-    public function getStatut(){
+    public function getstatus(){
         
-        return $this->statut;
+        return $this->status;
     }
 
     public function setBantime($bantime){
@@ -244,35 +247,56 @@ class User{
     {
         $req = "INSERT INTO user(
                 email
-                ,pseudo
+                ,nickname
                 ,password
-                ,nom
-                ,prenom
+                ,first_name
+                ,last_name
                 ,signature
                 ,created
                 ,connected
                 ,navigated
                 ,ip
-                ,statut
+                ,status
                 ,bantime
             ) VALUES (
                 '".$this->email."'
-                , '".$this->pseudo."'
+                , '".$this->nickname."'
                 , '" . md5($this->password) . "'
-                , '".$this->nom."'
-                ,'".$this->prenom."'
+                , '".$this->firstname."'
+                ,'".$this->lastname."'
                 ,'".$this->signature."'
                 ,'".$this->created."'
                 ,'".$this->connected."'
                 ,'".$this->navigated."'
                 ,'".$this->ip."'
-                ,'".$this->statut."'
+                ,'".$this->status."'
                 ,'".$this->bantime."'
             )";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the resquest : ' . $req);
-        if(!$res) return false;
-        $this->_id = mysqli_insert_id();
-        return true;
+        return Database::_exec($req);
+    }
+
+    public function update(){
+        $req = "
+            UPDATE user
+            SET `email` = '".$this->email."',
+                `nickname` = '".$this->nickname."',
+                `password` = '".$this->password."',
+                `first_name` = '".$this->firstname."',
+                `last_name` = '".$this->lastname."',
+                `signature` = '".$this->signature."',
+                `connected` = '".$this->connected."',
+                `navigated` = '".$this->navigated."',
+                `ip` = '".$this->ip."'
+                `status` = '".$this->status."',
+                `bantime` = '".$this->bantime."'
+            WHERE `uid` = '".$this->uid."'
+        ";
+        return Database::_exec($req);
+    }
+
+    public function delete(){
+        $req = "DELETE FROM user WHERE uid = '". $this->uid ."'";
+        return Database::_exec($req);
     }
 
     public function checkPassword($password)
@@ -283,43 +307,24 @@ class User{
         return true;
     }
 
-    static public function exist($u = null) 
+    static public function _exist($u = null) 
     {
         if (!is_null($u)) 
         {
+<<<<<<< HEAD
             if (verifMail($u)) $where = "email = '$u'";
             else if (is_numeric($u)) $where = "uid = '" . intval($u) . "'";
             else if (verifName($u)) $where = "pseudo = '$u'";
+=======
+            if (checkEmail($u)) $where = "email = '$u'";
+            else if (is_numeric($u)) $where = "uid = '" . intval($u) . "'";
+            else if (checkNickname($u)) $where = "nickname = '$u'";
+>>>>>>> 6891c1f1d0d549124818b632e56e24154dbbd408
             else return false;
             
-            $req = "SELECT uid FROM user WHERE " . $where;
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the resquest : ' . $req);
-            if (mysqli_num_rows($res) > 0) return true;
-            else return false;
+            $req = "SELECT COUNT(1) FROM user WHERE " . $where;
+            if (Database::_selectOne($req) > 0) return true;
         }
         return false;
-    }
-
-
-    public function update(){
-        $req = "
-            UPDATE user
-            SET `email` = '".$this->email."',
-                `pseudo` = '".$this->pseudo."',
-                `password` = '".$this->password."',
-                `nom` = '".$this->nom."',
-                `prenom` = '".$this->prenom."',
-                `signature` = '".$this->signature."',
-                `connected` = '".$this->connected."',
-                `navigated` = '".$this->navigated."',
-                `ip` = '".$this->ip."'
-                `statut` = '".$this->statut."',
-                `bantime` = '".$this->bantime."'
-            WHERE `id` = '".$this->id."'
-        ";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
-        if(!$res) return false;
-        return true;
-    }
-        
+    }        
 }
