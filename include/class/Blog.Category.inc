@@ -171,7 +171,7 @@ class BlogCategory
         if (!is_null($u)) 
         {
             if (is_numeric($u)) $where = "idc = '" . intval($u) . "'";
-            else if (verifName($u)) $where = "name = '$u'";
+            else if (is_string($u)) $where = "name = '$u'";
             else return false;
             
             $req = "SELECT idc FROM blogCategory WHERE " . $where;

@@ -21,7 +21,7 @@ class ForumCategory
     public function __construct($idf = 0)
     {
         if(self::exist($idf)) {
-            if (verifInt($idf)) {
+            if (is_numeric($idf)) {
                 $req = "SELECT * FROM forumCategory WHERE id = '$idf'";
             }else {
                 $req = "SELECT * FROM forumCategory WHERE nom = '$idf'";            
@@ -172,8 +172,8 @@ class ForumCategory
     {
         if (!is_null($u)) 
         {
-            if (verifInt($u)) $where = "idc = '" . intval($u) . "'";
-            else if (verifName($u)) $where = "name = '$u'";
+            if (is_numeric($u)) $where = "idc = '" . intval($u) . "'";
+            else if (is_string($u)) $where = "name = '$u'";
             else return false;
             
             $req = "SELECT idc FROM forumCategory WHERE " . $where;
