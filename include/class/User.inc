@@ -30,14 +30,8 @@ class User{
      */
    public  function __construct($uid = 0)
     {
-<<<<<<< HEAD
-        if(self::exist($uid)){
-            if (is_numeric($uid)){
-
-=======
         if(self::_exist($uid)){
             if (is_numeric($uid)){
->>>>>>> 6891c1f1d0d549124818b632e56e24154dbbd408
                 $req = "SELECT * FROM user WHERE uid = '$uid'";
             }else{
                 $req = "SELECT * FROM user WHERE nickname = '$uid'";
@@ -311,15 +305,9 @@ class User{
     {
         if (!is_null($u)) 
         {
-<<<<<<< HEAD
-            if (verifMail($u)) $where = "email = '$u'";
-            else if (is_numeric($u)) $where = "uid = '" . intval($u) . "'";
-            else if (verifName($u)) $where = "pseudo = '$u'";
-=======
             if (checkEmail($u)) $where = "email = '$u'";
             else if (is_numeric($u)) $where = "uid = '" . intval($u) . "'";
             else if (checkNickname($u)) $where = "nickname = '$u'";
->>>>>>> 6891c1f1d0d549124818b632e56e24154dbbd408
             else return false;
             
             $req = "SELECT COUNT(1) FROM user WHERE " . $where;
