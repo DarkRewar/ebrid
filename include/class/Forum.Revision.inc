@@ -35,7 +35,7 @@ class ForumRevision extends ForumMessage
                     $this->_content = $a['content'];
                     $this->_date = $a['date'];
                 }
-            }else if(isset($save['idm']) && BlogArticle:: _exist($save['idm'])){
+            }else if(isset($save['idm']) && ForumMessage:: _exist($save['idm'])){
                 $req = "SELECT COUNT(1) FROM forumRevision WHERE idm = '".$save['idm']."'";
                 $this->_idm = $save['idm'];
                 $this->_idr = intval(Database::_selectOne($req))+1;
