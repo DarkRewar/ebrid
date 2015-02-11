@@ -202,9 +202,9 @@ class BlogRevision extends BlogArticle
     }
 
     static public function _generateWith($post){
-        if(isset($post['article']))
+        if(isset($post['article'])){
             $revision = new BlogRevision(array('ida' => $post['article']));
-        else{
+        }else{
             $revision = new BlogRevision();
             $revision->generateArticle($post['uid']);
         }

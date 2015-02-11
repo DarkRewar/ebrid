@@ -21,7 +21,7 @@ class ForumMessage extends ForumTopic
     public function __construct($idm = 0)
     {
         if(self::exist($idm)) {
-            if (verifInt($idm)) {
+            if (is_numeric($idm)) {
                 $req = "SELECT * FROM forum WHERE id = '$idm'";
             }
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
@@ -143,12 +143,15 @@ class ForumMessage extends ForumTopic
      *  @return bool
      *  @since 0.1
      */
-    public function insert()
+    public function insertMessage()
     {
         $req = "INSERT INTO ForumMessage(title, date) VALUES ('".$this->_title."', '".$this->_date."')";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-        if(!$res) return false;
-        return true;
+        $res = Database::_exec($req);
+
+        if($res){
+            $this->idm = Database::_lastInsertId();
+        }
+        return $this;        
     }
 
     /**
@@ -162,8 +165,8 @@ class ForumMessage extends ForumTopic
     {
         if (!is_null($u)) 
         {
-            if (verifInt($u)) $where = "idm = '" . intval($u) . "'";
-            else if (verifName($u)) $where = "title = '$u'";
+            if (is_numeric($u)) $where = "idm = '" . intval($u) . "'";
+            else if (is_string($u)) $where = "title = '$u'";
             else return false;
             
             $req = "SELECT idm FROM forumMessage WHERE " . $where;
@@ -173,4 +176,40 @@ class ForumMessage extends ForumTopic
         }
         return false;
     }
+    public function generateMessage($uid){
+        $this->uid = $uid;
+        $this->insertMessage();
+    }
+
+    static public function _getMessages(){
+    $req = "SELECT fm.idm, (SELECT title FROM forum_revision fr WHERE fr.idm = fm.idm ORDER BY idr DESC LIMIT 0,1) title
+        FROM forum_message fm
+        ORDER BY fm.idm
+        LIMIT 0,5";
+    return Database::_query($req);
+    }
+
+    static public function _getLastRevision($idm){
+    $req = "SELECT idr FROM forum_revision WHERE idm = '$idm' ORDER BY idr DESC LIMIT 0,1";
+
+    $revision = new ForumRevision(array('idm'=>$idm, 'idr'=>Database::_selectOne($req)));
+    return $revision;
+    }
+
+    static public function _getRevisions($idm, $param = array()){
+        $list = array();
+
+        if(self::_exist($idm)){
+            $req = "SELECT idm, idr, title, content, date, nickname
+                FROM forum_revision fr, user u, forum_message fm
+                WHERE fr.idm = '$idm' 
+                AND fm.uid = u.uid";
+
+            $list = Database::_query($req);
+        }
+
+        return $list;
+    }
+
+
 }

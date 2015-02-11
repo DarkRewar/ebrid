@@ -8,6 +8,7 @@ $title = isset($title)?$title:'Ebrid Maquette';
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <title><?php echo $title ?> | Administration</title>
     <link rel="stylesheet" href="css/leaframe.min.css" />
     <script src="js/jquery.js"></script>

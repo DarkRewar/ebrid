@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  *  Class BlogCategory
  *  @package Ebrid;
@@ -14,8 +16,8 @@ class BlogCategory
 
     public function __construct($idc = 0)
     {
-        if(self::exist($idc)) {
-            if (verifInt($idc)) {
+        if(self::_exist($idc)) {
+            if (is_numeric($idc)) {
                 $req = "SELECT * FROM forum WHERE id = '$idf'";
             }else {
                 $req = "SELECT * FROM forum WHERE nom = '$idf'";            
@@ -168,15 +170,18 @@ class BlogCategory
     {
         if (!is_null($u)) 
         {
-            if (verifInt($u)) $where = "idc = '" . intval($u) . "'";
-            else if (verifName($u)) $where = "name = '$u'";
+            if (is_numeric($u)) $where = "idc = '" . intval($u) . "'";
+            else if (is_string($u)) $where = "name = '$u'";
             else return false;
             
-            $req = "SELECT idc FROM forumCategory WHERE " . $where;
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
+            $req = "SELECT idc FROM blogCategory WHERE " . $where;
+            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the request : ' . $req);
             if (mysqli_num_rows($res) > 0) return true;
             else return false;
         }
         return false;
     }
+
+    
+
 }
