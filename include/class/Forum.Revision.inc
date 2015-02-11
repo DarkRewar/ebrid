@@ -22,7 +22,7 @@ class ForumRevision extends ForumMessage
     public function __construct($save = array("idr"=>0, "idm"=>0)){
         if(is_array($save)){
             if(isset($save["idr"]) && self::_exist($save['idr']) ){
-                $this->setIdr($_idr); 
+                $this->setIdr($_idr);  
                 $req = "
                     SELECT *
                     FROM forumRevision 
@@ -161,40 +161,62 @@ class ForumRevision extends ForumMessage
         return true;
     }
 
-    /**
-     *  Insert the Title the Content in the DB as a new Category
-     *
-     *  @return bool
-     *  @since 0.1
-     */
-    public function insert()
-    {
-        $req = "INSERT INTO forumRevision(title, content, idm, date) VALUES ('".$this->_title."', '".$this->_content."', '".$this->_idm."', '".$this->_date."')";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-        if(!$res) return false;
-        return true;
+    public function insertRevision(){
+        $req = "INSERT INTO forum_revision(
+                idm
+                , idr
+                , title
+                , content
+                , date
+
+            ) VALUES(
+                '" . $this->_idm .  "'
+                , '" . $this->_idr . "'
+                , '" . $this->_title . "'
+                , '" . $this->_content . "'
+                , NOW()
+            )";
+        return Database::_exec($req);
     }
 
+    public function generateRevision($p){
+        extract($p);
 
-    /**
-     *  Check if the Revision already exists
-     *  
-     *  @param mixed $u idf or name
-     *  @return bool
-     *  @since 0.1
-     */
-    static public function _exist($u = null) 
-    {
-        if (!is_null($u)) 
-        {
-            if (verifInt($u)) $where = "idr = '" . intval($u) . "'";
-            else return false;
-            
-            $req = "SELECT idr FROM forumRevision WHERE " . $where;
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            if (mysqli_num_rows($res) > 0) return true;
-            else return false;
-        }
+        $this
+            ->setIdm($idm);
+            ->setIdr($idr);
+            ->setTitle($forum_title)
+            ->setContent($forum_content)
+    }
+
+    static public function _exist($u = array()){
+        if(!is_array($u)) return false;
+        elseif (!isset($u['idm']) && !ForumMessage::_exist($u['idm']))
+            return false;
+        elseif(!isset($u['idr']) && !is_numeric($u['idr'])) 
+            return false;
+
+        $req = "
+            SELECT COUNT(1) 
+            FROM forum_revision 
+            WHERE idm = '".$u['idm']."'
+            AND idr = '".$u['idr']."'
+        ";
+        if(Database::_selectOne($req) > 0) return true;
         return false;
+    }
+
+    static public function _generateWith($post){
+        if(isset($post['message'])){
+            $revision = new ForumRevision(array('idm' => $post['message']));
+        }else{
+            $revision = new ForumRevision();
+            $revision->generateMessage($post['uid']);
+        
+        $revision->generateRevision($post);
+
+        $revision->insertRevision();
+
+        return $revision;
     }
 }
