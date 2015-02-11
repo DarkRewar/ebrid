@@ -74,10 +74,10 @@ tinymce.init({
         </label>
         <div class="row">
             <div class="col s-range-12 m-range-4">
-                <input type="submit" name="article_post" class="expand success rounded" value="Publier"/>
+                <input type="submit" name="article_post" class="button expand success rounded" value="Publier"/>
             </div>
             <div class="col s-range-12 m-range-4 m-offset-4">
-                <button type="submit" class="expand info rounded">Enregistrer un brouillon</button>
+                <button type="submit" class="button expand info rounded">Enregistrer un brouillon</button>
             </div>
         </div>
     </form>
@@ -94,10 +94,7 @@ tinymce.init({
                     "<span class=\"l-range-0\">le $date</span>".
                     '</li>';
             } ?>
-            <!-- <li><a>Titre de l'article lors de la révision précédente #3</a> par Rewar <span class="show-on-large label info tiny">02.02.2015</span><span class="l-range-0">le 02.02.2015</span></li>
-            <li><a>Titre de l'article lors de la révision précédente #2</a> par Goulaheau <span class="show-on-large label info tiny">31.01.2015</span><span class="l-range-0">le 31.01.2015</span></li>
-            <li><a>Titre de l'article lors de la révision précédente #1</a> par Rewar  <span class="show-on-large label info tiny">15.01.2015</span><span class="l-range-0">le 15.01.2015</span></li>
-         --></ul>
+        </ul>
     </div>
     <?php endif; ?>
 </div>

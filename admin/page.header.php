@@ -41,7 +41,7 @@ $title = isset($title)?$title:'Ebrid Maquette';
                             </li>
                             <li><a>Voir mon profil</a>
                             </li>
-                            <li><a>Se déconnecter</a>
+                            <li><a href="login.php">Se déconnecter</a>
                             </li>
                         </ul>
                     </div>

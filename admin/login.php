@@ -24,7 +24,7 @@ if(isset($_POST['login_btn'])){
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Title of the document</title>
+    <title>Connexion | Ebrid</title>
     <link rel="stylesheet" href="css/leaframe.min.css" />
     <link rel="stylesheet" href="css/modules.css" />
     <script src="js/jquery.js"></script>
@@ -49,7 +49,7 @@ if(isset($_POST['login_btn'])){
                         <input type="text" name="login_nick" id="" class="" placeholder="Identifant de connexion">
                         <input type="password" name="login_pass" placeholder="Mot de passe">
                         <input type="submit" name="login_btn"class="button info" value="Connexion">
-                        <a href="./signup.php" class="button right">Créer un compte</a>
+                        <a href="signup.php" class="button right">Créer un compte</a>
                     </form>
                 </div>
             </div>
