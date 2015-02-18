@@ -153,7 +153,7 @@ class BlogCategory
      */
     public function insert()
     {
-        $req = "INSERT INTO blogCategory(name, description, access, level) VALUES ('".$this->_name."', '".$this->_description."', '".$this->_access."', '".$this->_level."')";
+        $req = "INSERT INTO blog_category(name, description, access, level) VALUES ('".$this->_name."', '".$this->_description."', '".$this->_access."', '".$this->_level."')";
         $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
         if(!$res) return false;
         return true;
@@ -174,12 +174,32 @@ class BlogCategory
             else if (is_string($u)) $where = "name = '$u'";
             else return false;
             
-            $req = "SELECT idc FROM blogCategory WHERE " . $where;
+            $req = "SELECT idc FROM blog_category WHERE " . $where;
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . __FILE__ . ' at the line ' . __LINE__ . ' with the request : ' . $req);
             if (mysqli_num_rows($res) > 0) return true;
             else return false;
         }
         return false;
+    }
+
+     public static function afficherDerniereCategories()
+    {   
+        echo '<p>Les 10 dernières categories: </p>';
+
+        $r=array();
+        $req = "SELECT * FROM blog_category ORDER BY idc DESC LIMIT 0,10";
+        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
+        while($a = mysqli_fetch_assoc($res)) 
+        {
+            $r[] = $a;
+        }
+        
+        foreach ($r as $index => $value) 
+        {
+
+            echo '<p><a href="affichage_category.php?id='.$value['idc'].'">'.$value['name'].'</a></br>'.$value['description'].'</p>';
+
+        }
     }
 
     

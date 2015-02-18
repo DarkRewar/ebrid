@@ -162,7 +162,6 @@ class ForumRevision extends ForumMessage
     }
 
     public function insertRevision(){
-        var_dump("eeeeee");
         $req = "INSERT INTO forum_revision(
                 idm
                 , idr
