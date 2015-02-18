@@ -62,7 +62,7 @@ class BlogCategory
     }
 
     /**
-     *  Get Description
+     *  Get Description.
      *
      *  @return string
      *  @since 0.1
