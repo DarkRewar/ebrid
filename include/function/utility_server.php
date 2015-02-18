@@ -30,7 +30,8 @@ function is_request($file){
  */
 function redirect($str = null){
     $r = array(
-        'admin-panel' => "/admin/"
+        'admin-panel' => "/admin/",
+        'login' => '/admin/login.php'
     );
 
     if(isset($r[$str]))
@@ -41,9 +42,20 @@ function redirect($str = null){
 }
 
 /**
+ *  The actual page
+ *
+ *  @param string $str the page
+ *  @return bool
+ *  @since 0.1
+ */
+function actual_page($str){
+    return $str == $_SERVER['REQUEST_URI'];
+}
+
+/**
  *  Get an element in the session
  *
- *  @param string $el the element to take
+ *  @param string $str the element to take
  *  @return mixed
  *  @since 0.1
  */
@@ -52,6 +64,17 @@ function get_session($str){
         return $_SESSION[$str];
     }
     return null;
+}
+
+/**
+ *  Get an element in the session
+ *
+ *  @param string $id the element id to set
+ *  @param string $str the element to set
+ *  @since 0.1
+ */
+function set_session($id, $str){
+    $_SESSION[$id] = $str;
 }
 
 /**

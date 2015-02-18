@@ -37,7 +37,8 @@ if(edit_revision()){
     $infos['content'] = $lastRevision->getContent();
 }
 
-if(isset($_POST) && form_new_post($_POST)){
+if(isset($_POST['article_post']) && form_new_post($_POST)){
+    unset($_POST['article_post']);
     $_POST['uid'] = $user->getUid();
 
     if(edit_mode())
@@ -53,6 +54,13 @@ extract($infos);
 
 ?>
 
+<script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "#article_content"
+ });
+</script>
+
 <div class="row">
     <h1 class="heading">Ecrire un article</h1>
     <form method="post" action="" class="col l-range-9 s-range-12">
@@ -66,10 +74,10 @@ extract($infos);
         </label>
         <div class="row">
             <div class="col s-range-12 m-range-4">
-                <button type="submit" class="expand success rounded">Publier</button>
+                <input type="submit" name="article_post" class="button expand success rounded" value="Publier"/>
             </div>
             <div class="col s-range-12 m-range-4 m-offset-4">
-                <button type="submit" class="expand info rounded">Enregistrer un brouillon</button>
+                <button type="submit" class="button expand info rounded">Enregistrer un brouillon</button>
             </div>
         </div>
     </form>
@@ -86,10 +94,7 @@ extract($infos);
                     "<span class=\"l-range-0\">le $date</span>".
                     '</li>';
             } ?>
-            <!-- <li><a>Titre de l'article lors de la révision précédente #3</a> par Rewar <span class="show-on-large label info tiny">02.02.2015</span><span class="l-range-0">le 02.02.2015</span></li>
-            <li><a>Titre de l'article lors de la révision précédente #2</a> par Goulaheau <span class="show-on-large label info tiny">31.01.2015</span><span class="l-range-0">le 31.01.2015</span></li>
-            <li><a>Titre de l'article lors de la révision précédente #1</a> par Rewar  <span class="show-on-large label info tiny">15.01.2015</span><span class="l-range-0">le 15.01.2015</span></li>
-         --></ul>
+        </ul>
     </div>
     <?php endif; ?>
 </div>

@@ -17,7 +17,7 @@ function add_error(&$log, $message){
     if(!is_array($log)) return;
 
     $log[] = array(
-        "type" => "Error",
+        "type" => "error",
         "message" => $message
     );
 }
@@ -33,7 +33,7 @@ function add_success(&$log, $message){
     if(!is_array($log)) return;
 
     $log[] = array(
-        "type" => "Success",
+        "type" => "success",
         "message" => $message
     );
 }

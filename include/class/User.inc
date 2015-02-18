@@ -11,8 +11,8 @@ class User{
     private $email;
     private $nickname;
     private $password;
-    private $name;
-    private $last_name;
+    private $firstname;
+    private $lastname;
     private $signature;
     private $created;
     private $connected;
@@ -57,19 +57,17 @@ class User{
             $this->email = 0;
             $this->nickname = 0;
             $this->password = 0;
-            $this->name = 0;
-            $this->last_name = 0;
-            $this->signature = 0;
+            $this->name = null;
+            $this->last_name = null;
+            $this->signature = null;
             $this->created = 0;
             $this->connected = 0;
             $this->navigated = 0;
-            $this->ip = 0;
+            $this->ip = '0.0.0.0';
             $this->status = 0;
             $this->bantime = 0;
         }        
     }
-
-
  
     public function setUid($uid){
         
@@ -147,7 +145,7 @@ class User{
         return true;
     }
 
-    public function getLast_name(){
+    public function getLastname(){
         
         return $this->lastname;
     }
@@ -241,30 +239,20 @@ class User{
     {
         $req = "INSERT INTO user(
                 email
-                ,nickname
-                ,password
-                ,first_name
-                ,last_name
-                ,signature
-                ,created
-                ,connected
-                ,navigated
-                ,ip
-                ,status
-                ,bantime
+                , nickname
+                , password
+                , first_name
+                , last_name
+                , created
+                , status
             ) VALUES (
                 '".$this->email."'
                 , '".$this->nickname."'
-                , '" . md5($this->password) . "'
-                , '".$this->firstname."'
-                ,'".$this->lastname."'
-                ,'".$this->signature."'
-                ,'".$this->created."'
-                ,'".$this->connected."'
-                ,'".$this->navigated."'
-                ,'".$this->ip."'
-                ,'".$this->status."'
-                ,'".$this->bantime."'
+                , '" . _sha4($this->password) . "'
+                , '" . $this->firstname . "'
+                , '" . $this->lastname . "'
+                , NOW()
+                , '1'
             )";
         return Database::_exec($req);
     }
@@ -272,9 +260,7 @@ class User{
     public function update(){
         $req = "
             UPDATE user
-            SET `email` = '".$this->email."',
-                `nickname` = '".$this->nickname."',
-                `password` = '".$this->password."',
+            SET `password` = '".$this->password."',
                 `first_name` = '".$this->firstname."',
                 `last_name` = '".$this->lastname."',
                 `signature` = '".$this->signature."',
@@ -293,9 +279,16 @@ class User{
         return Database::_exec($req);
     }
 
+    public function create($post){
+        $this->nickname = $post['signup_nick'];
+        $this->email = $post['signup_mail'];
+        $this->password = $post['signup_pass'];
+        $this->insert();
+    }
+
     public function checkPassword($password)
     {
-        if (md5($password) != $this->password) {
+        if (_sha4($password) != $this->password) {
             return false;
         }
         return true;
