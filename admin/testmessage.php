@@ -41,7 +41,7 @@ if(isset($_POST) && form_new_post($_POST)){
     $_POST['uid'] = $user->getUid();
 
     if(edit_mode())
-        $_POST['message'] = $_GET['messge'];
+        $_POST['message'] = $_GET['messa ge'];
 
     $revision = generate_revision($_POST);
 

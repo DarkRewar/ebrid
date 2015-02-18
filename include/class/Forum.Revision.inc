@@ -26,7 +26,7 @@ class ForumRevision extends ForumMessage
                 $req = "
                     SELECT *
                     FROM forum_revision 
-                    WHERE idr = '".$a['idr']."'";
+                    WHERE idr = '".$save['idr']."'";
                 $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
                 while($a = mysqli_fetch_assoc($res)){
                     $this->_idm = $a['idm'];
