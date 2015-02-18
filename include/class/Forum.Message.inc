@@ -22,7 +22,7 @@ class ForumMessage extends ForumTopic
     {
         if(self::exist($idm)) {
             if (is_numeric($idm)) {
-                $req = "SELECT * FROM forum WHERE id = '$idm'";
+                $req = "SELECT * FROM forum_message WHERE id = '$idm'";
             }
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
             while ($a = mysqli_fetch_assoc($res)){
@@ -145,7 +145,7 @@ class ForumMessage extends ForumTopic
      */
     public function insertMessage()
     {
-        $req = "INSERT INTO ForumMessage(title, date) VALUES ('".$this->_title."', '".$this->_date."')";
+        $req = "INSERT INTO forum_message(title, date) VALUES ('".$this->_title."', '".$this->_date."')";
         $res = Database::_exec($req);
 
         if($res){
@@ -169,7 +169,7 @@ class ForumMessage extends ForumTopic
             else if (is_string($u)) $where = "title = '$u'";
             else return false;
             
-            $req = "SELECT idm FROM forumMessage WHERE " . $where;
+            $req = "SELECT idm FROM forum_message WHERE " . $where;
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
             if (mysqli_num_rows($res) > 0) return true;
             else return false;

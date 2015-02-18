@@ -25,7 +25,7 @@ class ForumRevision extends ForumMessage
                 $this->setIdr($_idr);  
                 $req = "
                     SELECT *
-                    FROM forumRevision 
+                    FROM forum_revision 
                     WHERE idr = '".$a['idr']."'";
                 $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
                 while($a = mysqli_fetch_assoc($res)){
@@ -36,7 +36,7 @@ class ForumRevision extends ForumMessage
                     $this->_date = $a['date'];
                 }
             }else if(isset($save['idm']) && ForumMessage:: _exist($save['idm'])){
-                $req = "SELECT COUNT(1) FROM forumRevision WHERE idm = '".$save['idm']."'";
+                $req = "SELECT COUNT(1) FROM forum_revision WHERE idm = '".$save['idm']."'";
                 $this->_idm = $save['idm'];
                 $this->_idr = intval(Database::_selectOne($req))+1;
                 $this->_title = 0;
@@ -162,6 +162,7 @@ class ForumRevision extends ForumMessage
     }
 
     public function insertRevision(){
+        var_dump("eeeeee");
         $req = "INSERT INTO forum_revision(
                 idm
                 , idr
@@ -183,7 +184,6 @@ class ForumRevision extends ForumMessage
         extract($p);
 
         $this->setIdm($idm)
-            ->setIdr($idr)
             ->setTitle($forum_title)
             ->setContent($forum_content);
     }
