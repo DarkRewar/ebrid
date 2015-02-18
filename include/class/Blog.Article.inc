@@ -173,7 +173,7 @@ class BlogArticle {
     static public function _getArticles(){
         $req = "SELECT ba.ida, (SELECT title FROM blog_revision br WHERE br.ida = ba.ida ORDER BY idr DESC LIMIT 0,1) title
             FROM blog_article ba
-            ORDER BY ba.ida 
+            ORDER BY ba.ida  
             LIMIT 0,5";
         return Database::_query($req);
     }

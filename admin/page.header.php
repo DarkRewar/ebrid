@@ -33,6 +33,7 @@ $title = isset($title)?$title:'Ebrid Maquette';
                     <a>Changer de thème</a>
                 </li>
                 <a href="new-post.php" class="button info rounded">Poster un article</a>
+                <a href="testmessage.php" class="button info rounded">Poster un message</a>
                 <li class="right" data-drop="compte">
                     <a class="link-menu ref">Compte: <?php echo $user->getNickname(); ?></a>
                     <div id="compte" class="drop">
