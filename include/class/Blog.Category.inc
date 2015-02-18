@@ -197,7 +197,7 @@ class BlogCategory
         foreach ($r as $index => $value) 
         {
 
-            echo '<p><a href="affichage_category.php?id='.$value['idc'].'">'.$value['name'].'</a></br>'.$value['description'].'</p>';
+            echo '<p><a href="affichage_category.php?idc='.$value['idc'].'">'.$value['name'].'</a></br>'.$value['description'].'</p>';
 
         }
     }
