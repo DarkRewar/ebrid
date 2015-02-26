@@ -1,7 +1,6 @@
-@charset "CP850";
 /*!
  * Leaframe 0.65 (http://leaframe.lignusdev.com)
- * Copyright 2014 Curtis Pelissier
+ * Copyright 2015 Curtis Pelissier
  * Licensed under MIT (https://github.com/DarkRewar/leaframe/blob/master/~/doc/licence)
  */
 /* all color */
@@ -13,7 +12,7 @@ html {
 
 body {
   margin: 0;
-  color: #333333;
+  color: #333;
   font-size: 100%;
   font-family: "Helvetica Neue", "Helvetica", Helvetica, Tahoma, Arial, sans-serif; }
 
@@ -39,12 +38,12 @@ section {
   padding: 0; }
 
 a {
-  color: #00699b;
+  color: #00699B;
   text-decoration: none;
   transition: color 0.5s; }
 
 a:hover {
-  color: #0f43c5;
+  color: #0F43C5;
   text-decoration: underline;
   transition: color 0.5s; }
 
@@ -102,7 +101,6 @@ kdb {
   border-radius: 35px; }
 
 .small {
-  text-transform: capitalize;
   font-size: 11px; }
 
 .space {
@@ -189,7 +187,7 @@ ul.pagination {
     float: left !important;
     display: inline-table; }
     ul.pagination li a {
-      border-color: #bbbbbb;
+      border-color: #BBB;
       border-width: 1px 1px 1px 0;
       border-style: solid;
       padding: 5px 10px;
@@ -201,9 +199,9 @@ ul.pagination {
     ul.pagination li:first-child a {
       border-left-width: 1px; }
     ul.pagination li.active a {
-      color: #333333;
+      color: #333;
       cursor: default;
-      background: #4fa7e2; }
+      background: #4FA7E2; }
   ul.pagination.rounded li:first-child a, .breadcrumbs.arrow.rounded ul.pagination li:first-child a {
     -webkit-border-radius: 5px 0 0 5px;
     -moz-border-radius: 5px 0 0 5px;
@@ -235,9 +233,9 @@ ul.pagination {
     .breadcrumbs.directory li:after {
       content: "/";
       padding: 0 5px;
-      color: #777777; }
+      color: #777; }
   .breadcrumbs.arrow ul {
-    border: 1px solid #bbbbbb;
+    border: 1px solid #BBB;
     margin: 0;
     padding: 0;
     width: auto; }
@@ -252,10 +250,10 @@ ul.pagination {
     -ms-border-radius: 0 5px 5px 0;
     border-radius: 0 5px 5px 0; }
   .breadcrumbs.arrow li {
-    background: -webkit-linear-gradient(left, #dddddd, #eeeeee);
-    background: -moz-linear-gradient(left, #dddddd, #eeeeee);
-    background: -o-linear-gradient(left, #dddddd, #eeeeee);
-    background: linear-gradient(to left, #eeeeee, #dddddd);
+    background: -webkit-linear-gradient(left, #DDD, #EEE);
+    background: -moz-linear-gradient(left, #DDD, #EEE);
+    background: -o-linear-gradient(left, #DDD, #EEE);
+    background: linear-gradient(to left, #EEE, #DDD);
     height: 30px;
     margin: 0; }
     .breadcrumbs.arrow li a {
@@ -273,16 +271,16 @@ ul.pagination {
       vertical-align: top; }
 
 .success {
-  background: #1bd31b !important; }
+  background: #1BD31B !important; }
 
 .error {
-  background: #ff2121 !important; }
+  background: #FF2121 !important; }
 
 .info {
-  background: #4fa7e2 !important; }
+  background: #4FA7E2 !important; }
 
 .warning {
-  background: #ffaa12 !important; }
+  background: #FFAA12 !important; }
 
 .row {
   padding: 0;
@@ -389,7 +387,7 @@ ul.pagination {
 nav {
   width: 100%;
   display: table;
-  background: #333333;
+  background: #333;
   color: #FFF;
   z-index: 2000; }
   .menu .contain,
@@ -536,10 +534,10 @@ table {
         display: table-cell;
         padding: 5px; }
   table.dif thead tr {
-    background: -webkit-linear-gradient(top, #fdfdfd, #dbdbdb);
-    background: -moz-linear-gradient(top, #fdfdfd, #dbdbdb);
-    background: -o-linear-gradient(top, #fdfdfd, #dbdbdb);
-    background: linear-gradient(to top, #dbdbdb, #fdfdfd); }
+    background: -webkit-linear-gradient(top, #FDFDFD, #DBDBDB);
+    background: -moz-linear-gradient(top, #FDFDFD, #DBDBDB);
+    background: -o-linear-gradient(top, #FDFDFD, #DBDBDB);
+    background: linear-gradient(to top, #DBDBDB, #FDFDFD); }
     table.dif thead tr th {
       border-right: 1px solid #AAA;
       cursor: default;
@@ -558,7 +556,7 @@ button,
   border: none;
   padding: 8px 16px;
   outline: 0;
-  color: #333333;
+  color: #333;
   text-decoration: none;
   position: relative;
   display: inline-block;
@@ -602,15 +600,15 @@ button,
   clear: both; }
 .special-input div {
   margin: 4px 0;
-  border-top: 1px solid #aaaaaa;
-  border-bottom: 1px solid #aaaaaa;
+  border-top: 1px solid #AAA;
+  border-bottom: 1px solid #AAA;
   float: left; }
   .special-input div:first-child {
-    border-left: 1px solid #aaaaaa;
+    border-left: 1px solid #AAA;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
   .special-input div:last-child {
-    border-right: 1px solid #aaaaaa;
+    border-right: 1px solid #AAA;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; }
 .special-input .website {
@@ -637,10 +635,10 @@ button,
   padding: 0;
   margin: 5px auto; }
   .input-label .info-label {
-    background: -webkit-linear-gradient(top, #dddddd, #eeeeee);
-    background: -moz-linear-gradient(top, #dddddd, #eeeeee);
-    background: -o-linear-gradient(top, #dddddd, #eeeeee);
-    background: linear-gradient(to top, #eeeeee, #dddddd);
+    background: -webkit-linear-gradient(top, #ddd, #eee);
+    background: -moz-linear-gradient(top, #ddd, #eee);
+    background: -o-linear-gradient(top, #ddd, #eee);
+    background: linear-gradient(to top, #eee, #ddd);
     display: block;
     padding: 5px 10px;
     font-size: 10px;
@@ -736,7 +734,7 @@ select, textarea {
       height: 0;
       border-style: solid;
       border-width: 5px 5px 0 5px;
-      border-color: white transparent transparent transparent; }
+      border-color: #FFF transparent transparent transparent; }
   [data-drop]:hover {
     background: #222; }
 
@@ -814,7 +812,7 @@ a.close, .theater .theater-scene a.close {
     cursor: pointer; }
     .modal .close:hover, .modal .theater .theater-scene a.close:hover, .theater .theater-scene .modal a.close:hover {
       text-decoration: none;
-      color: #333333;
+      color: #333;
       text-shadow: none; }
 
 .out-modal {
@@ -864,7 +862,7 @@ li.block-img, .theater .theater-links li {
   .theater > * {
     display: none;
     position: relative;
-    background: #333333; }
+    background: #333; }
   .theater .theater-scene {
     height: 75%;
     top: -75%; }
@@ -907,39 +905,39 @@ li.block-img, .theater .theater-links li {
     .tabs .tab-content .content.active {
       display: block; }
   .tabs.to-top .tab-panel ul {
-    border-bottom: 1px solid #bbbbbb; }
+    border-bottom: 1px solid #BBB; }
     .tabs.to-top .tab-panel ul li {
       border-style: solid;
-      border-color: #bbbbbb;
+      border-color: #BBB;
       border-radius: 3px 3px 0 0;
       border-width: 0 0 0 0;
       margin: 0 4px; }
       .tabs.to-top .tab-panel ul li.active {
         border-width: 1px 1px 0 1px;
         margin-bottom: -1px;
-        background: -webkit-linear-gradient(bottom, white, #eeeeee);
-        background: -moz-linear-gradient(bottom, white, #eeeeee);
-        background: -o-linear-gradient(bottom, white, #eeeeee);
-        background: linear-gradient(to bottom, #eeeeee, white); }
+        background: -webkit-linear-gradient(bottom, #FFF, #EEE);
+        background: -moz-linear-gradient(bottom, #FFF, #EEE);
+        background: -o-linear-gradient(bottom, #FFF, #EEE);
+        background: linear-gradient(to bottom, #EEE, #FFF); }
       .tabs.to-top .tab-panel ul li:first-child {
         margin-left: 0; }
       .tabs.to-top .tab-panel ul li:last-child {
         margin-right: 0; }
   .tabs.to-bottom .tab-panel ul {
-    border-top: 1px solid #bbbbbb; }
+    border-top: 1px solid #BBB; }
     .tabs.to-bottom .tab-panel ul li {
       border-style: solid;
-      border-color: #bbbbbb;
+      border-color: #BBB;
       border-radius: 0 0 3px 3px;
       border-width: 0 0 0 0;
       margin: 0 4px; }
       .tabs.to-bottom .tab-panel ul li.active {
         border-width: 0 1px 1px 1px;
         margin-top: -1px;
-        background: -webkit-linear-gradient(top, white, #eeeeee);
-        background: -moz-linear-gradient(top, white, #eeeeee);
-        background: -o-linear-gradient(top, white, #eeeeee);
-        background: linear-gradient(to top, #eeeeee, white); }
+        background: -webkit-linear-gradient(top, #FFF, #EEE);
+        background: -moz-linear-gradient(top, #FFF, #EEE);
+        background: -o-linear-gradient(top, #FFF, #EEE);
+        background: linear-gradient(to top, #EEE, #FFF); }
       .tabs.to-bottom .tab-panel ul li:first-child {
         margin-left: 0; }
       .tabs.to-bottom .tab-panel ul li:last-child {
@@ -958,15 +956,15 @@ li.block-img, .theater .theater-links li {
         width: 100%;
         border-radius: 3px 0 0 3px;
         border-style: solid;
-        border-color: #bbbbbb;
+        border-color: #BBB;
         border-width: 0 1px 0 0; }
         .tabs.to-left .tab-panel ul li.active {
           margin: 0;
           border-width: 1px 0 1px 1px;
-          background: -webkit-linear-gradient(right, white, #eeeeee);
-          background: -moz-linear-gradient(right, white, #eeeeee);
-          background: -o-linear-gradient(right, white, #eeeeee);
-          background: linear-gradient(to right, #eeeeee, white); }
+          background: -webkit-linear-gradient(right, #FFF, #EEE);
+          background: -moz-linear-gradient(right, #FFF, #EEE);
+          background: -o-linear-gradient(right, #FFF, #EEE);
+          background: linear-gradient(to right, #EEE, #FFF); }
     .tabs.to-left .tab-content {
       width: 85%;
       padding: 0 10px; }
@@ -985,15 +983,15 @@ li.block-img, .theater .theater-links li {
         width: 100%;
         border-radius: 0 3px 3px 0;
         border-style: solid;
-        border-color: #bbbbbb;
+        border-color: #BBB;
         border-width: 0 0 0 1px; }
         .tabs.to-right .tab-panel ul li.active {
           margin: 0;
           border-width: 1px 1px 1px 0;
-          background: -webkit-linear-gradient(left, white, #eeeeee);
-          background: -moz-linear-gradient(left, white, #eeeeee);
-          background: -o-linear-gradient(left, white, #eeeeee);
-          background: linear-gradient(to left, #eeeeee, white); }
+          background: -webkit-linear-gradient(left, #FFF, #EEE);
+          background: -moz-linear-gradient(left, #FFF, #EEE);
+          background: -o-linear-gradient(left, #FFF, #EEE);
+          background: linear-gradient(to left, #EEE, #FFF); }
     .tabs.to-right .tab-content {
       float: left;
       width: 85%;
@@ -1009,7 +1007,7 @@ li.block-img, .theater .theater-links li {
   max-width: 150px; }
 
 .accordeon .ac-section {
-  border: 1px solid #bbbbbb;
+  border: 1px solid #BBB;
   position: relative;
   padding: 0px 20px;
   margin: 3px auto;
@@ -1019,18 +1017,18 @@ li.block-img, .theater .theater-links li {
     padding: 5px 0px;
     cursor: pointer; }
   .accordeon .ac-section .ac-body {
-    border-top: 1px solid #bbbbbb;
+    border-top: 1px solid #BBB;
     padding: 0;
     display: none; }
   .accordeon .ac-section:hover {
-    border: 1px solid #777777;
+    border: 1px solid #777;
     background: #EEE; }
   .accordeon .ac-section.active {
     background: #FFF; }
     .accordeon .ac-section.active .ac-body {
       display: block; }
     .accordeon .ac-section.active:hover {
-      border: 1px solid #bbbbbb;
+      border: 1px solid #BBB;
       background: inherit; }
 
 .dropdown {
@@ -1042,7 +1040,7 @@ li.block-img, .theater .theater-links li {
       height: 0;
       border-style: solid;
       border-width: 5px 5px 0 5px;
-      border-color: #333333 transparent transparent transparent;
+      border-color: #333 transparent transparent transparent;
       position: absolute;
       content: "";
       display: block;
@@ -1056,7 +1054,7 @@ div.dropdown-content {
 .dropdown-content {
   display: none;
   position: absolute;
-  border: 1px solid #bbbbbb;
+  border: 1px solid #BBB;
   margin-top: 2px;
   left: 5px;
   background: #FFF;
@@ -1078,7 +1076,7 @@ div.dropdown-content {
     height: 0;
     border-style: solid;
     border-width: 0 5px 5px 5px;
-    border-color: transparent transparent white transparent;
+    border-color: transparent transparent #FFF transparent;
     z-index: 2;
     left: 12px;
     top: 1px; }
@@ -1087,7 +1085,7 @@ div.dropdown-content {
     height: 0;
     border-style: solid;
     border-width: 0 6px 6px 6px;
-    border-color: transparent transparent #bbbbbb transparent;
+    border-color: transparent transparent #BBB transparent;
     top: 0px;
     left: 11px; }
   .dropdown-content::before, .dropdown-content::after {
@@ -1097,7 +1095,7 @@ div.dropdown-content {
     margin-top: -0.38em; }
 
 footer {
-  border-top: 1px solid #bbbbbb; }
+  border-top: 1px solid #BBB; }
   footer.large {
     background: #EEE;
     min-height: 200px;

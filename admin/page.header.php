@@ -11,6 +11,7 @@ $title = isset($title)?$title:'Ebrid Maquette';
     <meta charset="UTF-8">
     <title><?php echo $title ?> | Administration</title>
     <link rel="stylesheet" href="css/leaframe.min.css" />
+    <link rel="stylesheet" href="css/main-custom.css" />
     <script src="js/jquery.js"></script>
     <script src="js/leaframe.min.js"></script>
 </head>

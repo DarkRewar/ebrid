@@ -1,0 +1,37 @@
+.area-write-zone{
+    height: 300px;
+}
+.title-zone{
+    font-size: 1.8em;
+}
+
+/** Special Block */
+.special-block{
+    margin: 5px auto;
+}
+.special-block>*{
+    border-color: #AAA;
+    border-style: solid;
+    border-width: 0 1px;
+}
+.special-block>*:first-child{
+    border-width: 1px 1px 0 1px;
+    border-radius: 5px 5px 0 0;
+    padding: 3px;
+    background: #EEE;
+    padding: 1px 8px;
+    box-shadow: inset 0 1px 0 0 #FFF;
+}
+.special-block>*:last-child{
+    border-width: 0 1px 1px 1px;
+    border-radius: 0 0 5px 5px;
+    padding: 3px;
+    background: #EEE;
+    padding: 5px 5px;
+    box-shadow: inset 0 -2px 1px -1px #BBB;
+}
+.special-block>section{
+    padding: 4px 10px;
+    max-height: 300px;
+    overflow-x: auto;
+}

@@ -39,23 +39,28 @@ class BlogRevision extends BlogArticle
                     $this->status = $a['status'];
                 }
             }else if( isset($ida) && parent::_exist($ida) ){
+                var_dump("$idr");
                 parent::__construct($ida);
-                $req = "SELECT COUNT(1) FROM blog_revision WHERE ida = '$ida'";
+                $req = "SELECT idr 
+                    FROM blog_revision 
+                    WHERE ida = '$ida'
+                    ORDER BY idr DESC
+                    LIMIT 0,1";
                 $this->idr = intval(Database::_selectOne($req))+1;
                 $this->setIda($ida);
                 $this->idc = 0;
                 $this->uid = 0;
-                $this->title = 0;
-                $this->content = 0;
-                $this->date = 0;
+                $this->title = null;
+                $this->content = null;
+                $this->date = date();
                 $this->status = 0;
             }else{
                 $this->idr = 1;
                 $this->setIda(0);
                 $this->idc = 0;
                 $this->uid = 0;
-                $this->title = 0;
-                $this->content = 0;
+                $this->title = null;
+                $this->content = null;
                 $this->date = 0;
                 $this->status = 0;
             }      
@@ -64,8 +69,8 @@ class BlogRevision extends BlogArticle
             $this->setIda(0);
             $this->idc = 0;
             $this->uid = 0;
-            $this->title = 0;
-            $this->content = 0;
+            $this->title = null;
+            $this->content = null;
             $this->date = 0;
             $this->status = 0;
         }        
@@ -152,6 +157,7 @@ class BlogRevision extends BlogArticle
     }
 
     public function insertRevision(){
+        $this->pushCategories();
         $req = "INSERT INTO blog_revision(
                 idr
                 , ida
@@ -208,9 +214,11 @@ class BlogRevision extends BlogArticle
             $revision = new BlogRevision();
             $revision->generateArticle($post['uid']);
         }
+
+        if(isset($post['categories']))
+            $revision->setCategories($post['categories']);       
         
         $revision->generateRevision($post);
-
         $revision->insertRevision();
 
         return $revision;

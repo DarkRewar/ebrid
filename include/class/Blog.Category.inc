@@ -182,7 +182,7 @@ class BlogCategory
         return false;
     }
 
-     public static function afficherDerniereCategories()
+    public static function afficherDerniereCategories()
     {   
         echo '<p>Les 10 dernières categories: </p>';
 
@@ -202,6 +202,22 @@ class BlogCategory
         }
     }
 
-    
+    /**
+     *  Get in a big array, the tree of all categories
+     *
+     *  @param int $id the id of the parent category
+     *  @return array
+     *  @since 0.1
+     */
+    static public function _getTree($id = 0){
+        $req = "SELECT * FROM blog_category WHERE idc_parent = '$id'";
+        $array = array();
 
+        foreach (Database::_query($req) as $k => $v) {
+            $v['leafs'] = self::_getTree($v['idc']);
+            $array[] = $v;
+        }
+
+        return $array;
+    }
 }

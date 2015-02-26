@@ -26,18 +26,24 @@ function is_request($file){
  *  Redirect user to a page
  *
  *  @param string $page name page
+ *  @param boolean $custom set TRUE if you want to redirect
+ *                         to a custom location
  *  @since 0.1
  */
-function redirect($str = null){
-    $r = array(
-        'admin-panel' => "/admin/",
-        'login' => '/admin/login.php'
-    );
+function redirect($str = null, $custom = false){
+    if($custom){
+        header("Location: ".$str);
+    }else{
+        $r = array(
+            'admin-panel' => "/admin/",
+            'login' => '/admin/login.php'
+        );
 
-    if(isset($r[$str]))
-        header("Location: ".$r[$str]);
-    else{
-        header("Location: /");
+        if(isset($r[$str]))
+            header("Location: ".$r[$str]);
+        else{
+            header("Location: /");
+        }
     }
 }
 
