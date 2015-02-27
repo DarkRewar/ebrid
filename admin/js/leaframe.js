@@ -189,16 +189,15 @@ if (typeof jQuery !== 'undefined') {
         }, function() {
             $(this).drop();
         });
-        $('.message .close').click(function() {
-            $(this).parent('.message').fadeOut(500, function() {
-                $(this).remove();
-            });
-        });
         $('[data-modal]').click(function() {
             var id = '#' + $(this).attr('data-modal');
             $(id).modal();
         });
-        $('body').on('click', function(e){
+        $('body').on('click', '.message .close', function(){
+            $(this).parent('.message').fadeOut(500, function() {
+                $(this).remove();
+            });
+        }).on('click', function(e){
             $('.dropdown-content').hide();
         }).on('click', '.modal .close', function() {
             $(this).parent('.modal').modal();

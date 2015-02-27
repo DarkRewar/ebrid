@@ -89,7 +89,7 @@ tinymce.init({
             <?php if(edit_mode()): ?>
                 <article class="special-block">
                     <header>
-                        <h4 class="heading">Liste des dernières révisions</h4>
+                        <h4>Liste des dernières révisions</h4>
                     </header>
                     <section>
                         <ul class="classic">
@@ -116,22 +116,33 @@ tinymce.init({
                     <?php draw_tree_category($categories) ?>
                 </section>
                 <footer>
-                    <button class="info" data-modal="add-category">Ajouter une catégorie</button> 
-                    <div id="add-category" class="modal"> 
-                        <a class="close">×</a> 
-                        <h1>Ajouter une catégorie</h1>
-                        <input type="text" name="cat-name" id="cat-name" class="" placeholder="Nom de la catégorie" value="" />
-                        <textarea name="cat-desc" placeholder="(Optionnel) Description de la catégorie"></textarea>
-                        <p>
-                            Catégorie Parente
-                            <select name="cat-list">
-                                <option value="0">-- Catégorie Parente --</option>
-                            </select>
-                        </p>
-                    </div>
+                    <button class="info" data-modal="add-category">Ajouter une catégorie</button>                    
                 </footer>
             </article>
         </div>
+    </form>
+</div>
+<div id="add-category" class="modal"> 
+    <a class="close">×</a> 
+    <h1>Ajouter une catégorie</h1>
+    <form action="" method="post" id="add_new_category">
+        <input type="text" name="cat-name" id="cat-name" class="" placeholder="Nom de la catégorie" value="" />
+        <textarea name="cat-desc" placeholder="(Optionnel) Description de la catégorie"></textarea>
+        <p>
+            Catégorie Parente
+            <?php draw_list_category(array(
+                "container" => array(
+                    "markup" => "select",
+                    "name" => "cat-parent"
+                ),
+                "list" => array(
+                    "markup" => "option",
+                    "value" => "#idc#",
+                    "content" => "#name#"
+                )
+            )); ?>
+        </p>
+        <input type="submit" name="cat-send" id="cat-send" class="button info" placeholder="" value="Ajouter" />
     </form>
 </div>
 

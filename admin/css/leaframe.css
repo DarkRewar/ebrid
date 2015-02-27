@@ -769,14 +769,14 @@ select, textarea {
   left: auto;
   right: 0; }
 
-a.close, .theater .theater-scene a.close {
+.message a.close, .message .theater .theater-scene a.close, .theater .theater-scene .message a.close {
   content: "&times;";
   position: absolute;
   right: 0;
   margin-right: 10px;
   cursor: pointer;
   color: #111; }
-  a.close:hover, .theater .theater-scene a.close:hover {
+  .message a.close:hover {
     text-decoration: none;
     color: #FFF;
     text-shadow: 0 0 2px #000; }

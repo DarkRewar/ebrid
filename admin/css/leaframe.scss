@@ -1021,20 +1021,23 @@ select,textarea{
     }
 }
 
-a.close{
-    content: "&times;";
-    position: absolute;
-    right: 0;
-    margin-right: 10px;
-    cursor: pointer;
-    color: #111;
+.message{
+    a.close{
+        content: "&times;";
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+        cursor: pointer;
+        color: #111;
 
-    &:hover{
-        text-decoration: none;
-        color: #FFF;
-        text-shadow: 0 0 2px #000;
+        &:hover{
+            text-decoration: none;
+            color: #FFF;
+            text-shadow: 0 0 2px #000;
+        }
     }
 }
+
 
 .message{
     display: block;

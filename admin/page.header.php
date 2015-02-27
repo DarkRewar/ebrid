@@ -14,6 +14,7 @@ $title = isset($title)?$title:'Ebrid Maquette';
     <link rel="stylesheet" href="css/main-custom.css" />
     <script src="js/jquery.js"></script>
     <script src="js/leaframe.min.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
 </head>
 
 <body>
