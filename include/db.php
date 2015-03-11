@@ -6,7 +6,6 @@
  *  @package Ebrid
  */
 
-require "Database.class.php";
 session_start();
 
 define('EBRIDPATH', dirname(dirname(__FILE__)));
