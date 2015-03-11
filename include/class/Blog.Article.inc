@@ -234,6 +234,13 @@ class BlogArticle {
         $this->uid = $uid;
         $this->insertArticle();
     }
+    public function activate(){
+        $req = "UPDATE blog_article
+                SET  status = '0'
+                WHERE ida = '" . $this->ida . "'";
+        $res = Database::_exec($req);
+        return $this;
+    }
     static public function _exist($u = null)
     {
         if (!is_null($u))
@@ -266,9 +273,14 @@ class BlogArticle {
                 FROM blog_revision br, user u
                 WHERE br.ida = '$ida'
                 AND u.uid = br.uid
-                ORDER BY br.idr DESC";
+                ORDER BY br.idr DESC"; 
             $list = Database::_query($req);
         }
         return $list;
+    }
+
+    static public function _activate($ida){
+        $a = new BlogArticle($ida);
+        $a->activate();
     }
 }
