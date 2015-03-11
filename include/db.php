@@ -21,3 +21,6 @@ if(!is_null(Database::_lastError())){
         add_error($_messages, Database::_lastError()->getMessage());
     }
 }
+
+# Theme Active
+define('THEME', 'default');
