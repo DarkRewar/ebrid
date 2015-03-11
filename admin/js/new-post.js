@@ -9,8 +9,11 @@ function checkParent(id){
 
 function checkSons(id){
     $('input[data-parent="'+id+'"]').prop('checked', false);
-    if($('input[data-parent="'+id+'"]').data('parent') > 0)
-        checkSons($('input[data-parent="'+id+'"]').val());
+    if($('input[data-parent="'+id+'"]').length > 0){
+        $.each($('input[data-parent="'+id+'"]'), function(key, val){
+            checkSons(val.value);
+        });
+    }
 }
 
 $(document).ready(function(){

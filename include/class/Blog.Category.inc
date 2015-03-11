@@ -16,9 +16,9 @@ class BlogCategory
     {
         if(self::_exist($idc)) {
             if (is_numeric($idc)) {
-                $req = "SELECT * FROM forum WHERE id = '$idf'";
+                $req = "SELECT * FROM blog_category WHERE id = '$idf'";
             }else {
-                            $req = "SELECT * FROM forum WHERE nom = '$idf'";
+                $req = "SELECT * FROM blog_category WHERE name = '$idf'";
             }
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
             while($a = mysqli_fetch_assoc($res)){
