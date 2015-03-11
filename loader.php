@@ -6,8 +6,10 @@
  *  @package Ebrid
  */
 
-require( dirname(__FILE__) . '/include/loader.function.php' );
-require( dirname(__FILE__) . '/include/loader.class.php' );
-require( dirname(__FILE__) . '/include/db.php' );
+require( dirname(__FILE__) . '/settings.php' );
+require( EBRIDINC . '/loader.function.php' );
+require( EBRIDINC . '/loader.class.php' );
 
-require_once( dirname(__FILE__) . '/include/instantiate.php' );
+require_once( EBRIDINC . '/instantiate.php' );
+
+get_page_theme();

@@ -166,3 +166,18 @@ function checkInt($int){
     elseif(!preg_match("#^[\d]+$#", $int)) return false;
     return true;
 }
+
+function draw_site_name(){
+    echo 'SiteName';
+}
+
+/**
+ *  Get the page theme
+ *
+ *  @param int nom info
+ *  @since 0.1
+ */
+function get_page_theme(){
+    global $theme;
+    include( $theme->getPath() . '/index.php' );
+}

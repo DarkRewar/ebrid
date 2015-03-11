@@ -20,3 +20,5 @@ require( dirname(__FILE__) . '/class/Forum.Message.inc');
 require( dirname(__FILE__) . '/class/Forum.Revision.inc');
 
 require( dirname(__FILE__) . '/class/User.inc');
+
+require( dirname(__FILE__) . '/class/Ebrid.Theme.inc');
