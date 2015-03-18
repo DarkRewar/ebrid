@@ -171,6 +171,34 @@ class BlogCategory
             )";
         return Database::_exec($req);
     }
+
+    /**
+    *   Delete the Name and the Description in the DB
+    *
+    *  @return bool
+    *  @since 0.1
+    */
+    public function delete()
+    {   
+        Database::_beginTransaction();
+        $req = "DELETE FROM 'blog_category';
+                WHERE idc_parent = '".$this->idcParent."'; 
+                AND idc = idcParent";
+        Database::_exec($req);
+
+        $req2 = "DELETE FROM 'blog_category';
+                WHERE idc = '".$this->idc."'";
+        Database::_exec($req2);
+
+        if(!Database::_exec($req)){
+            Database::_rollBack();
+        }elseif(!Database::_exec($req2)){
+            Database::_rollBack();
+        }else{
+            Database::_commit();
+        }
+
+    }
     /**
     *  Generate a category with the POST form
     *
