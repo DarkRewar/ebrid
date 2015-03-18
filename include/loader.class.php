@@ -5,7 +5,6 @@
  *
  *  @package Ebrid
  */
-
 require( dirname(__FILE__) . '/lib/Database.class.php');
 
 require( dirname(__FILE__) . '/class/Blog.Article.inc');
