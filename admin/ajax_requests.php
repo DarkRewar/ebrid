@@ -9,6 +9,10 @@ if(isset($_POST['requested'])){
     }else if($_POST['requested'] == "activeArticle"){
         BlogArticle::_activate($_POST['id']);
         echo "true";
+    }
+    else if($_POST['requested'] == "desactiveArticle"){
+        BlogArticle::_desactivate($_POST['id']);
+        echo "true";
     }else{
         echo json_encode(array("e"=>"error","message"=>"You can't access to this page"));
     }

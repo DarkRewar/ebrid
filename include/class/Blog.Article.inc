@@ -221,6 +221,11 @@ class BlogArticle {
         return Database::_exec($req);
     }
 
+    /**
+    * Insert data in database
+    *
+    *@since 0.1
+    */
     public function insertArticle()
     {
         $req = "INSERT INTO blog_article(date, uid, status) VALUES (NOW(), '".$this->uid."', '".$this->status."')";
@@ -230,17 +235,78 @@ class BlogArticle {
         }
         return $this;
     }
+
+    /**
+    * Generate an article
+    * @since 0.1
+    *
+    */
+
     public function generateArticle($uid){
         $this->uid = $uid;
         $this->insertArticle();
     }
+
+    /**
+    * Modify the data champ status to 1
+    *
+    *@since 0.1
+    */
+
     public function activate(){
+        $req = "UPDATE blog_article
+                SET  status = '1'
+                WHERE ida = '" . $this->ida . "'";
+        $res = Database::_exec($req);
+        return $this;
+    }
+
+    /**
+    * Modify the data champ status to 0
+    *
+    *@since 0.1
+    */
+
+    public function desactivate(){
         $req = "UPDATE blog_article
                 SET  status = '0'
                 WHERE ida = '" . $this->ida . "'";
         $res = Database::_exec($req);
         return $this;
     }
+
+    /**
+    *
+    * Delete an article with his comments
+    *
+    *@since 0.1
+    */
+    public function deleteArticle(){
+        Database::_beginTransaction();
+
+        $req = "DELETE FROM 'blog_article'
+                WHERE ida = '".$this->ida."'";
+        Database::_exec($req);
+
+        $req1 = "DELETE FROM 'blog_article_category'
+                 WHERE ida='".$this->ida."'";
+        Database::_exec($req1);
+
+        if(!Database::_exec($req)){
+            Database::_rollBack();
+        } elseif (!Database::_exec($req1)) {
+            Database::_rollBack();
+        } else {
+            Database::_commit();
+        }
+    }
+
+    /**
+    *
+    * Verify in database if an article exist or not
+    *
+    *@since 0.1
+    */
     static public function _exist($u = null)
     {
         if (!is_null($u))
@@ -254,6 +320,12 @@ class BlogArticle {
         }
         return false;
     }
+    /**
+    *
+    *Search and order the article with revisions
+    *
+    *@since 0.1
+    */
     static public function _getArticles(){
         $req = "SELECT ba.ida, (SELECT title FROM blog_revision br WHERE br.ida = ba.ida ORDER BY idr DESC LIMIT 0,1) title
             FROM blog_article ba
@@ -261,11 +333,26 @@ class BlogArticle {
             LIMIT 0,5";
         return Database::_query($req);
     }
+
+    /**
+    *
+    * Search the last revision of the article choosen
+    *
+    *@since 0.1
+    */
     static public function _getLastRevision($ida){
         $req = "SELECT idr FROM blog_revision WHERE ida = '$ida' ORDER BY idr DESC LIMIT 0,1";
         $revision = new BlogRevision(array('ida'=>$ida, 'idr'=>Database::_selectOne($req)));
         return $revision;
     }
+
+    /**
+    *
+    *Search all revisions with date and user's name
+    *@return array
+    *
+    *@since 0.1
+    */
     static public function _getRevisions($ida, $param = array()){
         $list = array();
         if(self::_exist($ida)){
@@ -279,8 +366,34 @@ class BlogArticle {
         return $list;
     }
 
+    /**
+    *
+    * Create a new blogArticle and use the function activate
+    *@param $ida
+    *
+    *@since 0.1
+    */
     static public function _activate($ida){
         $a = new BlogArticle($ida);
         $a->activate();
     }
+
+    /**
+    *
+    *Create a new BlogArticle ans use the function desactivate
+    *@param $ida
+    *
+    *@since 0.1
+    */
+    static public function _desactivate($ida){
+        $a = new BlogArticle($ida);
+        $a->desactivate();
+    }
+
+    static public function _deleteArticle($ida){
+        $a = new BlogArticle($ida);
+        $a->deleteArticle();
+    }
+
+
 }
