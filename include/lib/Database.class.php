@@ -3,7 +3,7 @@
 /**
  *  Class Description
  *
- *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+ * @author Curtis Pelissier <curtis.pelissier@laposte.net>
  */
 class Database extends PDO
 {
@@ -14,7 +14,7 @@ class Database extends PDO
     /**
      *  Constructeur
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      */
     public function __construct()
     {
@@ -32,9 +32,9 @@ class Database extends PDO
     /**
      *  Initialise la classe Database
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @return bool
+     * @return bool
      */
     static public function _init(){
         self::$db = new Database();
@@ -44,9 +44,9 @@ class Database extends PDO
     /**
      *  Get the last error
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @return mixed
+     * @return mixed
      */
     static public function _lastError(){
         return self::$error;
@@ -62,10 +62,10 @@ class Database extends PDO
      *  $sql = "SELECT * FROM user";
      *  $result = Database::_query($sql);
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @param string $req la requete SQL
-     *  @return mixed
+     * @param string $req la requete SQL
+     * @return mixed
      */
     static public function _query($sql = ""){
         self::$last = self::$db->query($sql);
@@ -83,10 +83,10 @@ class Database extends PDO
      *  $sql = "SELECT count(1) FROM user";
      *  $result = Database::_query($sql);
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @param string $req la requete SQL
-     *  @return mixed
+     * @param string $req la requete SQL
+     * @return mixed
      */
     static public function _selectOne($sql = ""){
         self::$last = self::$db->query($sql);
@@ -106,9 +106,9 @@ class Database extends PDO
      *  Fonction qui récupère l'id de la dernière
      *  insertion en DB.
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @return int
+     * @return int
      */
     static public function _lastInsertId(){
         return self::$db->lastInsertId();
@@ -118,10 +118,10 @@ class Database extends PDO
      *  Exec function, permet d'executer une requete
      *
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @param string $sql la requete sql
-     *  @return int
+     * @param string $sql la requete sql
+     * @return int
      */
     static public function _exec($sql){
         self::$last = self::$db->exec($sql);
@@ -130,11 +130,11 @@ class Database extends PDO
 
     /**
      *  BeginTransaction
-     *  @see http://php.net/manual/fr/pdo.begintransaction.php
+     * @see http://php.net/manual/fr/pdo.begintransaction.php
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @return bool
+     * @return bool
      */
     static public function _beginTransaction(){
         return self::$db->beginTransaction();
@@ -142,11 +142,11 @@ class Database extends PDO
 
     /**
      *  Commit
-     *  @see http://php.net/manual/fr/pdo.commit.php
+     * @see http://php.net/manual/fr/pdo.commit.php
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @return bool
+     * @return bool
      */
     static public function _commit(){
         return self::$db->commit();
@@ -154,11 +154,11 @@ class Database extends PDO
 
     /**
      *  RollBack
-     *  @see http://php.net/manual/fr/pdo.rollback.php
+     * @see http://php.net/manual/fr/pdo.rollback.php
      *
-     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     *  @return bool
+     * @return bool
      */
     static public function _rollBack(){
         return self::$db->rollBack();
