@@ -1,0 +1,9 @@
+.header-blog{
+    background: #EEE;
+    box-shadow: inset 0px -4px 7px -6px #000;
+}
+h1.big-title{
+    font-size: 5em;
+    text-align: center;
+    padding: 130px 0;
+}
