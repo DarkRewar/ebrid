@@ -3,6 +3,8 @@
 /**
  *  Class Article
  *
+ *  @package Ebrid
+ *  @since 0.1
  */
 class BlogArticle
 {
@@ -14,6 +16,12 @@ class BlogArticle
     private $url;
     private $categories;
     
+    /**
+     *  Constructor
+     *
+     *  @param int $ida the ID of the article
+     *  @since 0.1
+     */
     function __construct($ida = 0) {
         $this->categories = array();
         

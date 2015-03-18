@@ -8,12 +8,10 @@
  */
 
 /**
- *  Function which draws stylesheet ou scripts
- *
- *  @param string $type the type of drawing
- *  @param mixed $value the value in the draw container
- *
- *  @since 0.1
+ * Function which draws stylesheet ou scripts
+ * @param  string  $type   the type of drawing
+ * @param  mixed   $value  the value in the draw container
+ * @since 0.1
  */
 function _draw($type, $value){
     switch ($type) {
