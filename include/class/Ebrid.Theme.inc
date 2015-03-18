@@ -7,6 +7,7 @@ class EbridTheme
 {
     private $name;
     private $path;
+    private $pathRaw = '/display/themes/';
     private $info;
 
     public function __construct($name, $path = null)
@@ -28,13 +29,16 @@ class EbridTheme
 
     /**
      *  Get the real path of the theme
-     *
-     *  
+     **
+     *  @param bool $raw get the raw path or not
      *  @return string
      *  @since 0.1
      */
-    public function getPath(){
-        return $this->path . $this->name;
+    public function getPath($raw = false){
+        if($raw)
+            return $this->pathRaw . $this->name;
+        else
+            return $this->path . $this->name;
     }
 
     /**

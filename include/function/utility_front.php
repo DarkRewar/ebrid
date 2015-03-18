@@ -167,6 +167,11 @@ function checkInt($int){
     return true;
 }
 
+/**
+ *  Draw the name of the web site
+ *  
+ *  @since 0.1
+ */
 function draw_site_name(){
     echo 'SiteName';
 }
@@ -180,4 +185,39 @@ function draw_site_name(){
 function get_page_theme(){
     global $theme;
     include( $theme->getPath() . '/index.php' );
+}
+
+/**
+ *  Draw the framework CSS that Ebrid has
+ *
+ *  @param string $name The name of the framework
+ *
+ *  @since 0.1
+ */
+function use_ebrid_css($name = "leaframe"){
+    switch ($name) {
+        case 'bootstrap':
+            _draw('style', '/display/css/bootstrap/bootstrap.min.css');
+            _draw('style', '/display/css/bootstrap/bootstrap-responsive.min.css');
+            break;
+        case 'foundation':              
+            _draw('style', '/display/css/foundation/foundation.min.css');
+            _draw('style', '/display/css/foundation/normalize.min.css');
+            break;
+        default:
+            _draw('style', '/display/css/leaframe/leaframe.min.css');
+            break;
+    }
+}
+
+/**
+ *  Get the path of the active theme
+ *
+ *  
+ *  @return string
+ *  @since 0.1
+ */
+function theme_path(){
+    global $theme;
+    return $theme->getPath(true);
 }
