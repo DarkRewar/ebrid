@@ -224,7 +224,7 @@ class BlogArticle {
     /**
     * Insert data in database
     *
-    *@since 0.1
+    * @since 0.1
     */
     public function insertArticle()
     {
@@ -250,7 +250,7 @@ class BlogArticle {
     /**
     * Modify the data champ status to 1
     *
-    *@since 0.1
+    * @since 0.1
     */
 
     public function activate(){
@@ -264,7 +264,7 @@ class BlogArticle {
     /**
     * Modify the data champ status to 0
     *
-    *@since 0.1
+    * @since 0.1
     */
 
     public function desactivate(){
@@ -279,7 +279,7 @@ class BlogArticle {
     *
     * Delete an article with his comments
     *
-    *@since 0.1
+    * @since 0.1
     */
     public function deleteArticle(){
         Database::_beginTransaction();
@@ -305,7 +305,7 @@ class BlogArticle {
     *
     * Verify in database if an article exist or not
     *
-    *@since 0.1
+    * @since 0.1
     */
     static public function _exist($u = null)
     {
@@ -324,7 +324,7 @@ class BlogArticle {
     *
     *Search and order the article with revisions
     *
-    *@since 0.1
+    * @since 0.1
     */
     static public function _getArticles(){
         $req = "SELECT ba.ida, (SELECT title FROM blog_revision br WHERE br.ida = ba.ida ORDER BY idr DESC LIMIT 0,1) title
@@ -338,7 +338,7 @@ class BlogArticle {
     *
     * Search the last revision of the article choosen
     *
-    *@since 0.1
+    * @since 0.1
     */
     static public function _getLastRevision($ida){
         $req = "SELECT idr FROM blog_revision WHERE ida = '$ida' ORDER BY idr DESC LIMIT 0,1";
@@ -349,9 +349,9 @@ class BlogArticle {
     /**
     *
     *Search all revisions with date and user's name
-    *@return array
+    * @return array
     *
-    *@since 0.1
+    * @since 0.1
     */
     static public function _getRevisions($ida, $param = array()){
         $list = array();
@@ -369,9 +369,9 @@ class BlogArticle {
     /**
     *
     * Create a new blogArticle and use the function activate
-    *@param $ida
+    * @param $ida
     *
-    *@since 0.1
+    * @since 0.1
     */
     static public function _activate($ida){
         $a = new BlogArticle($ida);
@@ -381,9 +381,9 @@ class BlogArticle {
     /**
     *
     *Create a new BlogArticle ans use the function desactivate
-    *@param $ida
+    * @param $ida
     *
-    *@since 0.1
+    * @since 0.1
     */
     static public function _desactivate($ida){
         $a = new BlogArticle($ida);
