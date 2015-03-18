@@ -7,17 +7,17 @@
  */
 require( dirname(__FILE__) . '/lib/Database.class.php');
 
-require( dirname(__FILE__) . '/class/Blog.Article.inc');
-require( dirname(__FILE__) . '/class/Blog.Category.inc');
-require( dirname(__FILE__) . '/class/Blog.Comment.inc');
-require( dirname(__FILE__) . '/class/Blog.Revision.inc');
+require( dirname(__FILE__) . '/class/Blog.Article.php');
+require( dirname(__FILE__) . '/class/Blog.Category.php');
+require( dirname(__FILE__) . '/class/Blog.Comment.php');
+require( dirname(__FILE__) . '/class/Blog.Revision.php');
 
-require( dirname(__FILE__) . '/class/Forum.Category.inc');
-require( dirname(__FILE__) . '/class/Forum.Forum.inc');
-require( dirname(__FILE__) . '/class/Forum.Topic.inc');
-require( dirname(__FILE__) . '/class/Forum.Message.inc');
-require( dirname(__FILE__) . '/class/Forum.Revision.inc');
+require( dirname(__FILE__) . '/class/Forum.Category.php');
+require( dirname(__FILE__) . '/class/Forum.Forum.php');
+require( dirname(__FILE__) . '/class/Forum.Topic.php');
+require( dirname(__FILE__) . '/class/Forum.Message.php');
+require( dirname(__FILE__) . '/class/Forum.Revision.php');
 
-require( dirname(__FILE__) . '/class/User.inc');
+require( dirname(__FILE__) . '/class/User.php');
 
-require( dirname(__FILE__) . '/class/Ebrid.Theme.inc');
+require( dirname(__FILE__) . '/class/Ebrid.Theme.php');
