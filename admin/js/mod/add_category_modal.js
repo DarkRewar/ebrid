@@ -45,7 +45,7 @@ if (typeof jQuery !== 'undefined') {
                     $('#box-msg-cat')
                         .removeClass('info')
                         .addClass('error')
-                        .html(getPathAJAX()+' is required but it dosen\'t exist.')
+                        .html(getPathAJAX()+' is required but it doesn\'t exist.')
                         .append(
                             $('<a />')
                                 .addClass('close')
