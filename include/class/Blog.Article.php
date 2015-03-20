@@ -1,8 +1,22 @@
 <?php
+/**
+ * Fichier Blog.Article.php
+ *
+ * PHP version 5
+ *
+ * @category Blog
+ * @package Ebrid
+ * @license http://opensource.org/licenses/MIT
+ * @link http://ebrid.lignusdev.com
+ * @since Version 0.1
+ */
 
 /**
- *  Class Article
+ * Class Article
  *
+ * @category Blog
+ * @package Ebrid
+ * @since Version 0.1
  */
 class BlogArticle
 {

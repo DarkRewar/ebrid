@@ -21,3 +21,4 @@ require( dirname(__FILE__) . '/class/Forum.Revision.php');
 require( dirname(__FILE__) . '/class/User.php');
 
 require( dirname(__FILE__) . '/class/Ebrid.Theme.php');
+require( dirname(__FILE__) . '/class/Ebrid.RewriteRule.php');

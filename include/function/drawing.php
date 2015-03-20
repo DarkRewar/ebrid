@@ -5,6 +5,8 @@
  * for the front end
  *
  * @package Ebrid
+ * @since Version 0.1
+ * @version Version 0.1
  */
 
 /**

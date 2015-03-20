@@ -1,16 +1,22 @@
 <?php
-
 /**
  * Fichier User.php
  *
+ * PHP version 5
+ *
+ * @category User
  * @package Ebrid
+ * @license http://opensource.org/licenses/MIT
+ * @link http://ebrid.lignusdev.com
+ * @since Version 0.1
  */
 
 /**
- * Class User
+ * Class Category
  *
+ * @category User
  * @package Ebrid
- *
+ * @since Version 0.1
  */
 class User
 {

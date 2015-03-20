@@ -1,8 +1,22 @@
 <?php
+/**
+ * Fichier Blog.Revision.php
+ *
+ * PHP version 5
+ *
+ * @category Blog
+ * @package Ebrid
+ * @license http://opensource.org/licenses/MIT
+ * @link http://ebrid.lignusdev.com
+ * @since Version 0.1
+ */
 
 /**
- *  Class Revision
+ * Class Revision
  *
+ * @category Blog
+ * @package Ebrid
+ * @since Version 0.1
  */
 class BlogRevision extends BlogArticle
 {

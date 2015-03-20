@@ -6,6 +6,7 @@
  * with an underscore before.
  *
  * @package Ebrid
+ * @since Version 0.1
  */
 
 /**
@@ -15,7 +16,7 @@
  * @param string $string
  * @param bool $reverse if you want to
  * @return string
- * @since 0.1
+ * @since Version 0.1
  */
 function _slash($string, $reverse = false) {
     if ($reverse) {
@@ -31,7 +32,7 @@ function _slash($string, $reverse = false) {
  *
  * @param string $str the string to hash
  * @return string
- * @since 0.1
+ * @since Version 0.1
  */
 function _sha4($str) {
     return hash('sha256', $str);

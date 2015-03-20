@@ -1,10 +1,23 @@
 <?php
-
 /**
- *  Class Topic
+ * Fichier Forum.Topic.php
  *
+ * PHP version 5
+ *
+ * @category Forum
+ * @package Ebrid
+ * @license http://opensource.org/licenses/MIT
+ * @link http://ebrid.lignusdev.com
+ * @since Version 0.1
  */
 
+/**
+ * Class Topic
+ *
+ * @category Forum
+ * @package Ebrid
+ * @since Version 0.1
+ */
 class ForumTopic extends ForumForum
 {
     private $idt;

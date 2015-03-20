@@ -1,9 +1,10 @@
 <?php
 
 /**
- *  Load all you need for the front panel
+ * Load all you need for the front panel
  *
- *  @package Ebrid
+ * @package Ebrid
+ * @since Version 0.1
  */
 
 require( dirname(__FILE__) . '/settings.php' );

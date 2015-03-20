@@ -1,8 +1,22 @@
 <?php
+/**
+ * Fichier Blog.Comment.php
+ *
+ * PHP version 5
+ *
+ * @category Blog
+ * @package Ebrid
+ * @license http://opensource.org/licenses/MIT
+ * @link http://ebrid.lignusdev.com
+ * @since Version 0.1
+ */
 
 /**
- *  Class Comment
+ * Class Comment
  *
+ * @category Blog
+ * @package Ebrid
+ * @since Version 0.1
  */
 class BlogComment extends BlogArticle
 {

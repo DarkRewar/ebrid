@@ -11,7 +11,7 @@
  *
  * @param string $log logs
  * @param string $message the error message
- * @since 0.1
+ * @since Version 0.1
  */
 function add_error(&$log, $message) {
     if (!is_array($log)) return;
@@ -27,7 +27,7 @@ function add_error(&$log, $message) {
  *
  * @param string $log logs
  * @param string $message the error message
- * @since 0.1
+ * @since Version 0.1
  */
 function add_success(&$log, $message) {
     if (!is_array($log)) return;
@@ -171,7 +171,7 @@ function draw_site_name() {
  * Get the page theme
  *
  * @param int nom info
- * @since 0.1
+ * @since Version 0.1
  */
 function get_page_theme() {
     global $theme;
@@ -183,7 +183,7 @@ function get_page_theme() {
  *
  * @param string $name The name of the framework
  *
- * @since 0.1
+ * @since Version 0.1
  */
 function use_ebrid_css($name = "leaframe") {
     switch ($name) {
@@ -208,7 +208,7 @@ function use_ebrid_css($name = "leaframe") {
  *
  *
  * @return string
- * @since 0.1
+ * @since Version 0.1
  */
 function theme_path() {
     global $theme;

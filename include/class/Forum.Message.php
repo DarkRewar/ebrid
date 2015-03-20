@@ -1,8 +1,22 @@
 <?php
+/**
+ * Fichier Forum.Message.php
+ *
+ * PHP version 5
+ *
+ * @category Forum
+ * @package Ebrid
+ * @license http://opensource.org/licenses/MIT
+ * @link http://ebrid.lignusdev.com
+ * @since Version 0.1
+ */
 
 /**
- *  Class ForumMessage
- *  @package Ebrid;
+ * Class Message
+ *
+ * @category Forum
+ * @package Ebrid
+ * @since Version 0.1
  */
 class ForumMessage extends ForumTopic
 {
