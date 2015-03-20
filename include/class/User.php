@@ -1,8 +1,14 @@
 <?php
 
 /**
+ * Fichier User.php
+ *
+ * @package Ebrid
+ */
+
+/**
  * Class User
- * @author Manu
+ *
  * @package Ebrid
  *
  */

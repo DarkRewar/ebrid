@@ -1,9 +1,28 @@
 <?php
 
 /**
- *  Class Description
+ * Fichier Database.class.php
  *
+ * PHP version 5
+ *
+ * @category Database
+ * @package Ebrid
  * @author Curtis Pelissier <curtis.pelissier@laposte.net>
+ * @license http://opensource.org/licenses/MIT
+ * @link http://ebrid.lignusdev.com
+ * @since Version 0.1
+ */
+
+/**
+ * Database est l'extension de PDO.
+ * Cette classe facilite l'accès à une base
+ * de donnée par l'intermédiaire de
+ * fonctions statiques.
+ *
+ * @category Database
+ * @package Ebrid
+ * @author Curtis Pelissier <curtis.pelissier@laposte.net>
+ * @since Version 0.1
  */
 class Database extends PDO
 {
@@ -12,7 +31,7 @@ class Database extends PDO
     static private $error = null;
 
     /**
-     *  Constructeur
+     * Constructeur
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      */
@@ -30,7 +49,7 @@ class Database extends PDO
     }
 
     /**
-     *  Initialise la classe Database
+     * Initialise la classe Database
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
@@ -42,7 +61,7 @@ class Database extends PDO
     }
 
     /**
-     *  Get the last error
+     * Get the last error
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
@@ -53,18 +72,18 @@ class Database extends PDO
     }
 
     /**
-     *  Fonction qui fait une requete donnée et 
-     *  retourne le résultat.
-     *  On doit inserer la requete SQL dans la
-     *  fonction en temps que paramètre.
+     * Fonction qui fait une requete donnée et 
+     * retourne le résultat.
+     * On doit inserer la requete SQL dans la
+     * fonction en temps que paramètre.
      *
-     *  Exemple: 
-     *  $sql = "SELECT * FROM user";
-     *  $result = Database::_query($sql);
+     * Exemple: 
+     * $sql = "SELECT * FROM user";
+     * $result = Database::_query($sql);
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     * @param string $req la requete SQL
+     * @param string $sql la requete SQL
      * @return mixed
      */
     static public function _query($sql = ""){
@@ -73,15 +92,15 @@ class Database extends PDO
     }
 
     /**
-     *  Fonction qui fait une requete donnée et 
-     *  retourne le résultat. Ce dernier sera
-     *  unique, d'où l'interet de la fonction.
-     *  On doit inserer la requete SQL dans la
-     *  fonction en temps que paramètre.
+     * Fonction qui fait une requete donnée et 
+     * retourne le résultat. Ce dernier sera
+     * unique, d'où l'interet de la fonction.
+     * On doit inserer la requete SQL dans la
+     * fonction en temps que paramètre.
      *
-     *  Exemple: 
-     *  $sql = "SELECT count(1) FROM user";
-     *  $result = Database::_query($sql);
+     * Exemple: 
+     * $sql = "SELECT count(1) FROM user";
+     * $result = Database::_query($sql);
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
@@ -103,8 +122,8 @@ class Database extends PDO
     }
 
     /**
-     *  Fonction qui récupère l'id de la dernière
-     *  insertion en DB.
+     * Fonction qui récupère l'id de la dernière
+     * insertion en DB.
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
@@ -115,7 +134,7 @@ class Database extends PDO
     }
 
     /**
-     *  Exec function, permet d'executer une requete
+     * Exec function, permet d'executer une requete
      *
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
@@ -129,7 +148,7 @@ class Database extends PDO
     }
 
     /**
-     *  BeginTransaction
+     * BeginTransaction
      * @see http://php.net/manual/fr/pdo.begintransaction.php
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
@@ -141,7 +160,7 @@ class Database extends PDO
     }
 
     /**
-     *  Commit
+     * Commit
      * @see http://php.net/manual/fr/pdo.commit.php
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
@@ -153,7 +172,7 @@ class Database extends PDO
     }
 
     /**
-     *  RollBack
+     * RollBack
      * @see http://php.net/manual/fr/pdo.rollback.php
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>

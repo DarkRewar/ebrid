@@ -1,10 +1,5 @@
-AddDefaultCharset UTF-8
-Options +FollowSymlinks
-RewriteEngine On
-
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php   [L]
+# Fixes a vulnerability in CentOS: http://stackoverflow.com/questions/20533279/prevent-php-from-parsing-non-php-files-such-as-somefile-php-txt
+<FilesMatch \.php\.txt$>
+    RemoveHandler .php
+    ForceType text/plain
+</FilesMatch>
