@@ -21,7 +21,8 @@ get_header_admin("Ecrire un article");
 $infos = array(
     'title' => null,
     'content' => null,
-    'categories' => array()
+    'categories' => array(),
+    'url' => null
 );
 
 if(edit_revision()){
@@ -29,16 +30,16 @@ if(edit_revision()){
         'ida' => $_GET['article']
         , 'idr' => $_GET['revision']
     ));
-
-    $infos['title'] = $revision->getTitle();
-    $infos['content'] = $revision->getContent();
-    $infos['categories'] = $revision->getCategories();
 }elseif(edit_mode()){
-    $lastRevision = BlogArticle::_getLastRevision($_GET['article']);
-    $infos['title'] = $lastRevision->getTitle();
-    $infos['content'] = $lastRevision->getContent();
-    $infos['categories'] = $lastRevision->getCategories();
+    $revision = BlogArticle::_getLastRevision($_GET['article']);
+}else{
+    $revision = new BlogRevision();
 }
+
+$infos['title'] = $revision->getTitle();
+$infos['content'] = $revision->getContent();
+$infos['categories'] = $revision->getCategories();
+$infos['url'] = $revision->getUrl();
 
 if(isset($_POST['article_post']) && form_new_post($_POST)){
     unset($_POST['article_post']);
@@ -72,7 +73,7 @@ tinymce.init({
         <div class="col l-range-9 s-range-12">
             
             <input type="text" class="title-zone" name="article_title" id="article_title" placeholder="Titre de votre article" value="<?php echo $title ?>" />
-            
+            <span class="permalink-preview">Permalink: <b><?php _permalink($revision) ?></b></span>
             <textarea name="article_content" id="article_content" class="area-write-zone" placeholder="Ecrivez le contenu de votre article"><?php echo $content ?></textarea>    
             
             <div class="row">

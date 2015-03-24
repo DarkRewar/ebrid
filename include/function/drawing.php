@@ -11,6 +11,7 @@
 
 /**
  * Function which draws stylesheet ou scripts
+ *
  * @param  string  $type   the type of drawing
  * @param  mixed   $value  the value in the draw container
  * @since 0.1
@@ -28,4 +29,17 @@ function _draw($type, $value) {
         default:
             break;
     }
+}
+
+/**
+ * Draw the real permalink of an article
+ *
+ * @param string $revision all informations you need
+ *                         to draw the permalink
+ * @since Version 0.1
+ */
+function _permalink($revision){
+    $permalink = 'http://'.$_SERVER['SERVER_NAME'].'/';
+    $permalink.= $revision->getUrl();
+    echo $permalink;
 }

@@ -170,12 +170,41 @@ function draw_site_name() {
 /**
  * Get the page theme
  *
- * @param int nom info
  * @since Version 0.1
  */
 function get_page_theme() {
-    global $theme;
-    include ($theme->getPath() . '/index.php');
+    global $theme, $rewrite;
+
+    $curUrl = get_current_url();
+    $args_query = $rewrite->getArguments($curUrl);
+    $typePage = get_page_type($curUrl);
+
+    if($typePage == 'home'){
+        include ($theme->getPath() . '/index.php');
+    }elseif(count($args_query) == 0){
+        include ($theme->getPath() . '/404.php');
+    }else{
+        include ($theme->getPath() . '/index.php');
+    }
+}
+
+/**
+ * Get the type of the page
+ * (if its a homepage, article,
+ * forum, others...)
+ *
+ * @param string $currentUrl the current Url
+ * @return string
+ * @since Version 0.1
+ */
+function get_page_type($currentUrl){
+    if(preg_match("#^/$#", $currentUrl)){
+        return "home";
+    }elseif(preg_match("#^forum/#", $currentUrl)){
+        return "forum";
+    }else{
+        return "blog";
+    }
 }
 
 /**

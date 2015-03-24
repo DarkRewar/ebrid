@@ -4,13 +4,15 @@
  * Here are all functions to use for server
  *
  * @package Ebrid
+ * @since Version 0.1
+ * @version 0.1
  */
 
 /**
  * Check if the page called is on browser
  *
  * @return bool
- * @since 0.1
+ * @since Version 0.1
  */
 function is_request($file) {
     if (isset($_SERVER) && _slash($file) == _slash($_SERVER['SCRIPT_FILENAME'])) {
@@ -25,7 +27,7 @@ function is_request($file) {
  * @param string $page name page
  * @param boolean $custom set TRUE if you want to redirect
  *                        to a custom location
- * @since 0.1
+ * @since Version 0.1
  */
 function redirect($str = null, $custom = false) {
     if ($custom) {
@@ -49,7 +51,7 @@ function redirect($str = null, $custom = false) {
  *
  * @param string $str the page
  * @return bool
- * @since 0.1
+ * @since Version 0.1
  */
 function actual_page($str) {
     return $str == $_SERVER['REQUEST_URI'];
@@ -60,7 +62,7 @@ function actual_page($str) {
  *
  * @param string $str the element to take
  * @return mixed
- * @since 0.1
+ * @since Version 0.1
  */
 function get_session($str) {
     if (isset($_SESSION[$str])) {
@@ -74,7 +76,7 @@ function get_session($str) {
  *
  * @param string $id the element id to set
  * @param string $str the element to set
- * @since 0.1
+ * @since Version 0.1
  */
 function set_session($id, $str) {
     $_SESSION[$id] = $str;
@@ -86,9 +88,20 @@ function set_session($id, $str) {
  * If no one is connected, return empty class
  *
  * @return User
- * @since 0.1
+ * @since Version 0.1
  */
 function user_connected() {
     $uid = get_session('uid');
     return new User($uid);
+}
+
+/**
+ * Get the current $_REQUESTURI
+ *
+ * 
+ * @return string
+ * @since Version 0.1
+ */
+function get_current_url(){
+    return $_SERVER['REQUEST_URI'];
 }

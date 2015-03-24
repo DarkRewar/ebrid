@@ -14,22 +14,24 @@
             <h3 class="hide-for-ml s-range-12 col text-center"><?php draw_site_name() ?></h3>
         </div>
     </div>
-    <div class="main-section row">
-        <?php foreach(BlogArticle::_getArticles() as $v): ?>
-            <div class="col m-range-6">
-                <div class="article-preview">
-                    <h1><?php echo $v['title'] ?></h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                        Consequatur distinctio accusantium ratione, eos similique 
-                        odit eum, numquam, odio eligendi libero ipsam labore quod 
-                        suscipit, hic aliquam praesentium quaerat repudiandae 
-                        asperiores.
-                    </p>
-                    <a href="#" class="button info read">Lire l'article</a>
+    <div class="main-section">
+        <div class="row">
+            <?php foreach(articles() as $v): ?>
+                <div class="col m-range-6">
+                    <div class="article-preview">
+                        <h1><?php echo $v['title'] ?></h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                            Consequatur distinctio accusantium ratione, eos similique 
+                            odit eum, numquam, odio eligendi libero ipsam labore quod 
+                            suscipit, hic aliquam praesentium quaerat repudiandae 
+                            asperiores.
+                        </p>
+                        <a href="<?php draw_link_article($v); ?>" class="button info read">Lire l'article</a>
+                    </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
     <div class="footer-blog">
         <div class="row">

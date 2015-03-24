@@ -53,7 +53,6 @@ class BlogRevision extends BlogArticle
                     $this->status = $a['status'];
                 }
             }else if( isset($ida) && parent::_exist($ida) ){
-                var_dump("$idr");
                 parent::__construct($ida);
                 $req = "SELECT idr 
                     FROM blog_revision 
@@ -66,7 +65,7 @@ class BlogRevision extends BlogArticle
                 $this->uid = 0;
                 $this->title = null;
                 $this->content = null;
-                $this->date = date();
+                $this->date = date('Y-m-d H:i:s');
                 $this->status = 0;
             }else{
                 $this->idr = 1;
@@ -121,6 +120,7 @@ class BlogRevision extends BlogArticle
     {
         if(!preg_match('#^[\d]+$#', $uid)) return false;
         $this->uid = $uid;
+        return $this;
     }
 
     public function getTitle()
@@ -200,7 +200,64 @@ class BlogRevision extends BlogArticle
         $this
             ->setTitle($article_title)
             ->setContent($article_content)
-            ->setUid($uid);
+            ->setUid($uid)
+            ->genUrl();
+    }
+
+    /**
+     * Generate a compatible url for
+     * an article revision. This would
+     * be use to get the article in
+     * the url request with regex.
+     *
+     * @see \include\class\Ebrid.RewriteRule.php
+     *
+     * @return self
+     * @since Version 0.1
+     */
+    public function genUrl(){
+        $t = $this->title;
+
+        $t = strtolower($t);
+
+        $t = preg_replace("#[^a-z0-9]#i", "-", strtolower(
+            str_replace(
+                explode(' ', 'à á â ã ä ç è é ê ë ì í î ï ñ ò ó ô õ ö ù ú û ü ý ÿ À Á Â Ã Ä Ç È É Ê Ë Ì Í Î Ï Ñ Ò Ó Ô Õ Ö Ù Ú Û Ü Ý'), 
+                explode(' ', 'a a a a a c e e e e i i i i n o o o o o u u u u y y A A A A A C E E E E I I I I N O O O O O U U U U Y'), 
+                $t)
+            )
+        );
+        
+        while (strstr($t, ' ')) $t = str_replace(' ', '-', $t);
+        
+        while (strstr($t, ':')) $t = str_replace(':', '-', $t);
+        
+        while (strstr($t, '--')) $t = str_replace('--', '-', $t);
+
+        $t = preg_replace('#^-#', '', $t);
+        $t = preg_replace('#-$#', '', $t);
+        $this->setUrl($t);
+
+        return $this;
+    }
+
+    /**
+     * Transform to array
+     *
+     * @return array
+     * @since Version 0.1
+     */
+    public function toArray(){
+        $array = parent::toArray();
+
+        $array['idr'] = $this->getIdr();
+        $array['idc'] = $this->getIdc();
+        $array['title'] = $this->getTitle();
+        $array['content'] = $this->getContent();
+        $array['date'] = $this->getDate();
+        $array['status'] = $this->getStatus();
+
+        return $array;
     }
 
     static public function _exist($u = array()){
@@ -234,6 +291,7 @@ class BlogRevision extends BlogArticle
         
         $revision->generateRevision($post);
         $revision->insertRevision();
+        $revision->updateArticle();
 
         return $revision;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Fichier Blog.Article.php
  *
@@ -47,6 +48,7 @@ class BlogArticle
             $this->uid = 0;
             $this->date = 0;
             $this->status = 0;
+            $this->url = null;
         }
     }
     
@@ -125,6 +127,17 @@ class BlogArticle
         return true;
     }
     
+    public function getUrl() {
+        return $this->url;
+    }
+    
+    public function setUrl($url) {
+        if (preg_match("#^[\w\-]+$#", $url)) {
+            $this->url = $url;
+        }
+        return $this;
+    }
+    
     /**
      *  Get Ida
      *
@@ -191,9 +204,9 @@ class BlogArticle
     }
     
     /**
-     *  Get the categories from the database
+     * Get the categories from the database
      *
-     * @since 0.1
+     * @since Version 0.1
      */
     public function pullCategories() {
         $req = "SELECT idc FROM blog_article_category WHERE ida = '" . $this->ida . "'";
@@ -206,7 +219,7 @@ class BlogArticle
      * Set the categories in the database
      *
      * @return boolean
-     * @since 0.1
+     * @since Version 0.1
      */
     public function pushCategories() {
         Database::_beginTransaction();
@@ -224,7 +237,7 @@ class BlogArticle
     }
     
     /**
-     *  Clean the categories links in the database
+     * Clean the categories links in the database
      *
      * @since 0.1
      */
@@ -238,7 +251,7 @@ class BlogArticle
      *
      * @since 0.1
      */
-    public function insertArticle() {
+    final public function insertArticle() {
         $req = "INSERT INTO blog_article(date, uid, status) VALUES (NOW(), '" . $this->uid . "', '" . $this->status . "')";
         $res = Database::_exec($req);
         if ($res) {
@@ -248,9 +261,31 @@ class BlogArticle
     }
     
     /**
-     * Generate an article
-     * @since 0.1
+     * Update function
      *
+     * @param int nom info
+     * @return self
+     * @since Version 0.1
+     */
+    final public function updateArticle() {
+        $req = "UPDATE blog_article
+            SET uid = '" . $this->getUid() . "'
+                , url = '" . $this->getUrl() . "'
+                , status = '" . $this->getStatus() . "'
+            WHERE ida = '" . $this->getIda() . "'
+        ";
+        var_dump($req);
+        $res = Database::_exec($req);
+        if ($res == 0) {
+            var_dump(Database::_lastError());
+        }
+        return $this;
+    }
+    
+    /**
+     * Generate an article
+     *
+     * @since Version 0.1
      */
     
     public function generateArticle($uid) {
@@ -313,6 +348,25 @@ class BlogArticle
             Database::_commit();
         }
     }
+
+    /**
+     * Get the table of object
+     *
+     * @return array
+     * @since Version 0.1
+     */
+    public function toArray(){
+        $array = array();
+
+        $array['ida'] = $this->getIda();
+        $array['uid'] = $this->getUid();
+        $array['date'] = $this->getDate();
+        $array['url'] = $this->getUrl();
+        $array['status'] = $this->getStatus();
+        $array['categories'] = $this->getCategories();
+
+        return $array;
+    }
     
     /**
      *
@@ -339,7 +393,14 @@ class BlogArticle
      * @since 0.1
      */
     static public function _getArticles() {
-        $req = "SELECT ba.ida, (SELECT title FROM blog_revision br WHERE br.ida = ba.ida ORDER BY idr DESC LIMIT 0,1) title
+        $req = "SELECT ba.ida, 
+                ba.date, 
+                ba.url,
+                (SELECT title 
+                FROM blog_revision br 
+                WHERE br.ida = ba.ida 
+                ORDER BY idr 
+                DESC LIMIT 0,1) title
             FROM blog_article ba
             ORDER BY ba.ida
             LIMIT 0,5";
@@ -408,5 +469,52 @@ class BlogArticle
     static public function _deleteArticle($ida) {
         $a = new BlogArticle($ida);
         $a->deleteArticle();
+    }
+
+    /**
+     * Select an article with "WHERE" options
+     * you could use in SQL request
+     *
+     * @param array $argv all the informations passed
+     * @return object|null
+     * @since Version 0.1
+     */
+    static public function _query($argv = array()){
+        $where = null;
+
+        $i = 0;
+        foreach ($argv as $k => $v) {
+            $where .= ($i == 0)?"WHERE":"AND";
+            switch ($k) {
+                case 'article_year':
+                    $where .= " date LIKE '$v-%'";
+                    break;      
+                case 'article_month':
+                    $where .= " date LIKE '%-$v-%'";
+                    break;  
+                case 'article_day':
+                    $where .= " date LIKE '%-$v %'";
+                    break;
+                case 'article_id':
+                    $where .= " ida = '$v'";
+                    break;
+                case 'article_name':
+                    $where .= " url = '$v'";
+                    break;
+            }
+            $where .= " ";
+            ++$i;
+        }
+        unset($i);
+
+        $req = "SELECT ida FROM blog_article $where";
+        $id = Database::_selectOne($req);
+        if($id > 0){
+            $return = self::_getLastRevision($id);
+        }else{
+            $return = null;
+        }
+
+        return $return;
     }
 }

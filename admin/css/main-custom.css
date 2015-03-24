@@ -35,3 +35,7 @@
     max-height: 300px;
     overflow-x: auto;
 }
+.permalink-preview{
+    padding: 10px 0;
+    display: block;
+}

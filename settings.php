@@ -24,6 +24,6 @@ define('THEME', 'default');
  *
  * @since Version 0.1
  */
-define('REWRITE_RULE', '/?article={ida}');
+define('REWRITE_RULE', '/blog/{article_year}/{article_name}');
 
 ?>
