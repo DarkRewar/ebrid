@@ -173,17 +173,19 @@ function draw_site_name() {
  * @since Version 0.1
  */
 function get_page_theme() {
-    global $theme, $rewrite;
-
+    global $theme, $rewrite, $articles;
+    
     $curUrl = get_current_url();
     $args_query = $rewrite->getArguments($curUrl);
     $typePage = get_page_type($curUrl);
-
-    if($typePage == 'home'){
+    
+    if ($typePage == 'home') {
         include ($theme->getPath() . '/index.php');
-    }elseif(count($args_query) == 0){
+    } 
+    elseif (count($args_query) == 0 || empty($articles)) {
         include ($theme->getPath() . '/404.php');
-    }else{
+    } 
+    else {
         include ($theme->getPath() . '/index.php');
     }
 }
@@ -197,12 +199,14 @@ function get_page_theme() {
  * @return string
  * @since Version 0.1
  */
-function get_page_type($currentUrl){
-    if(preg_match("#^/$#", $currentUrl)){
+function get_page_type($currentUrl) {
+    if (preg_match("#^/$#", $currentUrl)) {
         return "home";
-    }elseif(preg_match("#^forum/#", $currentUrl)){
+    } 
+    elseif (preg_match("#^forum/#", $currentUrl)) {
         return "forum";
-    }else{
+    } 
+    else {
         return "blog";
     }
 }

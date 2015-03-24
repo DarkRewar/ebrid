@@ -139,21 +139,28 @@ class EbridRewriteRule
         $strokeUrl = array();
         $raw = $this->rawUrl;
         while(preg_match("#\{.*\}#Usi", $raw)){
-            $localRegex = "#^(.*)(\{.*\})(.*)$#Usi";
-            $strokeUrl[] = preg_replace($localRegex, '$1$2', $raw);
-            $raw = preg_replace($localRegex, '$3', $raw);
+            if(!preg_match("#^.*\{.*\}.*\{.*\}.*$#Usi", $raw)){
+                $localRegex = "#^(.*)(\{.*\})(.*)$#Usi";
+                $strokeUrl[] = preg_replace($localRegex, '$1$2$3', $raw);
+                $raw = preg_replace($localRegex, '', $raw);
+            }else{
+                $localRegex = "#^(.*)(\{.*\})(.*)$#Usi";
+                $strokeUrl[] = preg_replace($localRegex, '$1$2', $raw);
+                $raw = preg_replace($localRegex, '$3', $raw);
+            }
         }
 
         foreach ($strokeUrl as $k => $v) {
-            $key = preg_replace("#^(.*)\{(.*)\}$#", "$2", $v);
-            $localRegex = "#^(.*)(\{.*\})$#";
+            $key = preg_replace("#^.*\{(.*)\}.*$#", "$1", $v);
+            $localRegex = "#^(.*)(\{.*\})(.*)$#";
             $needRegex = $this->itemsAvailable[$key];
 
-            $newRegex = preg_replace($localRegex, '${1}('.$needRegex.')(.*)', $v);
+            $newRegex = preg_replace($localRegex, '${1}('.$needRegex.')(${3}.*)', $v);
+            $newRegex = "#$newRegex#";
 
-            if(preg_match("#$newRegex#", $currentUrl)){
-                $res[$key] = preg_replace("#$newRegex#", '$1', $currentUrl); 
-                $currentUrl = preg_replace("#$newRegex#", '$2', $currentUrl);             
+            if(preg_match($newRegex, $currentUrl)){
+                $res[$key] = preg_replace($newRegex, '$1', $currentUrl); 
+                $currentUrl = preg_replace($newRegex, '$2', $currentUrl);       
             }
         }
 

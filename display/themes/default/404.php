@@ -19,9 +19,7 @@
         <h2>La page que vous recherchez n'existe pas</h2>
     </div>
     <div class="footer-blog">
-        <?php global $rewrite;
-        var_dump($rewrite->getArguments(get_current_url())); ?>
-        <!-- <div class="row">
+        <div class="row">
             <div class="col m-range-6">
                 <h4>Category</h4>
                 <ul>
@@ -30,7 +28,7 @@
                     <li>Cat3</li>
                 </ul>
             </div>
-        </div> -->
+        </div>
     </div>
 </body>
 </html>

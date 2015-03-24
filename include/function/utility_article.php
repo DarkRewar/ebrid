@@ -42,7 +42,10 @@ function get_article_with_uri($url = ""){
         $return = BlogArticle::_getArticles();
     }else{
         $params = $rewrite->getArguments($currentUrl);
-        $return[] = BlogArticle::_query($params)->toArray();
+        $single =  BlogArticle::_query($params);
+        if($single !== null){
+            $return[] = $single->toArray();
+        }
     }
 
     return $return;
