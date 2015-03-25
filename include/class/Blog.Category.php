@@ -20,11 +20,11 @@
  */
 class BlogCategory
 {
-    private $_idc;
-    private $_name;
-    private $_description;
-    private $_access;
-    private $_level;
+    private $idc;
+    private $name;
+    private $description;
+    private $access;
+    private $level;
     private $idcParent;
     
     public function __construct($idc = 0) {
@@ -37,21 +37,21 @@ class BlogCategory
             }
             $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
             while ($a = mysqli_fetch_assoc($res)) {
-                $this->_idc = $a['idc'];
+                $this->idc = $a['idc'];
                 $this->idcParent = $a['idc_parent'];
-                $this->_name = $a['name'];
-                $this->_description = $a['description'];
-                $this->_access = $a['access'];
-                $this->_level = $a['level'];
+                $this->name = $a['name'];
+                $this->description = $a['description'];
+                $this->access = $a['access'];
+                $this->level = $a['level'];
             }
         } 
         else {
-            $this->_idc = 0;
+            $this->idc = 0;
             $this->idcParent = 0;
-            $this->_name = 0;
-            $this->_description = 0;
-            $this->_access = 0;
-            $this->_level = 0;
+            $this->name = 0;
+            $this->description = 0;
+            $this->access = 0;
+            $this->level = 0;
         }
     }
     
@@ -62,7 +62,7 @@ class BlogCategory
      * @since 0.1
      */
     public function getIdc() {
-        return $this->_idc;
+        return $this->idc;
     }
     
     /**
@@ -72,7 +72,7 @@ class BlogCategory
      * @since 0.1
      */
     public function getName() {
-        return $this->_name;
+        return $this->name;
     }
     
     /**
@@ -82,7 +82,7 @@ class BlogCategory
      * @since 0.1
      */
     public function getDescription() {
-        return $this->_description;
+        return $this->description;
     }
     
     /**
@@ -92,7 +92,7 @@ class BlogCategory
      * @since 0.1
      */
     public function getAccess() {
-        return $this->_access;
+        return $this->access;
     }
     
     /**
@@ -102,7 +102,7 @@ class BlogCategory
      * @since 0.1
      */
     public function getLevel() {
-        return $this->_level;
+        return $this->level;
     }
     
     /**
@@ -114,7 +114,7 @@ class BlogCategory
      */
     public function setName($name) {
         if (!preg_match("#^[\w\.\#\-\s]+$#", $name)) return $this;
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
     
@@ -127,7 +127,7 @@ class BlogCategory
      */
     public function setDescription($description) {
         if (!preg_match("#^[\w\.\#\-\s]+$#", $description)) return $this;
-        $this->_description = $description;
+        $this->description = $description;
         return $this;
     }
     
@@ -140,7 +140,7 @@ class BlogCategory
      */
     public function setAccess($access) {
         if (!preg_match("#^[\w]$#", $access)) return $this;
-        $this->_access = $access;
+        $this->access = $access;
         return $this;
     }
     
@@ -153,7 +153,7 @@ class BlogCategory
      */
     public function setLevel($level) {
         if (!preg_match("#^[\d]$#", $level)) return $this;
-        $this->_description = $level;
+        $this->description = $level;
         return $this;
     }
     
@@ -185,10 +185,10 @@ class BlogCategory
                 , level
             ) VALUES (
                 '" . $this->idcParent . "'
-                , '" . $this->_name . "'
-                , '" . $this->_description . "'
-                , '" . $this->_access . "'
-                , '" . $this->_level . "'
+                , '" . $this->name . "'
+                , '" . $this->description . "'
+                , '" . $this->access . "'
+                , '" . $this->level . "'
             )";
         return Database::_exec($req);
     }
@@ -201,11 +201,11 @@ class BlogCategory
     public function delete()
     {   
         Database::_beginTransaction();
-        $req = "DELETE FROM 'blog_category';
-                WHERE idc_parent = '".$this->idcParent."'; 
+        $req = "DELETE FROM 'blog_category'
+                WHERE idc_parent = '".$this->idcParent."'
                 AND idc = idcParent";
         Database::_exec($req);
-        $req2 = "DELETE FROM 'blog_category';
+        $req2 = "DELETE FROM 'blog_category'
                 WHERE idc = '".$this->idc."'";
         Database::_exec($req2);
         if(!Database::_exec($req)){
