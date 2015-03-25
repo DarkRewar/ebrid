@@ -1,9 +1,9 @@
 <?php
 
 /**
- *  Index page of Administration
+ * Index page of Administration
  *
- *  @package Ebrid
+ * @package Ebrid
  */
 
 require_once( dirname(__FILE__) . '/loader.php');

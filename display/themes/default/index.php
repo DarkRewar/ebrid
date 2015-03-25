@@ -16,21 +16,34 @@
     </div>
     <div class="main-section">
         <div class="row">
-            <?php foreach(articles() as $v): ?>
-                <div class="col m-range-6">
-                    <div class="article-preview">
-                        <h1><?php echo $v['title'] ?></h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Consequatur distinctio accusantium ratione, eos similique 
-                            odit eum, numquam, odio eligendi libero ipsam labore quod 
-                            suscipit, hic aliquam praesentium quaerat repudiandae 
-                            asperiores.
-                        </p>
-                        <a href="<?php draw_link_article($v); ?>" class="button info read">Lire l'article</a>
-                    </div>
+            <div class="col m-range-9">
+                <div class="row">
+                    <?php foreach(articles() as $v): ?>
+                        <?php if(only_one()) : ?>
+                            <div class="col s-range-12">
+                                <h1 class="article-title"><?php echo $v['title'] ?></h1>                
+                                <?php echo $v['content'] ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="col m-range-12">
+                                <div class="article-preview">
+                                    <h1><?php echo $v['title'] ?></h1>
+                                    <?php echo $v['content'] ?>
+                                    <a href="<?php draw_link_article($v); ?>" class="button info read">Lire l'article</a>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    <?php endforeach; ?>                    
                 </div>
-            <?php endforeach; ?>
+            </div>
+            <div class="col m-range-3">
+                    <h4>Category</h4>
+                    <ul>
+                        <li>Cat1</li>
+                        <li>Cat2</li>
+                        <li>Cat3</li>
+                    </ul>
+            </div>
         </div>
     </div>
     <div class="footer-blog">
