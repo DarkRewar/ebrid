@@ -26,17 +26,16 @@ class BlogCategory
     private $access;
     private $level;
     private $idcParent;
-    
+
     public function __construct($idc = 0) {
         if (self::_exist($idc)) {
             if (is_numeric($idc)) {
-                $req = "SELECT * FROM blog_category WHERE id = '$idf'";
-            } 
-            else {
-                $req = "SELECT * FROM blog_category WHERE name = '$idf'";
+                $req = "SELECT * FROM blog_category WHERE idc = '$idc'";
             }
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            while ($a = mysqli_fetch_assoc($res)) {
+            else {
+                $req = "SELECT * FROM blog_category WHERE name = '$idc'";
+            }
+            foreach (Database::_query($req) as $a) {
                 $this->idc = $a['idc'];
                 $this->idcParent = $a['idc_parent'];
                 $this->name = $a['name'];
@@ -198,21 +197,15 @@ class BlogCategory
     *  @since 0.1
     */
     
-    public function delete()
+    public function deleteCategory()
     {   
         Database::_beginTransaction();
-        $req = "DELETE FROM 'blog_category'
-                WHERE idc_parent = '".$this->idcParent."'
-                AND idc = idcParent";
-        Database::_exec($req);
-        $req2 = "DELETE FROM 'blog_category'
+        $req = "DELETE FROM blog_category
                 WHERE idc = '".$this->idc."'";
-        Database::_exec($req2);
-        if(!Database::_exec($req)){
+        $res = Database::_exec($req);
+        if(!$res){
             Database::_rollBack();
-        }elseif(!Database::_exec($req2)){
-            Database::_rollBack();
-        }else{
+        } else {
             Database::_commit();
         }
     }
@@ -289,5 +282,29 @@ class BlogCategory
             $array[] = $v;
         }
         return $array;
+    }
+
+    static public function _deleteCategory($idc) {
+        $c = new BlogCategory($idc);
+        $c->deleteCategory();
+    }
+
+    /**
+     *
+     *Search and order the category with revisions
+     *
+     * @since 0.1
+     */
+    static public function _getCategory() {
+        $req = "SELECT bc.idc,
+                (SELECT title
+                FROM blog_revision br
+                WHERE br.idc = bc.idc
+                ORDER BY idr
+                DESC LIMIT 0,1) title
+            FROM blog_category bc
+            ORDER BY bc.idc
+            LIMIT 0,5";
+        return Database::_query($req);
     }
 }
