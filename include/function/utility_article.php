@@ -72,3 +72,21 @@ function draw_link_article($article){
 
     echo $rewrite->buildWith($params);
 }
+
+/**
+ * Verify if there is only one
+ *
+ *
+ * 
+ * @return bool
+ * @since Version 0.1
+ */
+function only_one(){
+    global $articles;
+    
+    if(count($articles) == 1){
+        return true;
+    }else{
+        return false;        
+    }
+}

@@ -387,28 +387,23 @@ class BlogArticle
     }
     
     /**
-     *
-     *Search and order the article with revisions
+     * Search and order the article with revisions
      *
      * @since 0.1
      */
     static public function _getArticles() {
-        $req = "SELECT ba.ida, 
-                ba.date, 
-                ba.url,
-                (SELECT title 
-                FROM blog_revision br 
-                WHERE br.ida = ba.ida 
-                ORDER BY idr 
-                DESC LIMIT 0,1) title
-            FROM blog_article ba
-            ORDER BY ba.ida
+        $req = "SELECT ida
+            FROM blog_article 
+            ORDER BY ida
             LIMIT 0,5";
-        return Database::_query($req);
+        $articles = array();
+        foreach (Database::_query($req) as $v) {
+            $articles[] = self::_getLastRevision($v['ida'])->toArray();
+        }
+        return $articles;
     }
     
     /**
-     *
      * Search the last revision of the article choosen
      *
      * @since 0.1
