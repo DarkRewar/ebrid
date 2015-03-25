@@ -63,8 +63,18 @@ extract($infos);
 <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
 tinymce.init({
-    selector: "#article_content"
- });
+    selector: "#article_content",
+    height: 300,
+    plugins: [
+        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        "save table contextmenu directionality emoticons template paste textcolor"
+    ],
+    content_css: [
+
+        "<?php echo theme_path().'/style.css' ?>"
+    ]
+});
 </script>
 
 <div class="row">
