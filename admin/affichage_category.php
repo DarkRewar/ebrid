@@ -24,6 +24,6 @@ BlogArticle::_getLastRevision();
 ?>
 
 <div>
-    <a href="new-post.php">Créer un nouvel article</a>
+    <a href="new-post.php">Créer un nouvelle categorie</a>
 </div>
 </html>

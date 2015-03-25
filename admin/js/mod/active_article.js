@@ -8,7 +8,7 @@ $("body").on('click', ".activeArticle", function(e) {
         requested: "activeArticle",
         id: idArticle
     }, function(data) {
-        dis.html('Desactiver').removeClass('activeArticle').addClass('desactiveArticle');
+        dis.html('Desactiver').removeClass('activeArticle success rounded').addClass('desactiveArticle classic rounded');
     });
 }).on('click', ".desactiveArticle", function(e) {
     event.preventDefault();
@@ -19,6 +19,6 @@ $("body").on('click', ".activeArticle", function(e) {
         requested: "desactiveArticle",
         id: idArticle
     }, function(data) {
-        dis.html('Activer').removeClass('desactiveArticle').addClass('activeArticle');
+        dis.html('Activer').removeClass('desactiveArticle classic rounded').addClass('activeArticle success rounded');
     });
 });
