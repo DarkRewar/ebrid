@@ -14,6 +14,7 @@ if (isset($_GET['trashed']))
 {
     
     BlogArticle::_deleteArticle($_GET['article']);
+    redirect("affichage-article.php", true);
 }
 ?>
     <div class="row">
@@ -21,6 +22,7 @@ if (isset($_GET['trashed']))
             <thead>
                 <tr>
                     <th>Articles</th>
+                    <th>Modifications articles</th>
                     <th>Publier l'article</th>
                     <th>Supprimer</th>
                 </tr>
@@ -32,16 +34,16 @@ foreach (BlogArticle::_getArticles() as $v)
     echo "
             <tr>
                 <td>
-                    <a href=\"new-post.php?article=" . $v['ida'] . "\">" . $v['title'] . "</a>
+                    <a style=\"color:#000\" href=\"new-post.php?article=" . $v['ida'] . "\">" . $v['title'] . "</a>
                 </td>
                 <td>
-                    <button class=\"activeArticle\" id='active_article_" . $v['ida'] . "'>Activer</button>
+                    <a class=\"button info rounded\" href=\"new-post.php?article=" . $v['ida'] . "\">Modifier</a>
                 </td>
                 <td>
-                    <button class=\"supprimerArticle\" id='supprimer_article_" . $v['ida'] . "'>
-                        <a href=\"affichage-article.php?article=" . $v['ida'] . "&trashed=true\">Supprimer
+                    <button class=\"activeArticle success rounded\" id='active_article_" . $v['ida'] . "'>Activer</button>
+                </td>
+                <td>    <a id='supprimer_article_" . $v['ida'] . "' class=\"supprimerArticle button error rounded\" href=\"affichage-article.php?article=" . $v['ida'] . "&trashed=true\">Supprimer
                         </a>
-                    </button>
                     <br />
                 </td>
             </tr>
