@@ -330,18 +330,18 @@ class BlogArticle
     public function deleteArticle() {
         Database::_beginTransaction();
         
-        $req = "DELETE FROM 'blog_article'
+        $req = "DELETE FROM blog_article
                 WHERE ida = '" . $this->ida . "'";
-        Database::_exec($req);
+        $res = Database::_exec($req);
         
-        $req1 = "DELETE FROM 'blog_article_category'
+        $req1 = "DELETE FROM blog_article_category
                  WHERE ida='" . $this->ida . "'";
-        Database::_exec($req1);
+        $res1 = Database::_exec($req1);
         
-        if (!Database::_exec($req)) {
+        if (!$res) {
             Database::_rollBack();
         } 
-        elseif (!Database::_exec($req1)) {
+        elseif (!$res1) {
             Database::_rollBack();
         } 
         else {
@@ -460,7 +460,13 @@ class BlogArticle
         $a = new BlogArticle($ida);
         $a->desactivate();
     }
-    
+    /**
+    *
+    *Delete an article and his commments
+    *@param $ida
+    *
+    *@since 0.1
+    */
     static public function _deleteArticle($ida) {
         $a = new BlogArticle($ida);
         $a->deleteArticle();
