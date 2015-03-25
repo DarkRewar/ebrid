@@ -50,7 +50,24 @@ function draw_tree_category($categories = array() , $array = array() , $level = 
     if ($ul) echo '<ul>';
     
     foreach ($array as $k => $v) {
-        echo '<li><label><input type="checkbox" value="' . $v['idc'] . '" name="categories[]" data-parent="' . $v['idc_parent'] . '"' . (in_array($v['idc'], $categories) ? 'checked' : null) . ' />' . str_repeat('&nbsp;', 4 * $level + 1) . $v['name'] . '</label></li>';
+        if( is_array($categories) && !empty($categories) && in_array($v['idc'], $categories) ){
+            $checked = 'checked';
+        }else{
+            $checked = null;
+        }
+        
+        echo '<li>
+            <label>
+                <input 
+                    type="checkbox" 
+                    value="' . $v['idc'] . '" 
+                    name="categories[]" 
+                    data-parent="' . $v['idc_parent'] . '"
+                    ' . $checked . ' 
+                />
+                ' . str_repeat('&nbsp;', 4 * $level + 1) . $v['name'] . '
+            </label>
+        </li>';
         
         if (!empty($v['leafs'])) draw_tree_category($categories, $v['leafs'], $level + 1);
     }
