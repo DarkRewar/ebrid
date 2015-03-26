@@ -18,17 +18,18 @@
         <div class="row">
             <div class="col m-range-9">
                 <div class="row">
-                    <?php foreach(articles() as $v): ?>
+                    <?php foreach(articles() as $article): ?>
                         <?php if(only_one()) : ?>
                             <div class="col s-range-12">
-                                <h1 class="article-title"><?php echo $v['title'] ?></h1>                
-                                <?php echo $v['content'] ?>
+                                <h1 class="article-title"><?php echo $article['title'] ?></h1>                
+                                <?php echo $article['content'] ?>
                             </div>
                         <?php else: ?>
                             <div class="col m-range-12">
                                 <div class="article-preview">
-                                    <h1><?php echo $v['title'] ?></h1>
-                                    <?php echo $v['content'] ?>
+                                    <h1><?php echo $article['title'] ?></h1>
+                                    <h4><?php echo $article['date'] ?></h4>
+                                    <?php echo $article['content'] ?>
                                     <a href="<?php draw_link_article($v); ?>" class="button info read">Lire l'article</a>
                                 </div>
                             </div>

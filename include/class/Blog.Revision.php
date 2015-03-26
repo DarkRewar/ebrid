@@ -37,9 +37,8 @@ class BlogRevision extends BlogArticle
                 && isset($idr) && self::_exist($revision) ){
                 parent::__construct($ida);
                 $this->setIdr($idr); 
-                $req = "
-                    SELECT *
-                    FROM blog_revision 
+                $req = "SELECT *
+                    FROM blog_revision
                     WHERE idr = '$idr'
                     AND ida = '$ida'";
                 foreach(Database::_query($req) as $a){

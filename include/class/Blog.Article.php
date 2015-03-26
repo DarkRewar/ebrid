@@ -247,12 +247,24 @@ class BlogArticle
     }
     
     /**
-     * Insert data in database
+     * Insert datas of this article
+     * in database.
      *
+     * @return self
      * @since 0.1
      */
     final public function insertArticle() {
-        $req = "INSERT INTO blog_article(date, uid, status) VALUES (NOW(), '" . $this->uid . "', '" . $this->status . "')";
+        $req = "INSERT INTO blog_article(
+                uid
+                , url
+                , date
+                , status
+            ) VALUES (
+                '" . $this->uid . "'
+                , '" . $this->url . "'
+                , NOW()
+                , '" . $this->status . "'
+            )";
         $res = Database::_exec($req);
         if ($res) {
             $this->ida = Database::_lastInsertId();
@@ -263,7 +275,6 @@ class BlogArticle
     /**
      * Update function
      *
-     * @param int nom info
      * @return self
      * @since Version 0.1
      */
@@ -274,11 +285,8 @@ class BlogArticle
                 , status = '" . $this->getStatus() . "'
             WHERE ida = '" . $this->getIda() . "'
         ";
-        var_dump($req);
+
         $res = Database::_exec($req);
-        if ($res == 0) {
-            var_dump(Database::_lastError());
-        }
         return $this;
     }
     
@@ -348,23 +356,23 @@ class BlogArticle
             Database::_commit();
         }
     }
-
+    
     /**
      * Get the table of object
      *
      * @return array
      * @since Version 0.1
      */
-    public function toArray(){
+    public function toArray() {
         $array = array();
-
+        
         $array['ida'] = $this->getIda();
         $array['uid'] = $this->getUid();
         $array['date'] = $this->getDate();
         $array['url'] = $this->getUrl();
         $array['status'] = $this->getStatus();
         $array['categories'] = $this->getCategories();
-
+        
         return $array;
     }
     
@@ -394,7 +402,7 @@ class BlogArticle
     static public function _getArticles() {
         $req = "SELECT ida
             FROM blog_article 
-            ORDER BY ida
+            ORDER BY ida DESC
             LIMIT 0,5";
         $articles = array();
         foreach (Database::_query($req) as $v) {
@@ -450,8 +458,7 @@ class BlogArticle
     }
     
     /**
-     *
-     *Create a new BlogArticle ans use the function desactivate
+     * Create a new BlogArticle and use the function desactivate
      * @param $ida
      *
      * @since 0.1
@@ -460,18 +467,18 @@ class BlogArticle
         $a = new BlogArticle($ida);
         $a->desactivate();
     }
+    
     /**
-    *
-    *Delete an article and his commments
-    *@param $ida
-    *
-    *@since 0.1
-    */
+     * Delete an article and his commments
+     * @param $ida
+     *
+     * @since 0.1
+     */
     static public function _deleteArticle($ida) {
         $a = new BlogArticle($ida);
         $a->deleteArticle();
     }
-
+    
     /**
      * Select an article with "WHERE" options
      * you could use in SQL request
@@ -480,42 +487,47 @@ class BlogArticle
      * @return object|null
      * @since Version 0.1
      */
-    static public function _query($argv = array()){
+    static public function _query($argv = array()) {
         $where = null;
-
+        
         $i = 0;
         foreach ($argv as $k => $v) {
-            $where .= ($i == 0)?"WHERE":"AND";
+            $where.= ($i == 0) ? "WHERE" : "AND";
             switch ($k) {
                 case 'article_year':
-                    $where .= " date LIKE '$v-%'";
-                    break;      
+                    $where.= " date LIKE '$v-%'";
+                    break;
+
                 case 'article_month':
-                    $where .= " date LIKE '%-$v-%'";
-                    break;  
+                    $where.= " date LIKE '%-$v-%'";
+                    break;
+
                 case 'article_day':
-                    $where .= " date LIKE '%-$v %'";
+                    $where.= " date LIKE '%-$v %'";
                     break;
+
                 case 'article_id':
-                    $where .= " ida = '$v'";
+                    $where.= " ida = '$v'";
                     break;
+
                 case 'article_name':
-                    $where .= " url = '$v'";
+                    $where.= " url = '$v'";
                     break;
             }
-            $where .= " ";
+            $where.= " ";
             ++$i;
         }
         unset($i);
-
+        
         $req = "SELECT ida FROM blog_article $where";
         $id = Database::_selectOne($req);
-        if($id > 0){
+        if ($id > 0) {
             $return = self::_getLastRevision($id);
-        }else{
+        } 
+        else {
             $return = null;
         }
-
+        
         return $return;
     }
 }

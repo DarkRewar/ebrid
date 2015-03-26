@@ -71,7 +71,6 @@ tinymce.init({
         "save table contextmenu directionality emoticons template paste textcolor"
     ],
     content_css: [
-
         "<?php echo theme_path().'/style.css' ?>"
     ]
 });
