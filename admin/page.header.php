@@ -31,7 +31,6 @@ $title = isset($title)?$title:'Ebrid Maquette';
                         </ul>
                     </div>
                 </li>
-                <li><a>Changer de thème</a></li>
                 <li class="" data-drop="article">
                     <a class="link-menu ref">Articles</a>
                     <div id="article" class="drop">
@@ -42,6 +41,7 @@ $title = isset($title)?$title:'Ebrid Maquette';
                         </ul>
                     </div>
                 </li>
+                <li><a href="modify-theme.php">Changer de thème</a></li>
                 <li><a href="modify-settings.php">Modifier les paramètres</a></li>
                 <li class="right" data-drop="compte">
                     <a class="link-menu ref">Compte: <?php echo $user->getNickname(); ?></a>

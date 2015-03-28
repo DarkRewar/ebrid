@@ -33,13 +33,35 @@ class EbridTheme
             $this->name = $name;
             $this->path = $path;
             $this->buildInfo();
-            // var_dump("Theme built");
         }else{
             $this->name = 'default';
             $this->path = EBRIDDISPLAY . '/themes/';
             $this->info = array();
-            // var_dump("Theme not built");
         }
+    }
+
+    /**
+     * Get the name of the theme
+     *
+     * @return string
+     * @since Version 0.1
+     */
+    public function getName(){
+        return $this->name;
+    }
+
+    /**
+     * Get the screenshot of the theme
+     *
+     * @return mixed
+     * @since Version 0.1
+     */
+    public function getScreenshot(){
+        $file = $this->pathRaw . $this->name . '/screenshot.png';
+        if(file_exists($file)){
+            return $file;
+        }
+        return null;
     }
 
     /**
@@ -54,6 +76,22 @@ class EbridTheme
             return $this->pathRaw . $this->name;
         else
             return $this->path . $this->name;
+    }
+
+    /**
+     * Get a or all infos
+     *
+     * @param string $key key of the info
+     * @return mixed
+     * @since Version 0.1
+     */
+    public function getInfos($key = null){
+        if($key === null){
+            return $this->info;
+        }else if(isset($this->info[$key])){
+            return $this->info[$key];
+        }
+        return null;
     }
 
     /**
@@ -109,5 +147,33 @@ class EbridTheme
             }
         }
         return true;
+    }
+
+    /**
+     * Get all theme available in the
+     * theme repository
+     *
+     * @param int $page
+     * @return array
+     * @since Version 0.1
+     */
+    static public function _getAll($page = 0){
+        $themesArray = array();
+
+        $themePath = EBRIDDISPLAY . '/themes/';
+        $dir = opendir($themePath);
+
+        $readThemes = 0;
+        while( false !== ( $theme = readdir($dir) ) ){
+            if($theme === '.' || $theme === '..'){
+                continue;
+            }
+
+            $themesArray[$theme] = new EbridTheme($theme);
+
+            ++$readThemes;
+        }
+
+        return $themesArray;
     }
 }
