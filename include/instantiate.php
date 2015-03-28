@@ -27,6 +27,15 @@ if(!is_null(Database::_lastError())){
 $user = user_connected();
 
 /**
+ * Instantiate the settings of
+ * Ebrid that we need to launch
+ * functions.
+ *
+ * @var object
+ */
+$settings = new EbridSettings( 'settings.php' );
+
+/**
  * Instantiate the current active
  * theme to display it to visitors
  *

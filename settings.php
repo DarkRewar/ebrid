@@ -34,4 +34,4 @@ define('THEME', 'default');
  *
  * @since Version 0.1
  */
-define('REWRITE_RULE', '/{article_year}/article/{article_name}');
+define('REWRITE_RULE', '/{article_year}-{article_month}-{article_day}/{article_id}-{article_name}');

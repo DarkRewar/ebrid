@@ -26,7 +26,7 @@ function articles(){
 
 /**
  * Get articles with the uri of the
- *
+ * article
  *
  * @param string $uri the uri of the page
  * @return array

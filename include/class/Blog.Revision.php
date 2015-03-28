@@ -25,7 +25,7 @@ class BlogRevision extends BlogArticle
     private $uid;
     private $title;
     private $content;
-    private $date;
+    private $dateRevision;
     private $status;
 
     public function __construct($revision = array('idr' => 0  , 'ida' => 0 ))
@@ -48,7 +48,7 @@ class BlogRevision extends BlogArticle
                     $this->uid = $a['uid'];
                     $this->title = $a['title'];
                     $this->content = $a['content'];
-                    $this->date = $a['date'];
+                    $this->dateRevision = $a['date'];
                     $this->status = $a['status'];
                 }
             }else if( isset($ida) && parent::_exist($ida) ){
@@ -64,7 +64,7 @@ class BlogRevision extends BlogArticle
                 $this->uid = 0;
                 $this->title = null;
                 $this->content = null;
-                $this->date = date('Y-m-d H:i:s');
+                $this->dateRevision = date('Y-m-d H:i:s');
                 $this->status = 0;
             }else{
                 $this->idr = 1;
@@ -73,7 +73,7 @@ class BlogRevision extends BlogArticle
                 $this->uid = 0;
                 $this->title = null;
                 $this->content = null;
-                $this->date = 0;
+                $this->dateRevision = 0;
                 $this->status = 0;
             }      
         }else{
@@ -83,7 +83,7 @@ class BlogRevision extends BlogArticle
             $this->uid = 0;
             $this->title = null;
             $this->content = null;
-            $this->date = 0;
+            $this->dateRevision = 0;
             $this->status = 0;
         }        
     }
@@ -146,14 +146,14 @@ class BlogRevision extends BlogArticle
         return $this;
     }
 
-    public function getDate()
+    public function getDateRevision()
     {
-        return $this->date;
+        return $this->dateRevision;
     }
 
-    public function setDate($date)
+    public function setDateRevision($dateRevision)
     {
-        $this->date = $date;
+        $this->dateRevision = $dateRevision;
         return $this;
     }
 
@@ -253,7 +253,7 @@ class BlogRevision extends BlogArticle
         $array['idc'] = $this->getIdc();
         $array['title'] = $this->getTitle();
         $array['content'] = $this->getContent();
-        $array['date'] = $this->getDate();
+        $array['date_revision'] = $this->getDateRevision();
         $array['status'] = $this->getStatus();
 
         return $array;

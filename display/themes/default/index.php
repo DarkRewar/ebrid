@@ -30,7 +30,7 @@
                                     <h1><?php echo $article['title'] ?></h1>
                                     <h4><?php echo $article['date'] ?></h4>
                                     <?php echo $article['content'] ?>
-                                    <a href="<?php draw_link_article($v); ?>" class="button info read">Lire l'article</a>
+                                    <a href="<?php draw_link_article($article); ?>" class="button info read">Lire l'article</a>
                                 </div>
                             </div>
                         <?php endif ?>

@@ -31,12 +31,18 @@ $title = isset($title)?$title:'Ebrid Maquette';
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a>Changer de thème</a>
+                <li><a>Changer de thème</a></li>
+                <li class="" data-drop="article">
+                    <a class="link-menu ref">Articles</a>
+                    <div id="article" class="drop">
+                        <ul>
+                            <li><a href="new-post.php">Poster un article</a></li>
+                            <li><a href="affichage-article.php">Liste des articles</a></li>
+                            <li><a href="testmessage.php">Poster un message</a></li>
+                        </ul>
+                    </div>
                 </li>
-                <a href="new-post.php" class="button info rounded">Poster un article</a>
-                <a href="affichage-article.php" class="button info rounded">Article blog</a>
-                <a href="testmessage.php" class="button info rounded">Poster un message</a>
+                <li><a href="modify-settings.php">Modifier les paramètres</a></li>
                 <li class="right" data-drop="compte">
                     <a class="link-menu ref">Compte: <?php echo $user->getNickname(); ?></a>
                     <div id="compte" class="drop">
