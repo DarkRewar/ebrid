@@ -27,6 +27,14 @@ define('DBPASSWORD', '');
  *
  * @since Version 0.1
  */
+define('SITENAME', 'Ebrid WebSite');
+
+/**
+ * The Theme that is used
+ * for the website
+ *
+ * @since Version 0.1
+ */
 define('THEME', 'default');
 
 /**
@@ -34,4 +42,4 @@ define('THEME', 'default');
  *
  * @since Version 0.1
  */
-define('REWRITE_RULE', '/{article_year}-{article_month}-{article_day}/{article_id}-{article_name}');
+define('REWRITE_RULE', '/blog/{article_year}-{article_month}-{article_day}/{article_id}-{article_name}');

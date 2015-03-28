@@ -39,6 +39,7 @@ $settings = new EbridSettings( 'settings.php' );
  * Instantiate the current active
  * theme to display it to visitors
  *
+ * @var object
  * @since Version 0.1
  * @version 0.1
  */
@@ -48,6 +49,7 @@ $theme = new EbridTheme(THEME);
  * Instantiate the Rewrite Rule
  * to get the current page
  *
+ * @var object
  * @since Version 0.1
  * @version 0.1
  */
@@ -57,6 +59,7 @@ $rewrite = new EbridRewriteRule(REWRITE_RULE);
  * Variable which contains all
  * the articles of the current page
  *
+ * @var array
  * @since Version 0.1
  * @version 0.1
  */

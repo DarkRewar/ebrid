@@ -39,6 +39,7 @@ class EbridSettings
         'DBNAME' => 'ebrid',
         'DBUSER' => 'root',
         'DBPASSWORD' => '',
+        'SITENAME' => '',
         'THEME' => 'default',
         'REWRITE_RULE' => '/{article_year}/article/{article_name}'
     );
@@ -180,7 +181,12 @@ class EbridSettings
             $content = preg_replace($regex, $replace, $content);
         }
 
-        var_dump(file_put_contents($this->file, $content, LOCK_EX));
+        /**
+         * Put an @ to prevent error
+         * But it still here just for a while
+         * We will remove it later
+         */
+        @file_put_contents($this->file, $content, LOCK_EX);
 
         return $this;
     }

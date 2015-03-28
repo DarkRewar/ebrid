@@ -164,7 +164,7 @@ function checkInt($int) {
  * @since 0.1
  */
 function draw_site_name() {
-    echo 'SiteName';
+    echo SITENAME;
 }
 
 /**

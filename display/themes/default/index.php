@@ -20,6 +20,7 @@
                 <div class="row">
                     <?php foreach(articles() as $article): ?>
                         <?php if(only_one()) : ?>
+                            <a href="/" class="button info">&laquo;Retour à l'accueil</a>
                             <div class="col s-range-12">
                                 <h1 class="article-title"><?php echo $article['title'] ?></h1>                
                                 <?php echo $article['content'] ?>

@@ -32,6 +32,19 @@ if(isset($_POST['send_settings'])){
             <?php endforeach ?>
             <input class="button info right" type="submit" name="send_settings" value="Enregistrer vos paramètres">
         </form>
+        <h3>Aide à la création d'URL</h3>
+        <p>
+            Les propriétés d'un article doivent être entre
+            accolades {...}. Vous pouvez utiliser :<br />
+        </p>
+        <ul class="classic">
+            <li>article_id</li>
+            <li>article_name</li>
+            <li>article_year</li>
+            <li>article_month</li>
+            <li>article_day</li>
+            
+        </ul>
     </div>    
 </div>
 
