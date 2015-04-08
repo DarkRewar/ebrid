@@ -43,7 +43,28 @@ if (isset($_GET['trashed']))
     BlogCategory::_deleteCategory($_GET['category']);
 }
 
-
+// Modification de la catégorie.
+$idc = $_POST['cat'];
+if (isset($_POST['cat'])) {
+    if ($_POST['cat-name'] != '' && $_POST['cat-desc'] != '') {
+        $name = 'name';
+        $changement = $_POST['cat-name'];
+        BlogCategory::_updateCategory($name, $changement, $idc);
+        $name = 'description';
+        $changement = $_POST['cat-desc'];
+        BlogCategory::_updateCategory($name, $changement, $idc);
+    } elseif ($_POST['cat-name'] != '') {
+        echo $idc;
+        $name = 'name';
+        $changement = $_POST['cat-name'];
+        echo $name . $changement;
+        BlogCategory::_updateCategory($name, $changement, $idc);
+    } elseif ($_POST['cat-desc'] != '' ) {
+        $name = 'description';
+        $changement = $_POST['cat-desc'];
+        BlogCategory::_updateCategory($name, $changement, $idc);
+    }
+}
 
 extract($infos);
 
@@ -64,7 +85,7 @@ tinymce.init({
                 </section>
                 <footer>
                     <button class="info" data-modal="add-category">Ajouter une catégorie</button>
-                    <button class="info" data-modal="modif-category">Modifier une catégorie</button> 
+                    <button href="updateCategory.php" class="info" data-modal="modif-category">Modifier une catégorie</button>
                     <button class="info" data-modal="del-category">Supprimer une catégorie</button>                    
                 </footer>
             </category>
@@ -101,9 +122,25 @@ tinymce.init({
 <div id="modif-category" class="modal"> 
     <a class="close">×</a> 
     <h1>Modifier la catégorie</h1>
-    <form action="" method="post" id="modif_this_category">
-        <input type="text" name="cat-name" id="cat-name" class="" placeholder="Nouveau nom" value="" />
-        <textarea name="cat-desc" placeholder="(Optionnel) Nouvelle description"></textarea>
+    <form action="" method="post" name="modif_category">
+        <p>
+            Catégorie à modifier
+            <?php
+                draw_list_category(array(
+                    "container" => array(
+                        "markup" => "select",
+                        "name" => "cat"
+                    ),
+                    "list" => array(
+                        "markup" => "option",
+                        "value" => "#idc#",
+                        "content" => "#name#"
+                    )
+                ));
+            ?>
+        </p>
+        <input type="text" name="cat-name" id="cat-name" class="" placeholder="Nouveau nom" />
+        <textarea name="cat-desc" placeholder="Nouvelle description"></textarea>
         <input type="submit" name="cat-send" id="cat-send" class="button info" placeholder="" value="Modifier" />
     </form>
 </div>

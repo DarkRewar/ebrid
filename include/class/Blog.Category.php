@@ -234,6 +234,22 @@ class BlogCategory
         }
         return $return;
     }
+
+    static public function _updateCategory($name, $changement, $idc) {
+        if ($name == 'name') {
+            $req = "UPDATE blog_category
+                    SET name = '$changement'
+                    WHERE idc = '$idc'";
+            return Database::_exec($req);
+        } elseif ($name == 'description') {
+            $req = "UPDATE blog_category
+                    SET description = '$changement'
+                    WHERE idc = '$idc'";
+            return Database::_exec($req);
+        } else {
+            return false;
+        }
+    }
     
     /**
      * Check if the Category already exists
@@ -302,9 +318,8 @@ class BlogCategory
                 WHERE br.idc = bc.idc
                 ORDER BY idr
                 DESC LIMIT 0,1) title
-            FROM blog_category bc
-            ORDER BY bc.idc
-            LIMIT 0,5";
+                FROM blog_category bc
+                ORDER BY bc.idc LIMIT 0,5";
         return Database::_query($req);
     }
 
