@@ -234,6 +234,22 @@ class BlogCategory
         }
         return $return;
     }
+
+    static public function _updateCategory($name, $changement, $idc) {
+        if ($name == 'name') {
+            $req = "UPDATE blog_category
+                    SET name = '$changement'
+                    WHERE idc = '$idc'";
+            return Database::_exec($req);
+        } elseif ($name == 'description') {
+            $req = "UPDATE blog_category
+                    SET description = '$changement'
+                    WHERE idc = '$idc'";
+            return Database::_exec($req);
+        } else {
+            return false;
+        }
+    }
     
     /**
      * Check if the Category already exists
@@ -302,9 +318,32 @@ class BlogCategory
                 WHERE br.idc = bc.idc
                 ORDER BY idr
                 DESC LIMIT 0,1) title
-            FROM blog_category bc
-            ORDER BY bc.idc
-            LIMIT 0,5";
+                FROM blog_category bc
+                ORDER BY bc.idc LIMIT 0,5";
         return Database::_query($req);
+    }
+
+    /**
+    *   Delete the Name and the Description in the DB
+    *  @return bool
+    *  @since 0.1
+    */
+    public function delete()
+    {   
+        Database::_beginTransaction();
+        $req = "DELETE FROM 'blog_category';
+                WHERE idc_parent = '".$this->idcParent."'; 
+                AND idc = idcParent";
+        Database::_exec($req);
+        $req2 = "DELETE FROM 'blog_category';
+                WHERE idc = '".$this->idc."'";
+        Database::_exec($req2);
+        if(!Database::_exec($req)){
+            Database::_rollBack();
+        }elseif(!Database::_exec($req2)){
+            Database::_rollBack();
+        }else{
+            Database::_commit();
+        }
     }
 }

@@ -48,7 +48,7 @@ function draw_tree_category($categories = array() , $array = array() , $level = 
     $ul = isset($array[0]['idc_parent']) && $array[0]['idc_parent'] == '0' ? true : false;
     
     if ($ul) echo '<ul>';
-    
+
     foreach ($array as $k => $v) {
         if( is_array($categories) && !empty($categories) && in_array($v['idc'], $categories) ){
             $checked = 'checked';
