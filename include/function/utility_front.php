@@ -7,6 +7,24 @@
  */
 
 /**
+ * Echo things
+ *
+ * @param mixed... arguments to echo
+ * @since Version 1
+ */
+function __(){
+    $argc = func_num_args();
+    $argv = func_get_args();
+
+    foreach ($argv as $thing) {
+        echo $thing;
+        if($argc > 1){
+            echo ' ';
+        }
+    }
+}
+
+/**
  * Add an error to log messages
  *
  * @param string $log logs
@@ -165,6 +183,15 @@ function checkInt($int) {
  */
 function draw_site_name() {
     echo SITENAME;
+}
+
+/**
+ * Draw the URL of the website
+ *
+ * @since Version 0.1
+ */
+function draw_site_url(){
+    echo $_SERVER['SERVER_NAME'];
 }
 
 /**

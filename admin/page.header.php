@@ -22,12 +22,11 @@ $title = isset($title)?$title:'Ebrid Maquette';
         <div class="contain">
             <ul>
                 <li data-drop="ebrid_infos">
-                    <a href="./" class="title">Ebrid_Maquette</a>
+                    <a href="./" class="title">Administration</a>
                     <div class="drop" id="ebrid_infos">
                         <ul>
-                            <li><a href="http://ebrid.dev">Ebrid.dev</a></li>
-                            <li><a>Voir mon site</a></li>
-                            <li><a>Modifier mon site</a></li>
+                            <li><a href="http://<?php draw_site_url() ?>">Voir mon site</a></li>
+                            <li><a href="">Modifier mon site</a></li>
                         </ul>
                     </div>
                 </li>

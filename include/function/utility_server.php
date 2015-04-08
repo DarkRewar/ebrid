@@ -9,6 +9,36 @@
  */
 
 /**
+ * Get or set an element in the session
+ *
+ * @param string $key the element key
+ * @param mixed $val the element value
+ * @return mixed -Return the value if you use the getter function
+ *               -Return a boolean if you use the setter function
+ * @since Version 0.1
+ */
+function session() {
+    $argc = func_num_args();
+    $argv = func_get_args();
+
+    if($argc == 1){
+        $key = $argv[0];
+        if(isset($_SESSION[$key])){
+            return $_SESSION[$key];
+        }else{
+            return null;
+        }
+    }else if($argc == 2){
+        $key = $argv[0];
+        $val = $argv[1];
+
+        return (bool)($_SESSION[$key] = $val);
+    }
+
+    return null;
+}
+
+/**
  * Check if the page called is on browser
  *
  * @return bool

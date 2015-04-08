@@ -25,6 +25,45 @@ function articles(){
 }
 
 /**
+ * Draw the title of the article
+ *
+ * @since Version 0.1
+ */
+function draw_title($article){
+    if(isset($article['title'])){
+        __($article['title']);
+    }else{
+        __("Erreur: titre non renseigné");
+    }
+}
+
+/**
+ * Draw the content of the article
+ *
+ * @since Version 0.1
+ */
+function draw_content($article){
+    if(isset($article['content'])){
+        __($article['content']);
+    }else{
+        __("Erreur: contenu inexistant");
+    }
+}
+
+/**
+ * Draw the date of the article
+ *
+ * @since Version 0.1
+ */
+function draw_date($article){
+    if(isset($article['date'])){
+        __($article['date']);
+    }else{
+        __("Erreur: contenu inexistant");
+    }
+}
+
+/**
  * Get articles with the uri of the
  * article
  *
@@ -58,7 +97,7 @@ function get_article_with_uri($url = ""){
  * @return string
  * @since Version 0.1
  */
-function draw_link_article($article){
+function draw_link($article){
     global $rewrite;
 
     $date = strtotime($article['date']);

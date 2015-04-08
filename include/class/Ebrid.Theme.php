@@ -131,7 +131,11 @@ class EbridTheme
      *  @return bool
      *  @since 0.1
      */
-    static public function _exist($name, $path){
+    static public function _exist($name, $path = null){
+        if($path === null){
+            $path = EBRIDDISPLAY . '/themes/';
+        }
+
         $theme = $path . $name;
         $filesToNeed = array('.info', 'index.php', 'style.css');
 
@@ -142,8 +146,9 @@ class EbridTheme
             return false;
         }else{
             foreach ($filesToNeed as $file) {                
-                if(!file_exists($theme . '/' . $file) OR !is_file($theme . '/'. $file))
+                if(!file_exists($theme . '/' . $file) OR !is_file($theme . '/'. $file)){
                     return false;
+                }
             }
         }
         return true;

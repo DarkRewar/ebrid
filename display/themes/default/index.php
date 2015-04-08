@@ -19,23 +19,25 @@
             <div class="col m-range-9">
                 <div class="row">
                     <?php foreach(articles() as $article): ?>
+
                         <?php if(only_one()) : ?>
                             <a href="/" class="button info">&laquo;Retour à l'accueil</a>
                             <div class="col s-range-12">
-                                <h1 class="article-title"><?php echo $article['title'] ?></h1>                
-                                <?php echo $article['content'] ?>
+                                <h1 class="article-title"><?php draw_title($article) ?></h1>                
+                                <?php draw_content($article) ?>
                             </div>
                         <?php else: ?>
                             <div class="col m-range-12">
                                 <div class="article-preview">
-                                    <h1><?php echo $article['title'] ?></h1>
-                                    <h4><?php echo $article['date'] ?></h4>
-                                    <?php echo $article['content'] ?>
-                                    <a href="<?php draw_link_article($article); ?>" class="button info read">Lire l'article</a>
+                                    <h1><?php draw_title($article) ?></h1>
+                                    <h4><?php draw_date($article) ?></h4>
+                                    <?php draw_content($article) ?>
+                                    <a href="<?php draw_link($article); ?>" class="button info read">Lire l'article</a>
                                 </div>
                             </div>
                         <?php endif ?>
-                    <?php endforeach; ?>                    
+
+                    <?php endforeach; ?>           
                 </div>
             </div>
             <div class="col m-range-3">
