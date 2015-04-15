@@ -230,7 +230,7 @@ class BlogCategory
         } 
         else {
             $return["e"] = "success";
-            $return["message"] = "The category have been created";
+            $return["message"] = "Category bien crée";
         }
         return $return;
     }
