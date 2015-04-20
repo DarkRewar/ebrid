@@ -18,4 +18,13 @@ if(file_exists($filename)){
 
     $req = " CREATE DATABASE '".$_POST['nameDB']."'";
     $res = Database::_exec($req);
+
+    if(!isset($_POST['idDB'])){
+        echo "L'identifiant n\'a pas été entré";
+    }elseif((!isset($_POST['DBhost'])){
+        echo "La base hote n\'a pas été entrée";
+    
+    }
+
+    
 }
