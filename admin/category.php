@@ -44,8 +44,9 @@ if (isset($_GET['trashed']))
 }
 
 // Modification de la catégorie.
-$idc = $_POST['cat'];
+
 if (isset($_POST['cat'])) {
+    $idc = $_POST['cat'];
     if ($_POST['cat-name'] != '' && $_POST['cat-desc'] != '') {
         $name = 'name';
         $changement = $_POST['cat-name'];
@@ -167,11 +168,11 @@ tinymce.init({
         </p>
         <?php
             foreach (BlogCategory::_getCategory() as $v){
-
+            $category = new BlogCategory($v['idc']);
             echo "
                 <button class=\"supprimerCategory\" id='supprimer_category" . $v['idc'] . "'>
-                    <a href=\"category.php?category=" . $v['idc'] . "&trashed=true\">Supprimer
-                    </a>
+                    <a href=\"category.php?category=" . $v['idc'] . "&trashed=true\">". $category->getName() .
+                    "</a>
                 </button>";
             }
         ?>
