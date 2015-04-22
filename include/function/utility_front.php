@@ -198,6 +198,7 @@ function draw_site_url(){
  * Get the page theme
  *
  * @since Version 0.1
+ * @version 0.2
  */
 function get_page_theme() {
     global $theme, $rewrite, $articles;
@@ -212,6 +213,9 @@ function get_page_theme() {
     elseif (count($args_query) == 0 || empty($articles)) {
         include ($theme->getPath() . '/404.php');
     } 
+    else if( $typePage == 'blog' && $theme->hasPage('post') ){
+        include ($theme->getPath() . '/post.php');
+    }
     else {
         include ($theme->getPath() . '/index.php');
     }
@@ -242,14 +246,19 @@ function get_page_type($currentUrl) {
  * Draw the framework CSS that Ebrid has
  *
  * @param string $name The name of the framework
- *
+ * @param int $version The version of the framework
  * @since Version 0.1
+ * @version 0.2
  */
-function use_ebrid_css($name = "leaframe") {
+function use_ebrid_css($name = "leaframe", $version = 2) {
     switch ($name) {
         case 'bootstrap':
-            _draw('style', '/display/css/bootstrap/bootstrap.min.css');
-            _draw('style', '/display/css/bootstrap/bootstrap-responsive.min.css');
+            _draw('style', "/display/css/bootstrap/$version/bootstrap.min.css");
+
+            if( $version == 2 ){
+                _draw('style', "/display/css/bootstrap/$version/bootstrap-responsive.min.css");
+            }
+
             break;
 
         case 'foundation':
@@ -266,11 +275,31 @@ function use_ebrid_css($name = "leaframe") {
 /**
  * Get the path of the active theme
  *
- *
  * @return string
  * @since Version 0.1
  */
 function theme_path() {
     global $theme;
     return $theme->getPath(true);
+}
+
+/**
+ * Get the style of the active theme
+ *
+ * @return string
+ * @since Version 0.2
+ */
+function theme_style() {
+    return theme_path() . '/style.css';
+}
+
+/**
+ * Get the script of the active theme
+ *
+ * @param  string  $type   the type of drawing
+ * @param  mixed   $value  the value in the draw container
+ * @since Version 0.2
+ */
+function theme_draw($type, $value) {
+    _draw($type, theme_path() . $value);
 }

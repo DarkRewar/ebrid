@@ -5,17 +5,20 @@
  *
  * @package Ebrid
  * @since Version 0.1
- * @version 0.1
+ * @version 0.2
  */
 
 /**
  * Get or set an element in the session
+ * To get an element: session('element');
+ * To set an element: session('element', 'value');
  *
  * @param string $key the element key
  * @param mixed $val the element value
  * @return mixed -Return the value if you use the getter function
  *               -Return a boolean if you use the setter function
  * @since Version 0.1
+ * @version 0.2
  */
 function session() {
     $argc = func_num_args();
@@ -25,8 +28,6 @@ function session() {
         $key = $argv[0];
         if(isset($_SESSION[$key])){
             return $_SESSION[$key];
-        }else{
-            return null;
         }
     }else if($argc == 2){
         $key = $argv[0];
@@ -88,40 +89,16 @@ function actual_page($str) {
 }
 
 /**
- * Get an element in the session
- *
- * @param string $str the element to take
- * @return mixed
- * @since Version 0.1
- */
-function get_session($str) {
-    if (isset($_SESSION[$str])) {
-        return $_SESSION[$str];
-    }
-    return null;
-}
-
-/**
- * Get an element in the session
- *
- * @param string $id the element id to set
- * @param string $str the element to set
- * @since Version 0.1
- */
-function set_session($id, $str) {
-    $_SESSION[$id] = $str;
-}
-
-/**
  * Check if an user is connected
  * Return the user connected
  * If no one is connected, return empty class
  *
  * @return User
  * @since Version 0.1
+ * @version 0.2
  */
 function user_connected() {
-    $uid = get_session('uid');
+    $uid = session('uid');
     return new User($uid);
 }
 

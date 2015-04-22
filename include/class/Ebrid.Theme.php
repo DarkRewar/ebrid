@@ -21,6 +21,7 @@
 class EbridTheme
 {
     private $name;
+    private $preview;
     private $path;
     private $pathRaw = '/display/themes/';
     private $info;
@@ -57,9 +58,11 @@ class EbridTheme
      * @since Version 0.1
      */
     public function getScreenshot(){
-        $file = $this->pathRaw . $this->name . '/screenshot.png';
+        $fileRaw = $this->pathRaw . $this->name . '/screenshot.png';
+        $file = $this->path . $this->name . '/screenshot.png';
+        
         if(file_exists($file)){
-            return $file;
+            return $fileRaw;
         }
         return null;
     }
@@ -117,6 +120,18 @@ class EbridTheme
         }
         fclose($finfo);
         return $this;
+    }
+
+    /**
+     * Check if a theme has the specified page
+     *
+     * @param string $name the file name
+     * @return bool
+     * @since Version 0.2
+     */
+    public function hasPage($name){
+        $file = $this->getPath() . '/' . $name . '.php';
+        return file_exists($file);
     }
 
     /**

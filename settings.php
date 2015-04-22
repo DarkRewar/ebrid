@@ -35,11 +35,11 @@ define('SITENAME', 'Ebrid WebSite');
  *
  * @since Version 0.1
  */
-define('THEME', 'default');
+define('THEME', 'cleanblog');
 
 /**
  * The REWRITE RULE 
  *
  * @since Version 0.1
  */
-define('REWRITE_RULE', '/blog/{article_year}-{article_month}-{article_day}/{article_id}-{article_name}');
+define('REWRITE_RULE', '/{article_id}');

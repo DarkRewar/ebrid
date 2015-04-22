@@ -4,7 +4,7 @@
     <title><?php draw_site_name(); ?></title>
     <?php 
     use_ebrid_css('leaframe'); 
-    _draw('style', theme_path().'/style.css');
+    _draw('style', theme_style());
     ?>
 </head>
 <body>

@@ -4,6 +4,8 @@
  * Index page of Administration
  *
  * @package Ebrid
+ * @since Version 0.1
+ * @version 0.2
  */
 
 require_once( dirname(__FILE__) . '/loader.php');
@@ -44,7 +46,7 @@ if(isset($_GET['active'])){
                 <div class="col m-range-4">
                     <div class="preview-theme">
                         <section>
-                            <img src="<?php echo $theTheme->getScreenshot() ?>">
+                            <img src="<?php echo $theTheme->getScreenshot() ?>" />
                         </section>
                         <footer>
                             <span class="name-theme">

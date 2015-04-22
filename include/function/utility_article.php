@@ -25,6 +25,22 @@ function articles(){
 }
 
 /**
+ * Get the article
+ * of the current page
+ *
+ * @return array
+ * @since Version 0.1
+ */
+function article(){
+    global $articles;
+    if(count($articles) == 0){
+        return $articles;
+    } else {
+        return $articles[0];
+    }
+}
+
+/**
  * Draw the title of the article
  *
  * @since Version 0.1

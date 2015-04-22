@@ -12,7 +12,7 @@ if(isset($_POST['login_btn'])){
     unset($_POST['login_btn']);
     $user = new User($_POST['login_nick']);
     if($user->checkPassword($_POST['login_pass'])){
-        set_session('uid', $user->getUid());
+        session('uid', $user->getUid());
         redirect('admin-panel');
     }else{
         add_error($_messages, 'Mot de passe incorrect.');
