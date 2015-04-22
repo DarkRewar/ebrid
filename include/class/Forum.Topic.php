@@ -228,6 +228,32 @@ class ForumTopic extends ForumForum
         return true;
     }
 
+    /**
+     * Function Information
+     *
+     * @since 0.2
+     * @return self
+     * @package Ebrid
+     */
+    public function insertTopic(){
+
+        $req = "INSERT INTO forum_topic(
+            idf,
+            uid,
+            nom,
+            description,
+            date
+            )VALUES(
+            '". $this->idf ."',
+            '". $this->uid ."',
+            '". $this->nom ."'
+            '". $this->description ."',
+            NOW()
+            )";
+
+            return Database::_exec($req);
+    }
+
     public static function _ShowLastTopic($idf)
     {   
         $t=array();

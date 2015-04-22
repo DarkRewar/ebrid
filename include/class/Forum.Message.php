@@ -20,11 +20,11 @@
  */
 class ForumMessage extends ForumTopic
 {
-    private $_idm;
-    private $_idt;
-    private $_uid;
-    private $_title;
-    private $_date;
+    private $idm;
+    private $idt;
+    private $uid;
+    private $title;
+    private $date;
 
     /**
      *  Construct
@@ -38,20 +38,19 @@ class ForumMessage extends ForumTopic
             if (is_numeric($idm)) {
                 $req = "SELECT * FROM forum_message WHERE id = '$idm'";
             }
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            while ($a = mysqli_fetch_assoc($res)){
-                $this->_idm = $a['idm'];
-                $this->_idt = $a['idt'];
-                $this->_uid= $a['uid'];
-                $this->_title = $a['title'];
-                $this->_date = $a['date'];
+            foreach (Database::_query($req) as $a){
+                $this->idm = $a['idm'];
+                $this->idt = $a['idt'];
+                $this->uid= $a['uid'];
+                $this->title = $a['title'];
+                $this->date = $a['date'];
             }
         }else {
-            $this->_idm = 0;
-            $this->_idt = 0;
-            $this->_uid = 0;
-            $this->_title = 0;
-            $this->_date = 0;
+            $this->idm = 0;
+            $this->idt = 0;
+            $this->uid = 0;
+            $this->title = 0;
+            $this->date = 0;
         }
     }
 
@@ -63,7 +62,7 @@ class ForumMessage extends ForumTopic
      */
     public function getIdm()
     {
-        return $this->_idm;
+        return $this->idm;
     }
 
     /**
@@ -74,7 +73,7 @@ class ForumMessage extends ForumTopic
      */
     public function getIdt()
     {
-        return $this->_idt;
+        return $this->idt;
     }
 
     /**
@@ -85,7 +84,7 @@ class ForumMessage extends ForumTopic
      */
     public function getUid()
     {
-        return $this->_uid;
+        return $this->uid;
     }
 
     /**
@@ -96,7 +95,7 @@ class ForumMessage extends ForumTopic
      */
     public function getTitle()
     {
-        return $this->_title;
+        return $this->title;
     }
 
     /**
@@ -107,7 +106,7 @@ class ForumMessage extends ForumTopic
      */
     public function getDate()
     {
-        return $this->_date;
+        return $this->date;
     }
 
     /**
@@ -147,7 +146,7 @@ class ForumMessage extends ForumTopic
         if (preg_match("#^[\d]+$#", $date)){
             $d = $date;
         } else $d = time();
-        $this->_date = date('Y-m-d H:i:s', $d);
+        $this->date = date('Y-m-d H:i:s', $d);
         return true;
     }
 
@@ -159,7 +158,7 @@ class ForumMessage extends ForumTopic
      */
     public function insertMessage()
     {
-        $req = "INSERT INTO forum_message(title, date) VALUES ('".$this->_title."', '".$this->_date."')";
+        $req = "INSERT INTO forum_message(title, date) VALUES ('".$this->title."', '".$this->date."')";
         $res = Database::_exec($req);
 
         if($res){
@@ -183,10 +182,8 @@ class ForumMessage extends ForumTopic
             else if (is_string($u)) $where = "title = '$u'";
             else return false;
             
-            $req = "SELECT idm FROM forum_message WHERE " . $where;
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            if (mysqli_num_rows($res) > 0) return true;
-            else return false;
+            $req = "SELECT COUNT(1) FROM forum_message WHERE " . $where;
+            if (Database::_selectOne($req) > 0) return true;
         }
         return false;
     }
