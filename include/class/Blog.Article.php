@@ -29,7 +29,7 @@ class BlogArticle
     private $url;
     private $categories;
     
-    function __construct($ida = 0) {
+    public function __construct($ida = 0) {
         $this->categories = array();
         
         if ($ida > 0) {

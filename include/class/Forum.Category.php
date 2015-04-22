@@ -8,7 +8,7 @@
  * @package Ebrid
  * @license http://opensource.org/licenses/MIT
  * @link http://ebrid.lignusdev.com
- * @since Version 0.1
+ * @since Version 0.2
  */
 
 /**
@@ -16,21 +16,21 @@
  *
  * @category Forum
  * @package Ebrid
- * @since Version 0.1
+ * @since Version 0.2
  */
 class ForumCategory
 {
-    private $_idc;
-    private $_name;
-    private $_description;
-    private $_access;
-    private $_level;
+    private $idc;
+    private $name;
+    private $description;
+    private $access;
+    private $level;
 
     /**
      *  Construct
      *
      *  @param int $idc id of category
-     *  @since 0.1
+     *  @since 0.2
      */
     public function __construct($idf = 0)
     {
@@ -40,18 +40,18 @@ class ForumCategory
             }else {
                 $req = "SELECT * FROM forumCategory WHERE nom = '$idf'";            
             }
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            while($a = mysqli_fetch_assoc($res)){
+            foreach (Database::_query($req) as $a){
                 $this->_idf = $a['idf'];
-                $this->_idc = $a['idc'];
-                $this->_name= $a['name'];
-                $this->_description = $a['description'];
+                $this->idc = $a['idc'];
+                $this->name= $a['name'];
+                $this->description = $a['description'];
             }
+            
         }else {
-            $this->_idf = 0;
-            $this->_idc = 0;
-            $this->_name = 0;
-            $this->_description = 0;
+            $this->idf = 0;
+            $this->idc = 0;
+            $this->name = 0;
+            $this->description = 0;
         }
     }
 
@@ -59,54 +59,54 @@ class ForumCategory
      *  Get Idc
      *
      *  @return int
-     *  @since 0.1
+     *  @since 0.2
      */
     public function getIdc()
     {
-        return $this->_idc;
+        return $this->idc;
     }
 
     /**
      *  Get Name
      *
      *  @return string
-     *  @since 0.1
+     *  @since 0.2
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
      *  Get Description
      *
      *  @return string
-     *  @since 0.1
+     *  @since 0.2
      */
     public function getDescription()
     {
-        return $this->_description;
+        return $this->description;
     }
 
     /**
      *  Get Access
      *
      *  @return string
-     *  @since 0.1
+     *  @since 0.2
      */
     public function getAccess()
     {
-        return $this->_access;
+        return $this->access;
     }
     /**
      *  Get Level
      *
      *  @return int
-     *  @since 0.1
+     *  @since 0.2
      */
     public function getLevel()
     {
-        return $this->_level;
+        return $this->level;
     }
 
     /**
@@ -114,11 +114,11 @@ class ForumCategory
      *
      *  @param string $name name of the forum
      *  @return bool
-     *  @since 0.1
+     *  @since 0.2
      */
     public function setName($name){
         if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $name)) return false;
-        $this->_name = $name;
+        $this->name = $name;
         return true;
     }
 
@@ -127,11 +127,11 @@ class ForumCategory
      *  
      *  @param string $description description of the forum
      *  @return bool
-     *  @since 0.1
+     *  @since 0.2
      */
     public function setDescription($description){
        if (!preg_match("#^[\w\.\#\-\s]+$#", $description)) return false;
-       $this->_description = $description;
+       $this->description = $description;
        return true;
     }
 
@@ -140,11 +140,11 @@ class ForumCategory
      *  
      *  @param string $access access of the forum
      *  @return bool
-     *  @since 0.1
+     *  @since 0.2
      */
     public function setAccess($access){
        if (!preg_match("#^[\w]$#", $access)) return false;
-       $this->_access = $access;
+       $this->access = $access;
        return true;
     }
 
@@ -153,11 +153,11 @@ class ForumCategory
      *  
      *  @param int $level level of display
      *  @return bool
-     *  @since 0.1
+     *  @since 0.2
      */
     public function setLevel($level){
        if (!preg_match("#^[\d]$#", $level)) return false;
-       $this->_description = $level;
+       $this->description = $level;
        return true;
     }
 
@@ -165,14 +165,21 @@ class ForumCategory
      *  Insert the Name and the Description in the DB as a new Category
      *
      *  @return bool
-     *  @since 0.1
+     *  @since 0.2
      */
     public function insert()
     {
-        $req = "INSERT INTO forumCategory(name, description, access, level) VALUES ('".$this->_name."', '".$this->_description."', '".$this->_access."', '".$this->_level."')";
-        $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-        if(!$res) return false;
-        return true;
+        $req = "INSERT INTO forumCategory(
+            name,
+            description,
+            access,
+            level
+            )VALUES (
+            '".$this->name."',
+            '".$this->description."',
+            '".$this->access."',
+            '".$this->level."')";
+        return Database::_exec($req);
     }
 
     /**
@@ -180,7 +187,7 @@ class ForumCategory
      *  
      *  @param mixed $u idf or name
      *  @return bool
-     *  @since 0.1
+     *  @since 0.2
      */
     static public function _exist($u = null) 
     {
@@ -190,10 +197,8 @@ class ForumCategory
             else if (is_string($u)) $where = "name = '$u'";
             else return false;
             
-            $req = "SELECT idc FROM forumCategory WHERE " . $where;
-            $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Error in the file ' . FILE . ' at the line ' . LINE . ' with the request : ' . $req);
-            if (mysqli_num_rows($res) > 0) return true;
-            else return false;
+            $req = "SELECT COUNT(1) FROM forumCategory WHERE " . $where;
+            if (Database::_selectOne($req) > 0) return true;
         }
         return false;
     }

@@ -20,11 +20,11 @@
  */
 class ForumRevision extends ForumMessage
 {
-    private $_idr;
-    private $_idm;
-    private $_title;
-    private $_content;
-    private $_date;
+    private $idr;
+    private $idm;
+    private $title;
+    private $content;
+    private $date;
 
     /**
      *  Construct
@@ -36,33 +36,32 @@ class ForumRevision extends ForumMessage
     public function __construct($save = array("idr"=>0, "idm"=>0)){
         if(is_array($save)){
             if(isset($save["idr"]) && self::_exist($save['idr']) ){
-                $this->setIdr($_idr);  
+                $this->setIdr($idr);  
                 $req = "
                     SELECT *
                     FROM forum_revision 
                     WHERE idr = '".$save['idr']."'";
-                $res = mysqli_query($GLOBALS['db'], $req) or die(mysql_error() . '<br />Erreur dans le fichier ' . __FILE__ . ' à la ligne ' . __LINE__ . ' avec la requete : ' . $req);
-                while($a = mysqli_fetch_assoc($res)){
-                    $this->_idm = $a['idm'];
-                    $this->_idr = $a['idr'];
-                    $this->_title = $a['title'];
-                    $this->_content = $a['content'];
-                    $this->_date = $a['date'];
+                foreach (Database::_query($req) as $a){
+                    $this->idm = $a['idm'];
+                    $this->idr = $a['idr'];
+                    $this->title = $a['title'];
+                    $this->content = $a['content'];
+                    $this->date = $a['date'];
                 }
             }else if(isset($save['idm']) && ForumMessage:: _exist($save['idm'])){
                 $req = "SELECT COUNT(1) FROM forum_revision WHERE idm = '".$save['idm']."'";
-                $this->_idm = $save['idm'];
-                $this->_idr = intval(Database::_selectOne($req))+1;
-                $this->_title = 0;
-                $this->_content = 0;
-                $this->_date = 0;
+                $this->idm = $save['idm'];
+                $this->idr = intval(Database::_selectOne($req))+1;
+                $this->title = 0;
+                $this->content = 0;
+                $this->date = 0;
             }            
         }else{
-            $this->_idm = 0;
-            $this->_idr = 0;
-            $this->_title = 0;
-            $this->_content = 0;
-            $this->_date = 0;
+            $this->idm = 0;
+            $this->idr = 0;
+            $this->title = 0;
+            $this->content = 0;
+            $this->date = 0;
         }
     }
 
@@ -74,7 +73,7 @@ class ForumRevision extends ForumMessage
      */
     public function getIdr()
     {
-        return $this->_idr;
+        return $this->idr;
     }
 
     /**
@@ -85,7 +84,7 @@ class ForumRevision extends ForumMessage
      */
     public function getIdm()
     {
-        return $this->_idm;
+        return $this->idm;
     }
 
     /**
@@ -96,7 +95,7 @@ class ForumRevision extends ForumMessage
      */
     public function getTitle()
     {
-        return $this->_title;
+        return $this->title;
     }
 
     /**
@@ -107,7 +106,7 @@ class ForumRevision extends ForumMessage
      */
     public function getContent()
     {
-        return $this->_content;
+        return $this->content;
     }
 
     /**
@@ -118,7 +117,7 @@ class ForumRevision extends ForumMessage
      */
     public function getDate()
     {
-        return $this->_date;
+        return $this->date;
     }
 
     /**
@@ -130,7 +129,7 @@ class ForumRevision extends ForumMessage
      */
     public function setIdr($idr){
         if (!preg_match("#^[\d]$#", $idr)) return false;
-        $this->_idr = $idr;
+        $this->idr = $idr;
         return true;
     }
 
@@ -143,7 +142,7 @@ class ForumRevision extends ForumMessage
      */
     public function setTitle($title){
         if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $title)) return false;
-        $this->_title = $title;
+        $this->title = $title;
         return true;
     }
 
@@ -171,7 +170,7 @@ class ForumRevision extends ForumMessage
         if (preg_match("#^[\d]+$#", $date)){
             $d = $date;
         } else $d = time();
-        $this->_date = date('Y-m-d H:i:s', $d);
+        $this->date = date('Y-m-d H:i:s', $d);
         return true;
     }
 
@@ -184,10 +183,10 @@ class ForumRevision extends ForumMessage
                 , date
 
             ) VALUES(
-                '" . $this->_idm .  "'
-                , '" . $this->_idr . "'
-                , '" . $this->_title . "'
-                , '" . $this->_content . "'
+                '" . $this->idm .  "'
+                , '" . $this->idr . "'
+                , '" . $this->title . "'
+                , '" . $this->content . "'
                 , NOW()
             )";
         return Database::_exec($req);
@@ -197,8 +196,8 @@ class ForumRevision extends ForumMessage
         extract($p);
 
         $this->setIdm($idm)
-            ->setTitle($forum_title)
-            ->setContent($forum_content);
+            ->setTitle($forumtitle)
+            ->setContent($forumcontent);
     }
 
     static public function _exist($u = array()){

@@ -269,7 +269,7 @@ class BlogCategory
         }
         return false;
     }
-    public static function afficherDerniereCategories() {
+    /*public static function afficherDerniereCategories() {
         echo '<p>Les 10 dernières categories: </p>';
         $r = array();
         $req = "SELECT * FROM blog_category ORDER BY idc DESC LIMIT 0,10";
@@ -281,7 +281,7 @@ class BlogCategory
         foreach ($r as $index => $value) {
             echo '<p><a href="affichage_category.php?idc=' . $value['idc'] . '">' . $value['name'] . '</a></br>' . $value['description'] . '</p>';
         }
-    }
+    }*/
     
     /**
      * Get in a big array, the tree of all categories
