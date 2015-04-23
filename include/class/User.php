@@ -247,8 +247,15 @@ class User
         return $this->bantime;
     }
     
+    /**
+     * Insert function
+     *
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function insert() {
-        $req = "INSERT INTO user(
+        $insert = "INSERT INTO user(
                 email
                 , nickname
                 , password
@@ -257,44 +264,98 @@ class User
                 , created
                 , status
             ) VALUES (
-                '" . $this->email . "'
-                , '" . $this->nickname . "'
-                , '" . _sha4($this->password) . "'
-                , '" . $this->firstname . "'
-                , '" . $this->lastname . "'
+                :email
+                , :nickname
+                , :password
+                , :firstname
+                , :lastname
                 , NOW()
                 , '1'
             )";
-        return Database::_exec($req);
+        Database::_prepare( $insert );
+        
+        $params = array(
+            ':email' => $this->getEmail(), 
+            ':nickname' => $this->getNickname(), 
+            ':password' => _sha4( $this->getPassword() ),
+            ':firstname' => $this->getFirstname(), 
+            ':lastname' => $this->getlLastname()
+        );
+        Database::_execute( $params );
+
+        $this->setUid( Database::_lastInsertId() );
+        return $this;
     }
     
+    /**
+     * Update function
+     *
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function update() {
-        $req = "
+        $update = "
             UPDATE user
-            SET `password` = '" . $this->password . "',
-                `first_name` = '" . $this->firstname . "',
-                `last_name` = '" . $this->lastname . "',
-                `signature` = '" . $this->signature . "',
-                `connected` = '" . $this->connected . "',
-                `navigated` = '" . $this->navigated . "',
-                `ip` = '" . $this->ip . "'
-                `status` = '" . $this->status . "',
-                `bantime` = '" . $this->bantime . "'
-            WHERE `uid` = '" . $this->uid . "'
+            SET `password` = :password,
+                `first_name` = :firstname,
+                `last_name` = :lastname,
+                `signature` = :signature,
+                `connected` = :connected,
+                `navigated` = :navigated,
+                `ip` = :ip,
+                `status` = :status,
+                `bantime` = :bantime
+            WHERE `uid` = :uid
         ";
-        return Database::_exec($req);
+        Database::_prepare( $update );
+
+        $params = array(
+            ':uid' => $this->getUid(),
+            ':password' => $this->getPassword(),
+            ':firstname' => $this->getFirstname(),
+            ':lastname' => $this->getLastname(),
+            ':signature' => $this->getSignature(),
+            ':connected' => $this->getConnected(),
+            ':navigated' => $this->getNavigated(),
+            ':ip' => $this->getIp(),
+            ':status' => $this->getStatus(),
+            ':bantime' => $this->getBantime()
+        );
+        Database::_execute( $params );
+
+        return $this;
     }
     
+    /**
+     * Delete function
+     *
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function delete() {
-        $req = "DELETE FROM user WHERE uid = '" . $this->uid . "'";
-        return Database::_exec($req);
+        $delete = "DELETE FROM user WHERE uid = :id";
+        Database::_prepare( $delete );
+        $param = array( ':id' => $this->getUid() );
+        Database::_execute( $param );
+        return $this;
     }
     
+    /**
+     * Create an user with the params
+     * passed in post array
+     *
+     * @param array $post the $_POST array with elements to set
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function create($post) {
         $this->nickname = $post['signup_nick'];
         $this->email = $post['signup_mail'];
         $this->password = $post['signup_pass'];
-        $this->insert();
+        return $this->insert();
     }
     
     /**
