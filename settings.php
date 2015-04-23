@@ -30,6 +30,22 @@ define('DBPASSWORD', '');
 define('SITENAME', 'Ebrid WebSite');
 
 /**
+ * The Date Format that is used
+ * for the website
+ *
+ * @since Version 0.1
+ */
+define('DATEFORMAT', 'd/m/Y');
+
+/**
+ * The Time Format that is used
+ * for the website
+ *
+ * @since Version 0.1
+ */
+define('TIMEFORMAT', 'H:i:s');
+
+/**
  * The Theme that is used
  * for the website
  *
@@ -42,4 +58,4 @@ define('THEME', 'cleanblog');
  *
  * @since Version 0.1
  */
-define('REWRITE_RULE', '/{article_id}');
+define('REWRITE_RULE', '/blog/{article_id}-{article_name}');

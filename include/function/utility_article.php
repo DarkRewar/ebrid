@@ -67,13 +67,26 @@ function draw_content($article){
 }
 
 /**
+ * Draw the author of the article
+ *
+ * @since Version 0.1
+ */
+function draw_author($article){
+    if(isset($article['uid'])){
+        __( User::_getNickname($article['uid']) );
+    }else{
+        __("Erreur: auteur inexistant");
+    }
+}
+
+/**
  * Draw the date of the article
  *
  * @since Version 0.1
  */
 function draw_date($article){
     if(isset($article['date'])){
-        __($article['date']);
+        __( _date($article['date']) );
     }else{
         __("Erreur: contenu inexistant");
     }

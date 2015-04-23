@@ -9,6 +9,7 @@
  * @license http://opensource.org/licenses/MIT
  * @link http://ebrid.lignusdev.com
  * @since Version 0.1
+ * @version 0.2
  */
 
 /**
@@ -17,6 +18,7 @@
  * @category User
  * @package Ebrid
  * @since Version 0.1
+ * @version 0.2
  */
 class User
 {
@@ -36,14 +38,14 @@ class User
     
     /**
      * Constructeur
+     *
      * @param int $uid
      * @package Ebrid
      * @since 0.1
-     *
      */
     public function __construct($uid = 0) {
-        if (self::_exist($uid)) {
-            if (is_numeric($uid)) {
+        if ( self::_exist($uid) ) {
+            if ( is_numeric($uid) ) {
                 $req = "SELECT * FROM user WHERE uid = '$uid'";
             } 
             else {
@@ -70,7 +72,7 @@ class User
             $this->uid = 0;
             $this->email = 0;
             $this->nickname = 0;
-            $this->password = 0;
+            $this->password = null;
             $this->name = null;
             $this->last_name = null;
             $this->signature = null;
@@ -88,10 +90,10 @@ class User
         $this->uid = $uid;
     }
     
-    public function getUid() {
-        
+    public function getUid() {        
         return $this->uid;
     }
+
     public function setEmail($email) {
         
         if (!preg_match("#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,4}$#", $email)) {
@@ -295,23 +297,48 @@ class User
         $this->insert();
     }
     
+    /**
+     * Check if passwords match
+     *
+     * @param string $password the password to check
+     * @return bool
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function checkPassword($password) {
-        if (_sha4($password) != $this->password) {
-            return false;
-        }
-        return true;
+        return _sha4($password) == $this->getPassword();
     }
-    
+
+    /**
+     * Check if an user exists
+     *
+     * @param mixed $u id, email or nickame of user
+     * @return bool
+     * @since Version 0.1
+     * @version 0.2
+     */    
     static public function _exist($u = null) {
-        if (!is_null($u)) {
-            if (checkEmail($u)) $where = "email = '$u'";
-            else if (is_numeric($u)) $where = "uid = '" . intval($u) . "'";
-            else if (checkNickname($u)) $where = "nickname = '$u'";
-            else return false;
-            
-            $req = "SELECT COUNT(1) FROM user WHERE " . $where;
-            if (Database::_selectOne($req) > 0) return true;
-        }
-        return false;
+        if (checkEmail($u)) $where = "email = :user";
+        else if (is_numeric($u)) $where = "uid = :user";
+        else $where = "nickname = :user";
+        
+        $exist = "SELECT COUNT(1) FROM user WHERE " . $where;
+        Database::_prepare($exist);
+        $param =  array(':user' => $u);
+        return (bool)Database::_selectOne( $param );
+    }
+
+    /**
+     * Get the username of an user
+     *
+     * @param int $id id of the user concerned
+     * @return string
+     * @since Version 0.2
+     */
+    static function _getNickname($id){
+        $getNick = "SELECT nickname FROM user WHERE uid = :id";
+        Database::_prepare($getNick);
+        Database::_bindParam(':id', intval($id), PDO::PARAM_INT);
+        return Database::_selectOne();
     }
 }
