@@ -5,7 +5,7 @@ require_once (dirname(__FILE__) . '/loader.php');
 $filename = 'settings.php';
 
 if(file_exists($filename)){
-     get_header_admin("Erreur");
+    get_header_admin("Erreur");
     echo "<div class=\"row\">
             Vous avez déjà installer Ebrid. Si vous vous le réinstaller , supprimez votre base de données
           </div>"
