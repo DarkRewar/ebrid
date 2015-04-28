@@ -29,6 +29,7 @@ if(isset($_POST['login_btn'])){
 <head>
     <meta charset="utf-8">
     <title>Connexion | Ebrid</title>
+    <link rel="icon" type="image/png" href="/display/img/favicon.png">
     <link rel="stylesheet" href="css/leaframe.min.css" />
     <link rel="stylesheet" href="css/modules.css" />
     <script src="js/jquery.js"></script>
