@@ -15,6 +15,7 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
     }
     return true;
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,8 +75,8 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                                         vous ne les connaissez pas, contactez votre hébergeur.</p>
                                     <table class="#">
                                         <tr>
-                                            <th scope="row"><label for="bdname">Nom de la base de données</label></th>
-                                            <td><input name="bdname" id="bdname" type="text" size="25" value="Ebrid"/>
+                                            <th scope="row"><label for="dbname">Nom de la base de données</label></th>
+                                            <td><input name="dbname" id="dbname" type="text" size="25" value="Ebrid"/>
                                             </td>
                                             <td>Le nom de la base de données dans laquelle vous souhaitez installer
                                                 WordPress.
@@ -113,21 +114,242 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                                 $checkDB = checkDB($dbhost, $dbname, $dbuser, $dbpassword);
                                 if ($checkDB !== true) {
                                     ?>
-                                    <p>Erreur lors de la connexion à la base de données :
-                                        <br/>
-                                        <?php echo $checkDB->getMessage(); ?>
-                                    </p>
+                                    <p>Erreur lors de la connexion à la base de données :</p>
+                                    <p><?php echo $checkDB->getMessage(); ?></p>
                                 <?php
                                 } else {
                                     ?>
                                     <p>La connexion à la base de données s'est bien passée.</p>
-                                    <p class="step"><a href="<?php echo $step_3; ?>" class="button button-large">
-                                            Passons à la suite</a></p>
+                                    <?php
+                                    $bdd = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname . ';charset=utf8', '' . $dbuser . '', '' . $dbpassword . '');
+                                    $creation = 'USE `' . $dbname . '`;
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `blog_article`
+                                             --
+
+                                             DROP TABLE IF EXISTS `blog_article`;
+                                             CREATE TABLE IF NOT EXISTS `blog_article` (
+                                               `ida` int(11) NOT NULL AUTO_INCREMENT,
+                                               `uid` int(11) NOT NULL,
+                                               `url` mediumtext NOT NULL,
+                                               `date` datetime NOT NULL,
+                                               `status` tinyint(1) NOT NULL,
+                                               PRIMARY KEY (`ida`)
+                                             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+                                             --
+                                             -- Contenu de la table `blog_article`
+                                             --
+
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `blog_article_category`
+                                             --
+
+                                             DROP TABLE IF EXISTS `blog_article_category`;
+                                             CREATE TABLE IF NOT EXISTS `blog_article_category` (
+                                               `ida` int(11) NOT NULL,
+                                               `idc` int(11) NOT NULL,
+                                               KEY `ida` (`ida`),
+                                               KEY `idc` (`idc`)
+                                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+                                             --
+                                             -- Contenu de la table `blog_article_category`
+                                             --
+
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `blog_category`
+                                             --
+
+                                             DROP TABLE IF EXISTS `blog_category`;
+                                             CREATE TABLE IF NOT EXISTS `blog_category` (
+                                               `idc` int(10) NOT NULL AUTO_INCREMENT,
+                                               `idc_parent` int(11) NOT NULL DEFAULT \'0\',
+                                               `name` varchar(255) NOT NULL,
+                                               `description` varchar(255) NOT NULL,
+                                               `access` int(10) NOT NULL DEFAULT \'0\',
+                                               `level` int(10) NOT NULL DEFAULT \'0\',
+                                               PRIMARY KEY (`idc`),
+                                               KEY `idc_parent` (`idc_parent`)
+                                             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+
+                                             --
+                                             -- Contenu de la table `blog_category`
+                                             --
+
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `blog_revision`
+                                             --
+
+                                             DROP TABLE IF EXISTS `blog_revision`;
+                                             CREATE TABLE IF NOT EXISTS `blog_revision` (
+                                               `idr` int(11) NOT NULL,
+                                               `ida` int(11) NOT NULL,
+                                               `idc` int(11) NOT NULL DEFAULT \'0\',
+                                               `uid` int(11) NOT NULL,
+                                               `title` mediumtext NOT NULL,
+                                               `content` longtext NOT NULL,
+                                               `date` datetime NOT NULL,
+                                               `status` tinyint(1) NOT NULL,
+                                               KEY `idr` (`idr`,`ida`),
+                                               KEY `ida` (`ida`)
+                                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+                                             --
+                                             -- Contenu de la table `blog_revision`
+                                             --
+
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `forum_category`
+                                             --
+
+                                             DROP TABLE IF EXISTS `forum_category`;
+                                             CREATE TABLE IF NOT EXISTS `forum_category` (
+                                               `idc` int(11) NOT NULL AUTO_INCREMENT,
+                                               `name` varchar(255) NOT NULL,
+                                               `description` longtext NOT NULL,
+                                               `access` tinyint(3) NOT NULL,
+                                               `level` tinyint(3) NOT NULL,
+                                               PRIMARY KEY (`idc`)
+                                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `forum_forum`
+                                             --
+
+                                             DROP TABLE IF EXISTS `forum_forum`;
+                                             CREATE TABLE IF NOT EXISTS `forum_forum` (
+                                               `idf` int(11) NOT NULL AUTO_INCREMENT,
+                                               `idc` int(11) NOT NULL,
+                                               `name` varchar(255) NOT NULL,
+                                               `description` longtext NOT NULL,
+                                               PRIMARY KEY (`idf`),
+                                               KEY `idc` (`idc`,`name`)
+                                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `forum_message`
+                                             --
+
+                                             DROP TABLE IF EXISTS `forum_message`;
+                                             CREATE TABLE IF NOT EXISTS `forum_message` (
+                                               `idm` int(11) NOT NULL,
+                                               `idr` int(11) NOT NULL,
+                                               `idt` int(10) NOT NULL,
+                                               `uid` int(10) NOT NULL,
+                                               `title` varchar(255) NOT NULL,
+                                               `date` datetime NOT NULL,
+                                               `content` longtext NOT NULL,
+                                               KEY `idm` (`idm`),
+                                               KEY `idr` (`idr`),
+                                               KEY `idt` (`idt`),
+                                               KEY `uid` (`uid`)
+                                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `forum_topic`
+                                             --
+
+                                             DROP TABLE IF EXISTS `forum_topic`;
+                                             CREATE TABLE IF NOT EXISTS `forum_topic` (
+                                               `idt` int(11) NOT NULL AUTO_INCREMENT,
+                                               `idf` int(11) NOT NULL,
+                                               `uid` int(11) NOT NULL,
+                                               `title` int(11) NOT NULL,
+                                               `date` datetime NOT NULL,
+                                               `description` longtext NOT NULL,
+                                               PRIMARY KEY (`idt`),
+                                               KEY `idf` (`idf`,`uid`)
+                                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+                                             -- --------------------------------------------------------
+
+                                             --
+                                             -- Structure de la table `user`
+                                             --
+
+                                             DROP TABLE IF EXISTS `user`;
+                                             CREATE TABLE IF NOT EXISTS `user` (
+                                               `uid` int(11) NOT NULL AUTO_INCREMENT,
+                                               `email` varchar(255) NOT NULL,
+                                               `nickname` varchar(30) NOT NULL,
+                                               `password` varchar(255) NOT NULL,
+                                               `first_name` varchar(255) NOT NULL,
+                                               `last_name` varchar(255) NOT NULL,
+                                               `signature` longtext NOT NULL,
+                                               `created` datetime NOT NULL,
+                                               `connected` datetime NOT NULL,
+                                               `navigated` datetime NOT NULL,
+                                               `ip` varchar(15) NOT NULL,
+                                               `status` tinyint(1) NOT NULL,
+                                               `bantime` datetime NOT NULL,
+                                               PRIMARY KEY (`uid`)
+                                             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+                                             --
+                                             -- Contenu de la table `user`
+                                             --
+
+                                             --
+                                             -- Contraintes pour les tables exportées
+                                             --
+
+                                             --
+                                             -- Contraintes pour la table `blog_article_category`
+                                             --
+                                             ALTER TABLE `blog_article_category`
+                                               ADD CONSTRAINT `blog_article_category_ibfk_1` FOREIGN KEY (`ida`) REFERENCES `blog_article` (`ida`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                               ADD CONSTRAINT `blog_article_category_ibfk_2` FOREIGN KEY (`idc`) REFERENCES `blog_category` (`idc`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+                                             --
+                                             -- Contraintes pour la table `blog_revision`
+                                             --
+                                             ALTER TABLE `blog_revision`
+                                               ADD CONSTRAINT `blog_revision_ibfk_1` FOREIGN KEY (`ida`) REFERENCES `blog_article` (`ida`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+                                             --
+                                             -- Contraintes pour la table `forum_forum`
+                                             --
+                                             ALTER TABLE `forum_forum`
+                                               ADD CONSTRAINT `forum_forum_ibfk_1` FOREIGN KEY (`idc`) REFERENCES `forum_category` (`idc`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+                                             --
+                                             -- Contraintes pour la table `forum_message`
+                                             --
+                                             ALTER TABLE `forum_message`
+                                               ADD CONSTRAINT `forum_message_ibfk_1` FOREIGN KEY (`idt`) REFERENCES `forum_topic` (`idt`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+                                             --
+                                             -- Contraintes pour la table `forum_topic`
+                                             --
+                                             ALTER TABLE `forum_topic`
+                                               ADD CONSTRAINT `forum_topic_ibfk_1` FOREIGN KEY (`idf`) REFERENCES `forum_forum` (`idf`) ON DELETE CASCADE ON UPDATE CASCADE;';
+                                    $bdd->exec($creation);
+                                    ?>
+                                    <p>La database a bien été créée.</p>
                                 <?php
                                 }
-                                break;
-                            case 3:
-                                //  CREATE DATABASE IF NOT EXISTS DBName;
                                 break;
                         }
                         ?>
