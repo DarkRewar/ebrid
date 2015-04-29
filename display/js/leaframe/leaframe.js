@@ -1,7 +1,9 @@
 /*!
- * Leaframe 0.65 (http://leaframe.lignusdev.com)
- * Copyright 2014 Curtis Pelissier
- * Licensed under MIT (https://github.com/DarkRewar/leaframe/blob/master/~/doc/licence)
+ * Leaframe 0.65
+ * http://leaframe.lignusdev.com
+ * Copyright 2014, Curtis Pelissier
+ * Licensed under MIT
+ * https://github.com/DarkRewar/leaframe/blob/master/~/doc/licence
  */
 if (typeof jQuery !== 'undefined') {
     $.fn.extend({

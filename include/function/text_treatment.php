@@ -42,7 +42,7 @@ function _sha4($str) {
  * Set a datetime to the website's config format
  *
  * @param string $date the datetime to format
- * @return sring
+ * @return string
  * @since Version 0.2
  */
 function _date($date){

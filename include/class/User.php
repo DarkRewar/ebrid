@@ -108,7 +108,7 @@ class User
         return $this->email;
     }
     
-    public function setNickame($nick) {
+    public function setNickname($nickname) {
         
         if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $nickname)) {
             return false;
@@ -228,8 +228,7 @@ class User
         $this->status = $status;
     }
     
-    public function getstatus() {
-        
+    public function getStatus() {        
         return $this->status;
     }
     
@@ -279,9 +278,10 @@ class User
             ':nickname' => $this->getNickname(), 
             ':password' => _sha4( $this->getPassword() ),
             ':firstname' => $this->getFirstname(), 
-            ':lastname' => $this->getlLastname()
+            ':lastname' => $this->getLastname()
         );
         Database::_execute( $params );
+        var_dump(Database::_lastError());
 
         $this->setUid( Database::_lastInsertId() );
         return $this;
@@ -352,9 +352,9 @@ class User
      * @version 0.2
      */
     public function create($post) {
-        $this->nickname = $post['signup_nick'];
-        $this->email = $post['signup_mail'];
-        $this->password = $post['signup_pass'];
+        $this->setNickname( $post['signup_nick'] );
+        $this->setEmail( $post['signup_mail'] );
+        $this->setPassword( $post['signup_pass'] );
         return $this->insert();
     }
     

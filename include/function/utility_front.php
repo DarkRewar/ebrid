@@ -303,3 +303,76 @@ function theme_style() {
 function theme_draw($type, $value) {
     _draw($type, theme_path() . $value);
 }
+
+/**
+ * Draw the admin block
+ *
+ * @param array $params parameters to change the CSS
+ * @since Version 0.2
+ */
+function draw_admin_block($params = array()){
+    global $user;
+    if( $user->getStatus() >= 2 ){
+        echo '<style type="text/css">
+            .admin-block{
+                width: 200px;
+                position: fixed;
+                top: 45px;
+                left: -150px;
+                z-index: 1000;
+            }
+            .admin-block ul li {
+                padding: 2px 0px;
+            }
+            .admin-block ul li,
+            .admin-block ul li *{
+                color: #FFF;
+            }
+            .list-block,
+            .show-block{
+                float: left;
+                background: #333;
+            }
+            .list-block{
+                width: 75%;
+                border-radius: 0 0 5px 0;
+                padding: 2px 6px;
+            }
+            .show-block{
+                width: 25%;
+                color: #FFF;
+                font-size: 28px;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 0 5px 5px 0;
+                cursor: pointer;
+            }
+        </style>
+        <div class="admin-block">
+            <div class="list-block">
+                <ul>
+                    <li><a href="/admin/">Administration</a></li>
+                    <li><a href="/">Modifier</a></li>
+                </ul>
+            </div>
+            <div class="show-block">
+                &#9658;
+            </div>        
+        </div>
+        <script type="text/javascript">
+            (function(){
+                var show = document.getElementsByClassName("show-block")[0];
+                show.onclick = function(){
+                    var admin = document.getElementsByClassName("admin-block")[0];
+                    if( admin.style.left != "0px" ){
+                        admin.style.left = "0px";
+                        show.innerHTML = "&#9668;";
+                    }else{
+                        admin.style.left = "-150px";
+                        show.innerHTML = "&#9658;";
+                    }
+                }
+            })();
+        </script>';
+    }
+}
