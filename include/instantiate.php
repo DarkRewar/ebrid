@@ -64,3 +64,30 @@ $rewrite = new EbridRewriteRule(REWRITE_RULE);
  * @version 0.1
  */
 $articles = get_article_with_uri(get_current_url());
+
+/**
+ * Variable which contains all intents
+ * to draw/add/remove/set/get
+ *
+ * @var array
+ * @since Version 0.2
+ * @version 0.2
+ */
+$intents = array();
+
+/**
+ * Variable which contains all plugins 
+ * which are in the plugins directory
+ * and are activated
+ *
+ * @var array
+ * @since Version 0.2
+ * @version 0.2
+ */
+$plugins = get_active_plugins();
+
+/**
+ * Loaders
+ */
+load_plugins( $plugins );
+load_intents( $intents , $plugins);

@@ -313,13 +313,16 @@ function theme_draw($type, $value) {
 function draw_admin_block($params = array()){
     global $user;
     if( $user->getStatus() >= 2 ){
-        echo '<style type="text/css">
+        __( '<style type="text/css">
             .admin-block{
                 width: 200px;
                 position: fixed;
                 top: 45px;
                 left: -150px;
-                z-index: 1000;
+                z-index: 99999;
+            }
+            .admin-block ul{
+                list-style-type: none;
             }
             .admin-block ul li {
                 padding: 2px 0px;
@@ -327,6 +330,11 @@ function draw_admin_block($params = array()){
             .admin-block ul li,
             .admin-block ul li *{
                 color: #FFF;
+                font-size: 1.05rem;
+            }
+            .admin-block ul li *:hover{
+                color: #3FDBFF;
+                text-decoration: none;
             }
             .list-block,
             .show-block{
@@ -346,6 +354,9 @@ function draw_admin_block($params = array()){
                 padding: 5px 0;
                 border-radius: 0 5px 5px 0;
                 cursor: pointer;
+            }
+            .show-block:hover{
+                box-shadow: 2px 0px 5px -1px #000;
             }
         </style>
         <div class="admin-block">
@@ -373,6 +384,6 @@ function draw_admin_block($params = array()){
                     }
                 }
             })();
-        </script>';
+        </script>' );
     }
 }

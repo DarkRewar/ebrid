@@ -103,7 +103,7 @@ function draw_list_category($option = array() , $array = array() , $level = 0) {
     
     $options = array_replace_recursive($options, $option);
     
-    $array = (!empty($array)) ? $array : BlogCategory::_getTree();
+    $array = !empty($array) ? $array : BlogCategory::_getTree();
     
     if ($level == 0) draw_open_element($options["container"]);
     

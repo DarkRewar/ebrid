@@ -13,6 +13,7 @@ get_header_admin("Accueil");
 ?>
 
 <div class="row">
+    <?php intent( 'admin-head-up' ); ?>
     <h1 class="heading">Dashboard</h1>
     <div class="block-pres col s-range-12 m-range-6 l-range-4">
         <header>
