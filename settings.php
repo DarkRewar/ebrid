@@ -51,11 +51,7 @@ define('TIMEFORMAT', 'H:i:s');
  *
  * @since Version 0.1
  */
-<<<<<<< HEAD
-define('THEME', 'default');
-=======
 define('THEME', 'showcase');
->>>>>>> 4de6d8efabcceb6e948829843714fb2fce439bfd
 
 /**
  * The REWRITE RULE 
