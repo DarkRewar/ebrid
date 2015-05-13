@@ -30,6 +30,16 @@ $title = isset($title)?$title:'Ebrid Maquette';
                         </ul>
                     </div>
                 </li>
+                <li class="" data-drop="site-conf">
+                    <a class="link-menu ref">Site</a>
+                    <div id="site-conf" class="drop">
+                        <ul>
+                            <li><a href="modify-settings.php">Modifier les paramètres</a></li>
+                            <li><a href="modify-theme.php">Changer de thème</a></li>
+                            <li><a href="modify-plugin.php">Modifier des plugins</a></li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="" data-drop="article">
                     <a class="link-menu ref">Articles</a>
                     <div id="article" class="drop">
@@ -40,8 +50,6 @@ $title = isset($title)?$title:'Ebrid Maquette';
                         </ul>
                     </div>
                 </li>
-                <li><a href="modify-theme.php">Changer de thème</a></li>
-                <li><a href="modify-settings.php">Modifier les paramètres</a></li>
                 <li class="right" data-drop="compte">
                     <a class="link-menu ref">Compte: <?php echo $user->getNickname(); ?></a>
                     <div id="compte" class="drop">
