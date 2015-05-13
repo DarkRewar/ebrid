@@ -45,8 +45,16 @@ $title = isset($title)?$title:'Ebrid Maquette';
                     <div id="article" class="drop">
                         <ul>
                             <li><a href="new-post.php">Poster un article</a></li>
-                            <li><a href="affichage-article.php">Liste des articles</a></li>
-                            <li><a href="testmessage.php">Poster un message</a></li>
+                            <li><a href="list-article.php">Liste des articles</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="" data-drop="forum">
+                    <a class="link-menu ref">Forum</a>
+                    <div id="forum" class="drop">
+                        <ul>
+                            <li><a href="manage-category.php">Gestion des catégories</a></li>
+                            <li><a href="manage-forum.php">Gestion des forums</a></li>
                         </ul>
                     </div>
                 </li>
