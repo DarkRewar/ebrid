@@ -32,23 +32,21 @@ class ForumCategory
      *  @param int $idc id of category
      *  @since 0.2
      */
-    public function __construct($idf = 0)
+    public function __construct($idc = 0)
     {
-        if(self::exist($idf)) {
-            if (is_numeric($idf)) {
-                $req = "SELECT * FROM forumCategory WHERE id = '$idf'";
+        if(self::_exist($idc)) {
+            if (is_numeric($idc)) {
+                $req = "SELECT * FROM forum_category WHERE id = '$idc'";
             }else {
-                $req = "SELECT * FROM forumCategory WHERE nom = '$idf'";            
+                $req = "SELECT * FROM forum_category WHERE name = '$idc'";            
             }
             foreach (Database::_query($req) as $a){
-                $this->_idf = $a['idf'];
                 $this->idc = $a['idc'];
                 $this->name= $a['name'];
                 $this->description = $a['description'];
             }
             
         }else {
-            $this->idf = 0;
             $this->idc = 0;
             $this->name = 0;
             $this->description = 0;
@@ -117,7 +115,7 @@ class ForumCategory
      *  @since 0.2
      */
     public function setName($name){
-        if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $name)) return false;
+        if (!preg_match("#^[\w\.\#\-\s -à]{5,}$#", $name)) return false;
         $this->name = $name;
         return true;
     }
@@ -130,7 +128,7 @@ class ForumCategory
      *  @since 0.2
      */
     public function setDescription($description){
-       if (!preg_match("#^[\w\.\#\-\s]+$#", $description)) return false;
+       if (!preg_match("#^[\w\.\#\-\s -à]+$#", $description)) return false;
        $this->description = $description;
        return true;
     }
@@ -169,7 +167,7 @@ class ForumCategory
      */
     public function insert()
     {
-        $req = "INSERT INTO forumCategory(
+        $req = "INSERT INTO forum_category(
             name,
             description,
             access,
@@ -197,7 +195,7 @@ class ForumCategory
             else if (is_string($u)) $where = "name = '$u'";
             else return false;
             
-            $req = "SELECT COUNT(1) FROM forumCategory WHERE " . $where;
+            $req = "SELECT COUNT(1) FROM forum_category WHERE " . $where;
             if (Database::_selectOne($req) > 0) return true;
         }
         return false;
