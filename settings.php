@@ -35,7 +35,7 @@ define('SITENAME', 'Ebrid WebSite');
  *
  * @since Version 0.1
  */
-define('THEME', 'cleanblog');
+define('THEME', 'default');
 
 /**
  * The REWRITE RULE 
