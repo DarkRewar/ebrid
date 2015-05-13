@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="generator" content="ebrid">
 
-    <title>Clean Blog</title>
+    <title><?php draw_site_name() ?></title>
     
     <?php 
     use_ebrid_css('bootstrap', 3);
@@ -29,7 +30,7 @@
 </head>
 
 <body>
-
+    <?php draw_admin_block(); ?>
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
@@ -48,16 +49,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="/">Home</a>
                     </li>
                     <li>
-                        <a href="about.html">About</a>
+                        <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="post.html">Sample Post</a>
+                        <a href="#">Sample Post</a>
                     </li>
                     <li>
-                        <a href="contact.html">Contact</a>
+                        <a href="#">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -97,7 +98,7 @@
                             </h3>
                         </a>
                         <p class="post-meta">
-                            Posted by <a href="#">Start Bootstrap</a> 
+                            Posted by <a href="#"><?php draw_author($article); ?></a> 
                             <?php draw_date($article) ?>
                         </p>
                     </div>

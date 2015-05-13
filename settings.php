@@ -30,16 +30,36 @@ define('DBPASSWORD', '');
 define('SITENAME', 'Ebrid WebSite');
 
 /**
+ * The Date Format that is used
+ * for the website
+ *
+ * @since Version 0.1
+ */
+define('DATEFORMAT', 'd/m/Y');
+
+/**
+ * The Time Format that is used
+ * for the website
+ *
+ * @since Version 0.1
+ */
+define('TIMEFORMAT', 'H:i:s');
+
+/**
  * The Theme that is used
  * for the website
  *
  * @since Version 0.1
  */
+<<<<<<< HEAD
 define('THEME', 'default');
+=======
+define('THEME', 'showcase');
+>>>>>>> 4de6d8efabcceb6e948829843714fb2fce439bfd
 
 /**
  * The REWRITE RULE 
  *
  * @since Version 0.1
  */
-define('REWRITE_RULE', '/{article_id}');
+define('REWRITE_RULE', '/blog/{article_id}-{article_name}');

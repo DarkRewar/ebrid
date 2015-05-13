@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php draw_site_name() ?> - </title>
+    <title><?php draw_title(article()) ?> - <?php draw_site_name() ?></title>
 
     <?php 
     use_ebrid_css('bootstrap', 3);
@@ -75,7 +75,11 @@
                     <div class="post-heading">
                         <h1><?php draw_title(article()) ?></h1>
                         <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
-                        <span class="meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</span>
+                        <span class="meta">
+                            Posted by 
+                            <a href="#"><?php draw_author( article() ) ?></a> 
+                            <?php draw_date(article()) ?>
+                        </span>
                     </div>
                 </div>
             </div>

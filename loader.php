@@ -5,12 +5,14 @@
  *
  * @package Ebrid
  * @since Version 0.1
+ * @version 0.2
  */
+require_once dirname(__FILE__) . '/settings.php';
 
-require( dirname(__FILE__) . '/settings.php' );
-require( EBRIDINC . '/loader.function.php' );
-require( EBRIDINC . '/loader.class.php' );
+require_once EBRIDINC . '/loader.interface.php';
+require_once EBRIDINC . '/loader.function.php';
+require_once EBRIDINC . '/loader.class.php';
 
-require_once( EBRIDINC . '/instantiate.php' );
+require_once EBRIDINC . '/instantiate.php';
 
 get_page_theme();

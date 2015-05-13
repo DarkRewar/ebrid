@@ -1,9 +1,11 @@
 <?php
 
 /**
- *  Index page of Administration
+ * Index page of Administration
  *
- *  @package Ebrid
+ * @package Ebrid
+ * @since 0.1
+ * @version 0.2
  */
 require_once( dirname(__FILE__) . '/loader.php');
 session_unset();
@@ -11,10 +13,12 @@ session_unset();
 if(isset($_POST['login_btn'])){
     unset($_POST['login_btn']);
     $user = new User($_POST['login_nick']);
-    if($user->checkPassword($_POST['login_pass'])){
+    if( $user->checkPassword($_POST['login_pass']) ){
         session('uid', $user->getUid());
         redirect('admin-panel');
-    }else{
+    } elseif( $user->getUid() == 0 ) {
+        add_error($_messages, 'Compte inexistant.');        
+    } else {
         add_error($_messages, 'Mot de passe incorrect.');
     }
 }
@@ -25,6 +29,7 @@ if(isset($_POST['login_btn'])){
 <head>
     <meta charset="utf-8">
     <title>Connexion | Ebrid</title>
+    <link rel="icon" type="image/png" href="/display/img/favicon.png">
     <link rel="stylesheet" href="css/leaframe.min.css" />
     <link rel="stylesheet" href="css/modules.css" />
     <script src="js/jquery.js"></script>
@@ -48,7 +53,7 @@ if(isset($_POST['login_btn'])){
                     <form action="" method="post">
                         <input type="text" name="login_nick" id="" class="" placeholder="Identifant de connexion">
                         <input type="password" name="login_pass" placeholder="Mot de passe">
-                        <input type="submit" name="login_btn"class="button info" value="Connexion">
+                        <input type="submit" name="login_btn" class="button info" value="Connexion">
                         <a href="signup.php" class="button right">Créer un compte</a>
                     </form>
                 </div>

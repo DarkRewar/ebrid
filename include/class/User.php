@@ -9,6 +9,7 @@
  * @license http://opensource.org/licenses/MIT
  * @link http://ebrid.lignusdev.com
  * @since Version 0.1
+ * @version 0.2
  */
 
 /**
@@ -17,6 +18,7 @@
  * @category User
  * @package Ebrid
  * @since Version 0.1
+ * @version 0.2
  */
 class User
 {
@@ -36,14 +38,14 @@ class User
     
     /**
      * Constructeur
+     *
      * @param int $uid
      * @package Ebrid
      * @since 0.1
-     *
      */
     public function __construct($uid = 0) {
-        if (self::_exist($uid)) {
-            if (is_numeric($uid)) {
+        if ( self::_exist($uid) ) {
+            if ( is_numeric($uid) ) {
                 $req = "SELECT * FROM user WHERE uid = '$uid'";
             } 
             else {
@@ -70,7 +72,7 @@ class User
             $this->uid = 0;
             $this->email = 0;
             $this->nickname = 0;
-            $this->password = 0;
+            $this->password = null;
             $this->name = null;
             $this->last_name = null;
             $this->signature = null;
@@ -88,10 +90,10 @@ class User
         $this->uid = $uid;
     }
     
-    public function getUid() {
-        
+    public function getUid() {        
         return $this->uid;
     }
+
     public function setEmail($email) {
         
         if (!preg_match("#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,4}$#", $email)) {
@@ -106,7 +108,7 @@ class User
         return $this->email;
     }
     
-    public function setNickame($nick) {
+    public function setNickname($nickname) {
         
         if (!preg_match("#^[\w\.\#\-\s]{5,}$#", $nickname)) {
             return false;
@@ -226,8 +228,7 @@ class User
         $this->status = $status;
     }
     
-    public function getstatus() {
-        
+    public function getStatus() {        
         return $this->status;
     }
     
@@ -245,8 +246,15 @@ class User
         return $this->bantime;
     }
     
+    /**
+     * Insert function
+     *
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function insert() {
-        $req = "INSERT INTO user(
+        $insert = "INSERT INTO user(
                 email
                 , nickname
                 , password
@@ -255,63 +263,143 @@ class User
                 , created
                 , status
             ) VALUES (
-                '" . $this->email . "'
-                , '" . $this->nickname . "'
-                , '" . _sha4($this->password) . "'
-                , '" . $this->firstname . "'
-                , '" . $this->lastname . "'
+                :email
+                , :nickname
+                , :password
+                , :firstname
+                , :lastname
                 , NOW()
                 , '1'
             )";
-        return Database::_exec($req);
+        Database::_prepare( $insert );
+        
+        $params = array(
+            ':email' => $this->getEmail(), 
+            ':nickname' => $this->getNickname(), 
+            ':password' => _sha4( $this->getPassword() ),
+            ':firstname' => $this->getFirstname(), 
+            ':lastname' => $this->getLastname()
+        );
+        Database::_execute( $params );
+        var_dump(Database::_lastError());
+
+        $this->setUid( Database::_lastInsertId() );
+        return $this;
     }
     
+    /**
+     * Update function
+     *
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function update() {
-        $req = "
+        $update = "
             UPDATE user
-            SET `password` = '" . $this->password . "',
-                `first_name` = '" . $this->firstname . "',
-                `last_name` = '" . $this->lastname . "',
-                `signature` = '" . $this->signature . "',
-                `connected` = '" . $this->connected . "',
-                `navigated` = '" . $this->navigated . "',
-                `ip` = '" . $this->ip . "'
-                `status` = '" . $this->status . "',
-                `bantime` = '" . $this->bantime . "'
-            WHERE `uid` = '" . $this->uid . "'
+            SET `password` = :password,
+                `first_name` = :firstname,
+                `last_name` = :lastname,
+                `signature` = :signature,
+                `connected` = :connected,
+                `navigated` = :navigated,
+                `ip` = :ip,
+                `status` = :status,
+                `bantime` = :bantime
+            WHERE `uid` = :uid
         ";
-        return Database::_exec($req);
+        Database::_prepare( $update );
+
+        $params = array(
+            ':uid' => $this->getUid(),
+            ':password' => $this->getPassword(),
+            ':firstname' => $this->getFirstname(),
+            ':lastname' => $this->getLastname(),
+            ':signature' => $this->getSignature(),
+            ':connected' => $this->getConnected(),
+            ':navigated' => $this->getNavigated(),
+            ':ip' => $this->getIp(),
+            ':status' => $this->getStatus(),
+            ':bantime' => $this->getBantime()
+        );
+        Database::_execute( $params );
+
+        return $this;
     }
     
+    /**
+     * Delete function
+     *
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function delete() {
-        $req = "DELETE FROM user WHERE uid = '" . $this->uid . "'";
-        return Database::_exec($req);
+        $delete = "DELETE FROM user WHERE uid = :id";
+        Database::_prepare( $delete );
+        $param = array( ':id' => $this->getUid() );
+        Database::_execute( $param );
+        return $this;
     }
     
+    /**
+     * Create an user with the params
+     * passed in post array
+     *
+     * @param array $post the $_POST array with elements to set
+     * @return self
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function create($post) {
-        $this->nickname = $post['signup_nick'];
-        $this->email = $post['signup_mail'];
-        $this->password = $post['signup_pass'];
-        $this->insert();
+        $this->setNickname( $post['signup_nick'] );
+        $this->setEmail( $post['signup_mail'] );
+        $this->setPassword( $post['signup_pass'] );
+        return $this->insert();
     }
     
+    /**
+     * Check if passwords match
+     *
+     * @param string $password the password to check
+     * @return bool
+     * @since Version 0.1
+     * @version 0.2
+     */
     public function checkPassword($password) {
-        if (_sha4($password) != $this->password) {
-            return false;
-        }
-        return true;
+        return _sha4($password) == $this->getPassword();
     }
-    
+
+    /**
+     * Check if an user exists
+     *
+     * @param mixed $u id, email or nickame of user
+     * @return bool
+     * @since Version 0.1
+     * @version 0.2
+     */    
     static public function _exist($u = null) {
-        if (!is_null($u)) {
-            if (checkEmail($u)) $where = "email = '$u'";
-            else if (is_numeric($u)) $where = "uid = '" . intval($u) . "'";
-            else if (checkNickname($u)) $where = "nickname = '$u'";
-            else return false;
-            
-            $req = "SELECT COUNT(1) FROM user WHERE " . $where;
-            if (Database::_selectOne($req) > 0) return true;
-        }
-        return false;
+        if (checkEmail($u)) $where = "email = :user";
+        else if (is_numeric($u)) $where = "uid = :user";
+        else $where = "nickname = :user";
+        
+        $exist = "SELECT COUNT(1) FROM user WHERE " . $where;
+        Database::_prepare($exist);
+        $param =  array(':user' => $u);
+        return (bool)Database::_selectOne( $param );
+    }
+
+    /**
+     * Get the username of an user
+     *
+     * @param int $id id of the user concerned
+     * @return string
+     * @since Version 0.2
+     */
+    static function _getNickname($id){
+        $getNick = "SELECT nickname FROM user WHERE uid = :id";
+        Database::_prepare($getNick);
+        Database::_bindParam(':id', intval($id), PDO::PARAM_INT);
+        return Database::_selectOne();
     }
 }

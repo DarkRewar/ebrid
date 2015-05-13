@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier Ebrid.Setting.php
+ * File Ebrid.Setting.php
  *
  * PHP version 5
  *
@@ -10,14 +10,18 @@
  * @license http://opensource.org/licenses/MIT
  * @link http://ebrid.lignusdev.com/
  * @since Version 0.1
+ * @version 0.2
  */
 
 /**
- * Class Description
+ * Class EbridSettings
+ * Get, set, read and write each setting
+ * which is the settings file
  *
  * @category Ebrid
  * @package Ebrid
  * @since Version 0.1
+ * @version 0.2
  */
 class EbridSettings
 {
@@ -25,7 +29,7 @@ class EbridSettings
     /**
      * The file path of settings
      *
-     * @var {2:type}
+     * @var string
      */
     private $file;
     
@@ -44,11 +48,16 @@ class EbridSettings
         'REWRITE_RULE' => '/{article_year}/article/{article_name}'
     );
     
+    /**
+     * The settings constructor
+     *
+     * @param string $filename the name of the settings file
+     * @since Version 0.1
+     */
     public function __construct($filename) {
-        if (defined("EBRIDPATH")) {
+        if ( defined("EBRIDPATH") ) {
             $path = EBRIDPATH;
-        } 
-        else {
+        } else {
             $path = dirname(dirname(dirname(__FILE__)));
         }
         

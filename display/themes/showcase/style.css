@@ -1,6 +1,11 @@
+@font-face {
+    font-family: sherwood;
+    src: url('fonts/sherwood.ttf');
+}
+
 .header-blog {
-    background: #EEE;
-    box-shadow: inset 0px -4px 7px -6px #000;
+    /*background: #EEE;
+    box-shadow: inset 0px -4px 7px -6px #000;*/
 }
 .footer-blog {
     background: #EEE;
@@ -8,9 +13,14 @@
     padding: 40px 0;
 }
 h1.big-title {
+    /*text-transform: uppercase;*/
+    font-family: sherwood;
     font-size: 5em;
     text-align: center;
     padding: 130px 0;
+}
+.main-logo{
+    margin-top: 60px;
 }
 h1.article-title{
     font-size: 3em;

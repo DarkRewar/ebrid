@@ -98,11 +98,11 @@ class EbridTheme
     }
 
     /**
-     *  Info Theme Builder
-     *  Fill the array info
+     * Info Theme Builder
+     * Fill the array info
      *
-     *  @return self
-     *  @since 0.1
+     * @return self
+     * @since 0.1
      */
     public function buildInfo(){
         $this->info = array();
@@ -135,16 +135,16 @@ class EbridTheme
     }
 
     /**
-     *  Static functions
+     * Static functions
      */
 
     /**
-     *  Verify if a theme exist
+     * Verify if a theme exist
      *
-     *  @param string $name The name of theme dir
-     *  @param string $path The path of theme dir
-     *  @return bool
-     *  @since 0.1
+     * @param string $name The name of theme dir
+     * @param string $path The path of theme dir
+     * @return bool
+     * @since 0.1
      */
     static public function _exist($name, $path = null){
         if($path === null){

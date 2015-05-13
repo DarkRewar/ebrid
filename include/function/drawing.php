@@ -6,7 +6,7 @@
  *
  * @package Ebrid
  * @since Version 0.1
- * @version Version 0.1
+ * @version 0.1
  */
 
 /**
@@ -34,7 +34,7 @@ function _draw($type, $value) {
 /**
  * Draw the real permalink of an article
  *
- * @param string $revision all informations you need
+ * @param BlogRevision $revision all informations you need
  *                         to draw the permalink
  * @since Version 0.1
  */

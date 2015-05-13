@@ -11,24 +11,21 @@
  * @license http://opensource.org/licenses/MIT
  * @link http://ebrid.lignusdev.com
  * @since Version 0.1
+ * @version 0.2
  */
 
 /**
- * Database est l'extension de PDO.
- * Cette classe facilite l'accès à une base
- * de donnée par l'intermédiaire de
- * fonctions statiques.
+ * La classe Database permet d'effectuer des
+ * requetes SQL aisément.
  *
- * @category Database
- * @package Ebrid
  * @author Curtis Pelissier <curtis.pelissier@laposte.net>
- * @since Version 0.1
  */
 class Database extends PDO
 {
     static private $db;
     static private $last; //La dernière requete effectuée
-    static private $error = null;
+    static private $prep;
+    static private $error;
 
     /**
      * Constructeur
@@ -61,14 +58,31 @@ class Database extends PDO
     }
 
     /**
-     * Get the last error
+     *  Get the last error
      *
-     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     *  @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     * @return mixed
+     *  @return mixed
      */
     static public function _lastError(){
         return self::$error;
+    }
+    
+    /**
+     * Fonction qui prepare une requete
+     *
+     * Exemple:
+     * $sql = "SELECT * FROM user";
+     * $result = Database::_query($sql);
+     *
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     *
+     * @param string $sql la requete SQL
+     * @return mixed
+     */
+    static public function _prepare($sql = "") {
+        self::$prep = self::$db->prepare($sql);
+        return self::$prep;
     }
 
     /**
@@ -83,7 +97,7 @@ class Database extends PDO
      *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
-     * @param string $sql la requete SQL
+     * @param string $req la requete SQL
      * @return mixed
      */
     static public function _query($sql = ""){
@@ -107,18 +121,22 @@ class Database extends PDO
      * @param string $req la requete SQL
      * @return mixed
      */
-    static public function _selectOne($sql = ""){
-        self::$last = self::$db->query($sql);
-
-        $return = null;
-        foreach (self::$last as $k => $v) {
-            foreach ($v as $kk => $vv) {
-                $return =  $vv;
-                break;
-            }
-            break;
+    static public function _selectOne($sql = array()){
+        if(is_array($sql) && count($sql) == 0){
+            self::$last = self::$prep->execute();
+            self::$last = self::$prep->fetchAll();
+        }else if( is_array($sql) ){
+            self::$last = self::$prep->execute($sql);
+            self::$last = self::$prep->fetchAll();
+        }else{
+            self::$last = self::$db->query($sql);
         }
-        return $return;
+
+        foreach (self::$last as $v) {
+            foreach ($v as $vv) {
+                return $vv;
+            }
+        }
     }
 
     /**
@@ -134,6 +152,18 @@ class Database extends PDO
     }
 
     /**
+     * Fonction qui récupère le nombre de lignes
+     * ramenées par la dernière requête.
+     *
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     *
+     * @return int
+     */
+    static public function _rowCount(){
+        return self::$last->rowCount();
+    }
+
+    /**
      * Exec function, permet d'executer une requete
      *
      *
@@ -144,6 +174,44 @@ class Database extends PDO
      */
     static public function _exec($sql){
         self::$last = self::$db->exec($sql);
+        return self::$last;
+    }
+    
+    /**
+     * Execure function, permet d'executer une requete
+     *
+     *
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     *
+     * @param array $array les parametres
+     * @return int
+     */
+    static public function _bindParam($key, &$val, $type){
+        self::$prep->bindParam($key, $val, $type);
+    }
+    
+    /**
+     * Execute function, permet d'executer une requete
+     *
+     *
+     * @author Curtis Pelissier <curtis.pelissier@laposte.net>
+     *
+     * @param array $array les parametres
+     * @return int
+     */
+    static public function _execute($array = array()) {
+        if(empty($array) || count($array) == 0){
+            self::$last = self::$prep->execute();
+        }else{
+            self::$last = self::$prep->execute($array);            
+        }
+
+        if(self::$last === false){
+            self::$error = self::$prep->errorInfo();
+        }
+
+        self::$last = self::$prep->fetchAll();
+
         return self::$last;
     }
 

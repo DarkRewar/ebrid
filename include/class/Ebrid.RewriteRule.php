@@ -14,6 +14,7 @@
 
 /**
  * Class RewriteRule
+ * 
  *
  * @category Ebrid
  * @package Ebrid
@@ -21,9 +22,25 @@
  */
 class EbridRewriteRule
 {
+    /**
+     * The raw url
+     *
+     * @var string
+     */
     private $rawUrl;
+
+    /**
+     * The parsed url
+     *
+     * @var string
+     */
     private $parsedUrl;
     
+    /**
+     * Items available to rewrite the url
+     *
+     * @var array
+     */
     private $itemsAvailable = array(
         'article_id' => '[\d]+',
         'article_name' => '[\w\-]+',
