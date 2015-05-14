@@ -38,6 +38,7 @@ class EbridPlugin
      * @var array
      */
     private $infos = array(
+        'description' => null,
         'category' => null,
         'package' => null,
         'since' => '0.0',
@@ -45,6 +46,13 @@ class EbridPlugin
         'author' => null,
         'email' => null
     );
+
+    /**
+     * The real path of the plugin
+     *
+     * @var string
+     */
+    private $path = null;
 
     /**
      * The raw path is the path which accessible in
@@ -74,7 +82,13 @@ class EbridPlugin
         $filePath = EBRIDDISPLAY . '/plugins/' . $name;
 
         if( file_exists($filePath) ){
-            $this->extractInfos( $filePath );
+            if( is_dir($filePath)){
+                $this->setIsDir(true);
+            }
+            
+            $this
+                ->setPath( $filePath )
+                ->extractInfos();
         }
     }
 
@@ -105,7 +119,8 @@ class EbridPlugin
     /**
      * Gets the Informations there are in the file.
      *
-     * @return array
+     * @param string $index the information that you want to get
+     * @return mixed
      */
     public function getInfos($index = null)
     {
@@ -126,6 +141,30 @@ class EbridPlugin
     public function setInfos(array $infos)
     {
         $this->infos = $infos;
+
+        return $this;
+    }
+
+    /**
+     * Gets the Path of the plugin.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Sets the Path of the plugin.
+     *
+     * @param string $path the path
+     *
+     * @return self
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
 
         return $this;
     }
@@ -178,6 +217,72 @@ class EbridPlugin
         $this->isDir = $isDir;
 
         return $this;
+    }
+
+    /**
+     * Extract informations about the plugin
+     *
+     * @return self
+     * @since Version 0.2
+     * @version 0.2
+     */
+    public function extractInfos(){
+        $infos = $this->getInfos();
+
+        $file = fopen( $this->getPath(), 'r' );
+        while ( ($line = fgets($file)) !== false ){
+            if( preg_match("#<\?php#", $line) ){
+                continue;
+            } else if( preg_match("#^class [\w]+ implements Plugin$#", $line) ){
+                $name = preg_replace("#^class ([\w]+) implements Plugin$#", '$1', $line);
+                break;
+            }
+
+            $regexInfo = "#^.*@([\w]+) (.*)$#";
+            if( preg_match($regexInfo, $line) ){
+                $index = rtrim(preg_replace($regexInfo, '$1', $line));
+                $value = rtrim(preg_replace($regexInfo, '$2', $line));
+                $infos[$index] = $value;
+            } else {
+                $infos['description'] .= $line . '\n';
+            }
+        }
+        fclose( $file );
+
+        return $this
+            ->setName( $name )
+            ->setInfos( $infos )
+            ->treatInfos();
+    }
+
+    /**
+     * Treat informations (rtrim, make link...)
+     *
+     * 
+     * @return self
+     * @since Version 0.2
+     * @version 0.2
+     */
+    public function treatInfos(){
+        $infos = $this->getInfos();
+
+        $infos['author'] = preg_replace(
+            "#(.*)[\s]*<(.*)>#", 
+            '<a href="mailto:$2">$1</a>', 
+            $infos['author']
+        );
+
+        $description = null;
+        $infos['description'] = explode('\n', $infos['description']);
+        $regexDesc = "#^ \* ([\w\"\.\-\' -à]+).*#";
+        foreach ($infos['description'] as $line) {
+            if( preg_match($regexDesc, $line) ){
+                $description .= preg_replace($regexDesc, '$1', $line);
+            }
+        }
+        $infos['description'] = $description;
+
+        return $this->setInfos( $infos );
     }
 
     /**

@@ -23,9 +23,9 @@ if(isset($_GET['active'])){
 ?>
 
 <div class="row">
-    <h1 class="heading">Modifier des plugins</h1>
     <div class="col s-range-12">
-        <table>
+        <h1 class="heading">Modifier des plugins</h1>
+        <table class="dif">
             <thead>
                 <tr>
                     <th>
