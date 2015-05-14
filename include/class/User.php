@@ -94,13 +94,11 @@ class User
         return $this->uid;
     }
 
-    public function setEmail($email) {
-        
-        if (!preg_match("#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,4}$#", $email)) {
-            return false;
+    public function setEmail($email) {        
+        if (preg_match("#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,4}$#", $email)) {
+            $this->email = $email;
         }
-        $this->email = $email;
-        return true;
+        return $this;
     }
     
     public function getEmail() {
@@ -114,7 +112,7 @@ class User
             return false;
         }
         $this->nickname = $nickname;
-        return true;
+        return $this;
     }
     
     public function getNickname() {
@@ -128,7 +126,7 @@ class User
             return false;
         }
         $this->password = $password;
-        return true;
+        return $this;
     }
     
     public function getPassword() {
@@ -138,11 +136,10 @@ class User
     
     public function setFirstname($name) {
         
-        if (!preg_match("#^[\w\-]{2,}$#", $name)) {
-            return false;
+        if ( preg_match("#^[a-zA-Z\-\' -à]+$#", $name) ) {
+            $this->firstname = $name;
         }
-        $this->firstname = $name;
-        return true;
+        return $this;
     }
     
     public function getFirstname() {
@@ -151,11 +148,10 @@ class User
     }
     
     public function setLastname($last_name) {
-        if (!preg_match("#^[\w\-]{3,}$#", $last_name)) {
-            return false;
+        if ( preg_match("#^[a-zA-Z\-\' -à]+$#", $last_name) ) {
+            $this->lastname = $last_name;
         }
-        $this->lastname = $last_name;
-        return true;
+        return $this;
     }
     
     public function getLastname() {
@@ -387,6 +383,36 @@ class User
         Database::_prepare($exist);
         $param =  array(':user' => $u);
         return (bool)Database::_selectOne( $param );
+    }
+
+    /**
+     * Get all users
+     *
+     * @param int $page the number of the page to get
+     * @return array
+     * @since Version 0.2
+     * @version 0.2
+     */
+    static public function _getAll($page = 0){
+        if( !is_numeric( $page) ){
+            return array();
+        }
+
+        $limitMin = (int)$page * 30;
+        $limitMax = $limitMin + 30;
+
+        $getAll = "SELECT uid 
+            FROM user 
+            ORDER BY uid ASC 
+            LIMIT $limitMin, $limitMax";
+
+        $users = array();
+
+        foreach (Database::_query( $getAll ) as $user) {
+            $users[$user['uid']] = new User( $user['uid'] );
+        }
+
+        return $users;
     }
 
     /**

@@ -83,7 +83,7 @@ function load_intents(&$intents, $plugins = array()){
     foreach ($plugins as $plugin) {
         if( class_exists($plugin) ){
             $active = new $plugin();
-            if( $active instanceof EbridPlugin ){
+            if( $active instanceof Plugin ){
                 add_intent($active->getEnvironment(), $active);
             }
         }

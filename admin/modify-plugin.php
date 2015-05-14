@@ -37,7 +37,14 @@ if(isset($_GET['active'])){
                 </tr>
             </thead>
             <tbody>
-                
+                <?php foreach (EbridPlugin::_getAll() as $plugin): ?>
+                    <tr>
+                        <td><input type="checkbox" name="check-<?php __( $plugin->getName() ) ?>"></td>
+                        <td><?php __( $plugin->getName() ) ?></td>
+                        <td><?php __( $plugin->getInfos('description') ) ?></td>
+                        <td><?php __( $plugin->getInfos('author') ) ?></td>
+                    </tr>
+                <?php endforeach ?>
             </tbody>
         </table>
     </div>    

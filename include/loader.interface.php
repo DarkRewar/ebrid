@@ -5,4 +5,4 @@
  *
  * @package Ebrid
  */
-require_once dirname(__FILE__) . '/interface/Ebrid.Plugin.php';
+require_once dirname(__FILE__) . '/interface/Plugin.php';
