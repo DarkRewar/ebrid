@@ -36,7 +36,7 @@ class ForumCategory
     {
         if(self::_exist($idc)) {
             if (is_numeric($idc)) {
-                $req = "SELECT * FROM forum_category WHERE id = '$idc'";
+                $req = "SELECT * FROM forum_category WHERE idc = $idc";
             }else {
                 $req = "SELECT * FROM forum_category WHERE name = '$idc'";            
             }
@@ -180,6 +180,77 @@ class ForumCategory
         return Database::_exec($req);
     }
 
+    /**
+     * Update function
+     *
+     * @return self
+     * @since Version 0.2
+     */
+    final public function updateCategory() {
+        $req = "UPDATE forum_category
+            SET 
+                name = '". $this->getName() ."'
+                , description = '". $this->getDescription() ."'
+                , access = '". $this->getAccess() ."'
+                , level = '". $this->getLevel() ."'
+            WHERE idc = '".$this->getIdc()."'
+        ";
+
+        $res = Database::_exec($req);
+        return $this;
+    }
+
+    /**
+    * Delete function
+    *
+    *@since Version 0.2
+    */
+    public function deleteCategory() {        
+        $req = "DELETE FROM forum_category
+                WHERE idc = '" . $this->idc . "'";
+        
+        $req1 = "SELECT idf
+            FROM forum_forum   
+            WHERE idc = :idc";
+        Database::_prepare($req1);
+        Database::_bindParam(':idc', $this->idc, PDO::PARAM_INT);
+
+        foreach (Database::_execute() as $f) {
+            //$forum = new ForumForum($f['idf']);
+            //$forum->deleteForum();
+        }
+
+        Database::_beginTransaction();
+        if ( Database::_exec($req) == 0 ) {
+            Database::_rollBack();
+        } else {
+            Database::_commit();
+        }
+    }
+
+    /**
+     *
+     *Search all categories' forum
+     * @return array
+     *
+     * @since 0.2
+     */
+    static public function _getCategories() {
+        $req = "SELECT idc,name,description
+            FROM forum_category 
+            ORDER BY idc DESC
+            LIMIT 0,5";
+        $categories = array();
+        $categories = Database::_query($req);
+
+        return $categories;
+    }
+
+    static public function _deleteCategory($idc) {
+        $a = new ForumCategory($idc);
+        $a->deleteCategory();
+    }
+    
     /**
      *  Check if the Category already exists
      *  
