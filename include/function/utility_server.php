@@ -91,9 +91,9 @@ function actual_page($str) {
 /**
  * Check if an user is connected
  * Return the user connected
- * If no one is connected, return empty class
+ * If no one is connected, return empty User class
  *
- * @return User
+ * @return \User
  * @since Version 0.1
  * @version 0.2
  */
@@ -104,11 +104,56 @@ function user_connected() {
 
 /**
  * Get the current $_REQUESTURI
- *
  * 
  * @return string
  * @since Version 0.1
  */
 function get_current_url(){
     return $_SERVER['REQUEST_URI'];
+}
+
+/**
+ * Check if a post contains all
+ * the datas required
+ *
+ * @param string $index the page to check
+ * @return bool
+ * @since Version 0.2
+ * @version 0.2
+ */
+function post($index, $post){
+    /**
+     * We define all the posts that we
+     * want to check.
+     * Usage: - $checker contains the require posts
+     *        - you can make a simple check just to verify
+     *          if you have an index in post using the index
+     *          of the post in value of the checker.
+     *        - you can make regex verification using the index
+     *          of the post in index of the checker and as value
+     *          write the regex
+     */
+    switch ( $index ) {
+        case 'manage-user':
+            $checker = array(
+                'modify-first-name' => "#^[a-zA-Z\-\' -à]+$#",
+                'modify-last-name' => "#^[a-zA-Z\-\' -à]+$#"
+            );
+            break;        
+        default:
+            $checker = array();
+            break;
+    }
+
+    foreach ($checker as $key => $val) {
+        if( is_numeric($key)){
+            if( !isset($post[$val]) ) return false;
+        }else{
+            if( !isset($post[$key]) || !preg_match($val, $post[$key]) ){
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

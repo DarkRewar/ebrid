@@ -23,43 +23,30 @@ if(isset($_GET['active'])){
 ?>
 
 <div class="row">
-    <h1 class="heading">Modifier des plugins</h1>
     <div class="col s-range-12">
-        <div class="row">
-            <div class="col m-range-4">
-                <div class="preview-theme">
-                    <section>
-                        <img src="<?php echo $theme->getScreenshot() ?>">
-                    </section>
-                    <footer>
-                        <span class="name-theme">
-                            <?php echo $theme->getInfos("Name") ?>
-                        </span>
-                        <a class="button right">Activé</a>
-                    </footer>
-                </div>
-            </div>
-            <?php foreach (EbridTheme::_getAll() as $folderName => $theTheme): ?>
-                <?php if ($settings->getSettings("THEME") == $folderName){
-                    continue;
-                } ?>
-                <div class="col m-range-4">
-                    <div class="preview-theme">
-                        <section>
-                            <img src="<?php echo $theTheme->getScreenshot() ?>" />
-                        </section>
-                        <footer>
-                            <span class="name-theme">
-                                <?php echo $theTheme->getInfos("Name") ?>
-                            </span>
-                            <a href="?active=<?php echo $folderName ?>" class="right button info">
-                                Activer
-                            </a>
-                        </footer>
-                    </div>
-                </div>
-            <?php endforeach ?>
-        </div>
+        <h1 class="heading">Modifier des plugins</h1>
+        <table class="dif">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" name="checkall" id="checkall" class="" />
+                    </th>
+                    <th>Nom du plugin</th>
+                    <th>Description</th>
+                    <th>Auteur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach (EbridPlugin::_getAll() as $plugin): ?>
+                    <tr>
+                        <td><input type="checkbox" name="check-<?php __( $plugin->getName() ) ?>"></td>
+                        <td><?php __( $plugin->getName() ) ?></td>
+                        <td><?php __( $plugin->getInfos('description') ) ?></td>
+                        <td><?php __( $plugin->getInfos('author') ) ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
     </div>    
 </div>
 

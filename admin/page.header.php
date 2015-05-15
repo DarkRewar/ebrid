@@ -9,8 +9,8 @@ $title = isset($title)?$title:'Ebrid Maquette';
 
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $title ?> | Administration</title>
-    <link rel="stylesheet" href="css/leaframe.min.css" />
+    <title><?php __( $title ) ?> | Administration</title>
+    <?php use_ebrid_css() ?>
     <link rel="stylesheet" href="css/main-custom.css" />
     <script src="js/jquery.js"></script>
     <script src="js/leaframe.min.js"></script>
@@ -34,6 +34,7 @@ $title = isset($title)?$title:'Ebrid Maquette';
                     <a class="link-menu ref">Site</a>
                     <div id="site-conf" class="drop">
                         <ul>
+                            <li><a href="manage-user.php">Gérer les utilisateurs</a></li>
                             <li><a href="modify-settings.php">Modifier les paramètres</a></li>
                             <li><a href="modify-theme.php">Changer de thème</a></li>
                             <li><a href="modify-plugin.php">Modifier des plugins</a></li>
@@ -45,8 +46,16 @@ $title = isset($title)?$title:'Ebrid Maquette';
                     <div id="article" class="drop">
                         <ul>
                             <li><a href="new-post.php">Poster un article</a></li>
-                            <li><a href="affichage-article.php">Liste des articles</a></li>
-                            <li><a href="testmessage.php">Poster un message</a></li>
+                            <li><a href="list-article.php">Liste des articles</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="" data-drop="forum">
+                    <a class="link-menu ref">Forum</a>
+                    <div id="forum" class="drop">
+                        <ul>
+                            <li><a href="manage-category.php">Gestion des catégories</a></li>
+                            <li><a href="manage-forum.php">Gestion des forums</a></li>
                         </ul>
                     </div>
                 </li>
@@ -54,12 +63,9 @@ $title = isset($title)?$title:'Ebrid Maquette';
                     <a class="link-menu ref">Compte: <?php echo $user->getNickname(); ?></a>
                     <div id="compte" class="drop">
                         <ul>
-                            <li><a>Configurer mon compte</a>
-                            </li>
-                            <li><a>Voir mon profil</a>
-                            </li>
-                            <li><a href="login.php">Se déconnecter</a>
-                            </li>
+                            <li><a>Configurer mon compte</a></li>
+                            <li><a>Voir mon profil</a></li>
+                            <li><a href="login.php">Se déconnecter</a></li>
                         </ul>
                     </div>
                 </li>

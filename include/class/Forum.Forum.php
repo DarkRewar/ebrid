@@ -18,10 +18,9 @@
  * @package Ebrid
  * @since Version 0.1
  */
-class ForumForum
+class ForumForum extends ForumCategory
 {
     private $idf;
-    private $idc;
     private $name;
     private $description;
 
