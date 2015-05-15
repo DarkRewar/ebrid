@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File Ebrid.Plugin.php
+ * File Plugin.php
  *
  * PHP version 5
  *
@@ -23,7 +23,7 @@
  * @since Version 0.2
  * @version 0.2
  */
-interface EbridPlugin
+interface Plugin
 {
     /**
      * This function must draw/display the

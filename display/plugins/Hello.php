@@ -23,7 +23,7 @@
  * @version 0.2
  * @author Curtis Pelissier <curtis.pelissier@lignusdev.com>
  */
-class Hello implements EbridPlugin
+class Hello implements Plugin
 {
 
     /**
