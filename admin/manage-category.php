@@ -24,6 +24,7 @@ if (isset($_GET['trashed']))
             <thead>
                 <tr>
                     <th>Categories</th>
+                    <th>Description</th>
                     <th>Modifications categories</th>
                     <th>Supprimer</th>
                 </tr>
@@ -35,7 +36,10 @@ foreach (ForumCategory::_getCategories() as $v)
     echo "
             <tr>
                 <td>
-                    <a style=\"color:#000\" href=\"testcategoryforum.php?category=" . $v['idc'] . "\">" . $v['name'] . "</a>
+                    ". $v['name']."
+                </td>
+                <td>
+                    ". $v['description'] ."
                 </td>
                 <td>
                     <a class=\"button info rounded\" href=\"modify-category.php?category=" . $v['idc'] . "\">Modifier</a>

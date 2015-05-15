@@ -193,10 +193,9 @@ class ForumCategory
                 , description = '". $this->getDescription() ."'
                 , access = '". $this->getAccess() ."'
                 , level = '". $this->getLevel() ."'
-            WHERE idc = '".$this->getIdc()."'
+            WHERE idc = '". $this->getIdc() ."'
         ";
-
-        $res = Database::_exec($req);
+        Database::_exec($req);
         return $this;
     }
 

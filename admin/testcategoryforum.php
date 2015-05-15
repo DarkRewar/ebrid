@@ -20,6 +20,7 @@ if (isset($_POST['nom_cat_forum']) && isset($_POST['desc_cat_forum']))
     } else
     {
         echo "<div> Vous avez créé votre catégorie</div>";
+        redirect("manage-category.php", true);
     }
 }
 ?>
