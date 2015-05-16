@@ -423,6 +423,9 @@ class User
      * @since Version 0.2
      */
     static function _getNickname($id){
+        if( $id == 0 ){
+            return 'Ebrid';
+        }
         $getNick = "SELECT nickname FROM user WHERE uid = :id";
         Database::_prepare($getNick);
         Database::_bindParam(':id', intval($id), PDO::PARAM_INT);
