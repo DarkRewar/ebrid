@@ -46,7 +46,7 @@ define('TIMEFORMAT', 'H:i:s');
  *
  * @since Version 0.1
  */
-define('THEME', 'showcase');
+define('THEME', 'cleanblog');
 
 /**
  * The REWRITE RULE 

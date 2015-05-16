@@ -102,7 +102,7 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                                     <p>Vous pouvez dès à présent créer votre compte admin en cliquant ci-dessous.</p>
                                     <a href="/admin/signup.php" class="button info">Créer votre compte admin</a>
                                 <?php
-                                    // Création des define pour la connexion à la DB
+                                    // Création des constantes pour la connexion à la DB
                                     $file = 'settings.php';
                                     $current = file_get_contents($file);
                                     $current .= "\n".

@@ -8,6 +8,10 @@
 
 session_start();
 
+if (!defined('DBHOST') && !defined('DBNAME') && defined('DBUSER') && defined('DBPASSWORD')) {
+    header('Location: /setup-config.php');
+}
+
 Database::_init();
 
 if(!is_null(Database::_lastError())){
