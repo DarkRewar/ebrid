@@ -36,6 +36,7 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                         $step = isset($_GET['step']) ? (int)$_GET['step'] : 0;
                         switch ($step) {
                             case 0:
+                                // Page d'accueil de l'installation
                                 $step_1 = 'setup-config.php?step=1';
                                 ?>
                                 <h2 class="center">Installation</h2>
@@ -56,6 +57,7 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                                 <?php
                                 break;
                             case 1:
+                                // Demande des infos de la DB
                                 $step_2 = 'setup-config.php?step=2';
                                 ?>
                                 <h2 class="center">Base de données</h2>
@@ -81,6 +83,7 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                                 <?php
                                 break;
                             case 2:
+                                // Vérification des infos
                                 $checkDB = checkDB($dbhost, $dbname, $dbuser, $dbpassword);
                                 if ($checkDB !== true) {
                                     ?>
@@ -90,6 +93,7 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                                     <p><?php echo $checkDB->getMessage(); ?></p>
                                 <?php
                                 } else {
+                                    // Création des tables
                                     $bdd = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname . ';charset=utf8', '' . $dbuser . '', '' . $dbpassword . '');
                                     $creation = 'USE `' . $dbname . '`;' . file_get_contents("bdd.sql");
                                     $bdd->exec($creation);
@@ -98,6 +102,21 @@ function checkDB($dbhost, $dbname, $dbuser, $dbpassword)
                                     <p>Vous pouvez dès à présent créer votre compte admin en cliquant ci-dessous.</p>
                                     <a href="/admin/signup.php" class="button info">Créer votre compte admin</a>
                                 <?php
+                                    // Création des define pour la connexion à la DB
+                                    $file = 'settings.php';
+                                    $current = file_get_contents($file);
+                                    $current .= "\n".
+                                                '/**'."\n".
+                                                ' * The values that are used'."\n".
+                                                ' * for the connection to the Database'."\n".
+                                                ' *'."\n".
+                                                ' * @since Version 0.2'."\n".
+                                                ' */'."\n".
+                                                'define(\'DBHOST\', \''.$dbhost.'\');'."\n".
+                                                'define(\'DBNAME\', \''.$dbname.'\');'."\n".
+                                                'define(\'DBUSER\', \''.$dbuser.'\');'."\n".
+                                                'define(\'DBPASSWORD\', \''.$dbpassword.'\');'."\n";
+                                    file_put_contents($file, $current);
                                 }
                                 break;
                         }

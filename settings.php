@@ -16,11 +16,6 @@ define('EBRIDINC', EBRIDPATH . '/include');
 define('EBRIDADMIN', EBRIDPATH . '/admin');
 define('EBRIDDISPLAY', EBRIDPATH . '/display');
 
-define('DBHOST', 'localhost');
-define('DBNAME', 'ebrid');
-define('DBUSER', 'root');
-define('DBPASSWORD', '');
-
 /**
  * The Theme that is used
  * for the website
