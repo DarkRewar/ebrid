@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `blog_revision` (
 --
 
 INSERT INTO `blog_revision` (`idr`, `ida`, `idc`, `uid`, `title`, `content`, `date`, `status`) VALUES
-(1, 1, 0, 1, 'Bienvenue', '<h1>Bienvenue sur Ebrid</h1>\r\n<p>&nbsp;</p>\r\n<p>Ebrid est un CMS permettant de réaliser facilement un blog ou un forum. A vous de jouer !</p>', '2015-05-13 00:00:00', 0);
+(1, 1, 0, 0, 'Bienvenue', '<h2>Bienvenue sur Ebrid</h2>\r\n<p>&nbsp;</p>\r\n<p>Ebrid est un CMS permettant de réaliser facilement un blog ou un forum. A vous de jouer !</p>', '2015-05-13 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `status` tinyint(1) NOT NULL,
   `bantime` datetime NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contraintes pour les tables exportées

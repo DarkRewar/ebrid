@@ -54,3 +54,14 @@ define('THEME', 'cleanblog');
  * @since Version 0.1
  */
 define('REWRITE_RULE', '/blog/{article_id}-{article_name}');
+
+/**
+ * The values that are used
+ * for the connection to the Database
+ *
+ * @since Version 0.2
+ */
+define('DBHOST', 'localhost');
+define('DBNAME', 'ebrid2');
+define('DBUSER', 'root');
+define('DBPASSWORD', '');
