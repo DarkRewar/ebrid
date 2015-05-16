@@ -8,7 +8,7 @@
 
 session_start();
 
-if (!defined('DBHOST') && !defined('DBNAME') && defined('DBUSER') && defined('DBPASSWORD')) {
+if (!defined('DBHOST') || !defined('DBNAME') || !defined('DBUSER') || !defined('DBPASSWORD')) {
     header('Location: /setup-config.php');
 }
 
