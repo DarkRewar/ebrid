@@ -50,7 +50,7 @@ if(isset($_POST['article_post']) && form_new_post($_POST)){
 
     $revision = generate_revision($_POST);
 
-    redirect('?article='.$revision->getIda().'&revision='.$revision->getIdr(), true);
+    //redirect('?article='.$revision->getIda().'&revision='.$revision->getIdr(), true);
 
     $infos['title'] = $_POST['article_title'];
     $infos['content'] = $_POST['article_content'];

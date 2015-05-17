@@ -166,7 +166,6 @@ class Database extends PDO
     /**
      * Exec function, permet d'executer une requete
      *
-     *
      * @author Curtis Pelissier <curtis.pelissier@laposte.net>
      *
      * @param string $sql la requete sql
@@ -174,6 +173,7 @@ class Database extends PDO
      */
     static public function _exec($sql){
         self::$last = self::$db->exec($sql);
+        self::$error = self::$db->errorInfo();
         return self::$last;
     }
     

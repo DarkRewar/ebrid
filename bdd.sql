@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `blog_article` (
   `date` datetime NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`ida`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `blog_article`
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `blog_category` (
   `level` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idc`),
   KEY `idc_parent` (`idc_parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `blog_category`
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `blog_revision` (
 --
 
 INSERT INTO `blog_revision` (`idr`, `ida`, `idc`, `uid`, `title`, `content`, `date`, `status`) VALUES
-(1, 1, 0, 0, 'Bienvenue', '<h2>Bienvenue sur Ebrid</h2>\r\n<p>&nbsp;</p>\r\n<p>Ebrid est un CMS permettant de réaliser facilement un blog ou un forum. A vous de jouer !</p>', '2015-05-13 00:00:00', 0);
+(1, 1, 0, 0, 'Bienvenue', '<h2>Bienvenue sur Ebrid</h2>\r\n<p>&nbsp;</p>\r\n<p>Ebrid est un CMS permettant de rÃ©aliser facilement un blog ou un forum. A vous de jouer !</p>', '2015-05-13 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -185,30 +185,30 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 -- Contraintes pour la table `blog_article_category`
 --
-ALTER TABLE `blog_article_category`
-  ADD CONSTRAINT `blog_article_category_ibfk_1` FOREIGN KEY (`ida`) REFERENCES `blog_article` (`ida`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `blog_article_category_ibfk_2` FOREIGN KEY (`idc`) REFERENCES `blog_category` (`idc`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- ALTER TABLE `blog_article_category`
+--   ADD CONSTRAINT `blog_article_category_ibfk_1` FOREIGN KEY (`ida`) REFERENCES `blog_article` (`ida`) ON DELETE CASCADE ON UPDATE CASCADE,
+--   ADD CONSTRAINT `blog_article_category_ibfk_2` FOREIGN KEY (`idc`) REFERENCES `blog_category` (`idc`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Contraintes pour la table `blog_revision`
---
-ALTER TABLE `blog_revision`
-  ADD CONSTRAINT `blog_revision_ibfk_1` FOREIGN KEY (`ida`) REFERENCES `blog_article` (`ida`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- --
+-- -- Contraintes pour la table `blog_revision`
+-- --
+-- ALTER TABLE `blog_revision`
+--   ADD CONSTRAINT `blog_revision_ibfk_1` FOREIGN KEY (`ida`) REFERENCES `blog_article` (`ida`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Contraintes pour la table `forum_forum`
---
-ALTER TABLE `forum_forum`
-  ADD CONSTRAINT `forum_forum_ibfk_1` FOREIGN KEY (`idc`) REFERENCES `forum_category` (`idc`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- --
+-- -- Contraintes pour la table `forum_forum`
+-- --
+-- ALTER TABLE `forum_forum`
+--   ADD CONSTRAINT `forum_forum_ibfk_1` FOREIGN KEY (`idc`) REFERENCES `forum_category` (`idc`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Contraintes pour la table `forum_message`
---
-ALTER TABLE `forum_message`
-  ADD CONSTRAINT `forum_message_ibfk_1` FOREIGN KEY (`idt`) REFERENCES `forum_topic` (`idt`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- --
+-- -- Contraintes pour la table `forum_message`
+-- --
+-- ALTER TABLE `forum_message`
+--   ADD CONSTRAINT `forum_message_ibfk_1` FOREIGN KEY (`idt`) REFERENCES `forum_topic` (`idt`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Contraintes pour la table `forum_topic`
---
-ALTER TABLE `forum_topic`
-  ADD CONSTRAINT `forum_topic_ibfk_1` FOREIGN KEY (`idf`) REFERENCES `forum_forum` (`idf`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- --
+-- -- Contraintes pour la table `forum_topic`
+-- --
+-- ALTER TABLE `forum_topic`
+--   ADD CONSTRAINT `forum_topic_ibfk_1` FOREIGN KEY (`idf`) REFERENCES `forum_forum` (`idf`) ON DELETE CASCADE ON UPDATE CASCADE;

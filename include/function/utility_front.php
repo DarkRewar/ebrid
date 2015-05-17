@@ -330,7 +330,8 @@ function draw_admin_block($params = array()){
             .admin-block ul li,
             .admin-block ul li *{
                 color: #FFF;
-                font-size: 1.05rem;
+                font-size: 15px;
+                font-family: sans-serif;
             }
             .admin-block ul li *:hover{
                 color: #3FDBFF;

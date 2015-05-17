@@ -29,7 +29,7 @@
 </head>
 
 <body>
-
+    <?php draw_admin_block() ?>
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
@@ -74,7 +74,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1><?php draw_title(article()) ?></h1>
-                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+                        <h2 class="subheading">An Ebrid article</h2>
                         <span class="meta">
                             Posted by 
                             <a href="#"><?php draw_author( article() ) ?></a> 

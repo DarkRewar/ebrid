@@ -428,7 +428,7 @@ class User
         }
         $getNick = "SELECT nickname FROM user WHERE uid = :id";
         Database::_prepare($getNick);
-        Database::_bindParam(':id', intval($id), PDO::PARAM_INT);
+        Database::_bindParam(':id', $id, PDO::PARAM_INT);
         return Database::_selectOne();
     }
 }

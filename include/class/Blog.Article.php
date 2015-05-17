@@ -27,11 +27,9 @@ class BlogArticle
     private $date;
     private $status;
     private $url;
-    private $categories;
+    private $categories = array();
     
-    public function __construct($ida = 0) {
-        $this->categories = array();
-        
+    public function __construct($ida = 0) {        
         if ($ida > 0) {
             $this->setIda($ida);
             $req = " SELECT uid, date, status, url FROM blog_article WHERE ida = '$ida' ";
@@ -194,7 +192,7 @@ class BlogArticle
     }
     
     /**
-     *  Get the categories array
+     * Get the categories array
      *
      * @return array
      * @since 0.1
@@ -223,8 +221,8 @@ class BlogArticle
      */
     public function pushCategories() {
         Database::_beginTransaction();
-        var_dump($this->cleanCategories());
-        
+        $this->cleanCategories();
+
         foreach ($this->categories as $k => $v) {
             $insert = "INSERT INTO blog_article_category(ida, idc) VALUES('$this->ida','$v')";
             if (Database::_exec($insert) == 0) {
@@ -330,7 +328,6 @@ class BlogArticle
     }
     
     /**
-     *
      * Delete an article with his comments
      *
      * @since 0.1
@@ -338,23 +335,22 @@ class BlogArticle
     public function deleteArticle() {
         Database::_beginTransaction();
         
-        $req = "DELETE FROM blog_article
-                WHERE ida = '" . $this->ida . "'";
-        $res = Database::_exec($req);
+        $articles = "DELETE FROM blog_article
+            WHERE ida = '" . $this->ida . "'";
+
+        $revisions = "DELETE FROM blog_revision WHERE ida = '".$this->ida."'";
         
-        $req1 = "DELETE FROM blog_article_category
-                 WHERE ida='" . $this->ida . "'";
-        $res1 = Database::_exec($req1);
-        
-        if (!$res) {
+        $categories = "DELETE FROM blog_article_category
+            WHERE ida = '" . $this->ida . "'";
+
+        if ( Database::_exec($articles) == 0 || Database::_exec($revisions) == 0 ) {
             Database::_rollBack();
-        } 
-        elseif (!$res1) {
-            Database::_rollBack();
-        } 
+        }
         else {
+            Database::_exec($categories);
             Database::_commit();
         }
+        return $this;
     }
     
     /**
@@ -403,7 +399,7 @@ class BlogArticle
         $req = "SELECT ida
             FROM blog_article 
             ORDER BY ida DESC
-            LIMIT 0,5";
+            LIMIT 0,10";
         $articles = array();
         foreach (Database::_query($req) as $v) {
             $articles[] = self::_getLastRevision($v['ida'])->toArray();
