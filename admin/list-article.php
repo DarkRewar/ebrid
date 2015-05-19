@@ -14,7 +14,7 @@ if (isset($_GET['trashed']))
 {
     
     BlogArticle::_deleteArticle($_GET['article']);
-    //redirect("list-article.php", true);
+    redirect("list-article.php", true);
 }
 ?>
     <div class="row">
